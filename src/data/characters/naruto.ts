@@ -119,6 +119,7 @@ export const NARUTO: readonly CharacterDef[] = [
     class: 'controller',
     rarity: 'UR',
     stats: { attack: 5, hp: 15 },
+    art: '/assets/cards/naruto/nar-kakashi-001.webp',
     abilities: [
       {
         id: 'raikiri',

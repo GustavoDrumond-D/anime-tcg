@@ -27,7 +27,7 @@ Regras inspiradas em Magic e Pokémon TCG e adaptadas ao projeto. **Os números 
 - **Lutador:** dano e ofensiva (Gojo, Toji, Naruto, Sasuke, Gon, Ichigo, Goku, Kuririn).
 - **Tanque:** proteção e interceptação (Piccolo).
 - **Suporte:** cura, escudos e limpeza de condições (Shoko, Sakura, Orihime).
-- **Controlador:** debuffs e condições (Killua, Hisoka, Rukia).
+- **Controlador:** debuffs e condições (Kakashi, Killua, Hisoka, Rukia).
 - **Invocador:** unidades auxiliares (só depois do MVP).
 
 ## Energias
@@ -52,12 +52,12 @@ São seis packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach e D
 
 Não há monetização real planejada. Os detalhes estão em [DECISIONS](docs/DECISIONS.md).
 
-## Personagens (15)
+## Personagens (16)
 
 | Universo | Cartas |
 |---|---|
 | Jujutsu Kaisen | Gojo (UR), Toji (SSR), Shoko (SR) |
-| Naruto (fase criança) | Naruto (SSR), Sasuke (SSR), Sakura (C) |
+| Naruto (fase criança) | Kakashi (UR), Naruto (SSR), Sasuke (SSR), Sakura (C) |
 | Hunter x Hunter | Hisoka (UR), Gon (SSR), Killua (SSR) |
 | Bleach | Ichigo (SSR), Rukia (R), Orihime (C) |
 | Dragon Ball | Goku (UR), Piccolo (SSR), Kuririn (C) |
