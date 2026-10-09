@@ -25,9 +25,9 @@ stat boxes, kanji, title, extra fingers, deformed hands, blurry, low quality
 ## Personagens
 
 ### Naruto (paleta laranja e azul-chakra)
-- **nar-naruto-001 · Naruto Uzumaki (SSR):** Naruto Uzumaki from Naruto Shippuden, spiky blond hair, whisker marks, confident grin, orange and black jacket, Leaf headband, holding a swirling blue Rasengan in one hand, shadow clones faintly behind him, Hidden Leaf village rooftops at sunset, orange and chakra-blue palette.
+- **nar-naruto-001 · Naruto Uzumaki (SSR):** young Naruto Uzumaki from the original Naruto series (Team 7 era), 12-year-old boy, spiky blond hair, whisker marks, big confident grin, orange and blue jumpsuit, Leaf headband with blue cloth, holding a swirling blue Rasengan in one hand, a few shadow clones faintly behind him, Hidden Leaf village rooftops at sunset, orange and chakra-blue palette.
 - **nar-sasuke-001 · Sasuke Uchiha (SSR):** young Sasuke Uchiha from the original Naruto series (Team 7 era), 12-year-old boy, spiky black hair, red Sharingan eyes with two tomoe, serious focused expression, navy blue high-collar shirt with Uchiha fan crest, white arm warmers, Leaf headband, crackling blue-white Chidori in one hand and a fireball glowing behind him, rocky valley at dusk, dark blue, electric white and fire-orange palette.
-- **nar-sakura-001 · Sakura Haruno (C):** Sakura Haruno from Naruto Shippuden, short pink hair, green eyes, diamond mark on her forehead, red top and black gloves, determined smile, glowing green medical chakra in her hands, Hidden Leaf training field with cherry blossoms, pink, red and soft green palette.
+- **nar-sakura-001 · Sakura Haruno (C):** young Sakura Haruno from the original Naruto series (Team 7 era), 12-year-old girl, long pink hair, green eyes, Leaf headband worn as a hairband, red qipao-style dress with white circle, kunai in hand, focused expression with hands forming a seal, soft pink chakra shimmer dispelling an illusion around her, Hidden Leaf forest with cherry blossoms, pink, red and soft green palette.
 
 ### Hunter x Hunter (paleta verde-Nen)
 - **hxh-gon-001 · Gon Freecss (SSR):** Gon Freecss from Hunter x Hunter, spiky black-green hair, determined amber eyes, green jacket and shorts, fist raised and charged with glowing Nen aura (Jajanken Rock), fishing rod on his back, forest clearing with sun rays, green and gold palette.

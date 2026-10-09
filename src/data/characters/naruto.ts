@@ -91,14 +91,17 @@ export const NARUTO: readonly CharacterDef[] = [
     stats: { attack: 2, hp: 8 },
     abilities: [
       {
-        id: 'medical-ninjutsu',
-        name: 'Ninjutsu Médico',
+        id: 'genjutsu-release',
+        name: 'Dissipar Genjutsu',
         cost: { specific: { chakra: 1 }, generic: 0 },
         multiplier: 0,
         cooldown: 0,
         target: 'ally',
-        effects: [{ type: 'heal', value: 3 }],
-        text: 'Cura 3 de um aliado.',
+        effects: [
+          { type: 'cleanse', value: 1 },
+          { type: 'heal', value: 2 },
+        ],
+        text: 'Remove 1 condição ou debuff de um aliado e cura 2.',
       },
     ],
     passives: [],
