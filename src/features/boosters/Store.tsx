@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { PITY_UR } from '../../data/packs'
+import { useProfile } from '../../app/profileContext'
+import { ECONOMY } from '../../data/economy'
+import { PACKS, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
 import type { Universe } from '../../engine/cards'
-import { load } from '../../storage/local'
-import { energyNameOf, pityKey } from './packInfo'
+import { packCost } from '../../engine/economy'
+import { energyNameOf } from './packInfo'
 
 const ORDER: Universe[] = [
   'multiverse',
@@ -29,12 +31,20 @@ function PackArt({ src }: { src: string }) {
 }
 
 /** Loja em carrossel (design v3 "D • Boosters"): pack central grande, vizinhos menores. */
-export function Store({ onOpen }: { onOpen: (u: Universe) => void }) {
+export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void }) {
+  const { profile } = useProfile()
   const [index, setIndex] = useState(1)
   const n = ORDER.length
   const go = (d: number) => setIndex((i) => (i + d + n) % n)
   const current = ORDER[index]!
-  const left = PITY_UR - load(pityKey(current), 0)
+  const left = PITY_UR - (profile.pity[PACKS[current].id] ?? 0)
+
+  const canBuy = (count: number) => packCost(profile, count, ECONOMY).fragments <= profile.fragments
+  const priceLabel = (count: number) => {
+    const c = packCost(profile, count, ECONOMY)
+    if (!c.fragments) return c.free === 1 ? 'Grátis' : `${c.free} grátis`
+    return `${c.free ? `${c.free} grátis + ` : ''}◆ ${c.fragments.toLocaleString('pt-BR')}`
+  }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -59,7 +69,7 @@ export function Store({ onOpen }: { onOpen: (u: Universe) => void }) {
           return (
             <button
               key={u}
-              onClick={() => (o === 0 ? onOpen(u) : go(o))}
+              onClick={() => (o === 0 ? canBuy(1) && onOpen(u, 1) : go(o))}
               aria-label={
                 o === 0 ? `Abrir Booster ${UNIVERSES[u].name}` : `Ver Booster ${UNIVERSES[u].name}`
               }
@@ -104,12 +114,21 @@ export function Store({ onOpen }: { onOpen: (u: Universe) => void }) {
         {energyNameOf(current)} · 5 cartas · UR garantido em até{' '}
         <span className="text-holo">{left}</span> pack{left === 1 ? '' : 's'}
       </p>
-      <button
-        onClick={() => onOpen(current)}
-        className="mt-5 rounded-xl bg-gold-metal px-12 py-3 font-display text-lg font-black tracking-[0.15em] text-[#1a1206] uppercase shadow-[0_0_30px_rgba(255,210,90,.45)]"
-      >
-        Abrir
-      </button>
+      <div className="mt-5 flex gap-3">
+        {[1, 5].map((count) => (
+          <button
+            key={count}
+            onClick={() => onOpen(current, count)}
+            disabled={!canBuy(count)}
+            className={`flex flex-col items-center rounded-xl px-10 py-2.5 font-display font-black tracking-[0.15em] uppercase disabled:cursor-not-allowed disabled:opacity-40 ${count === 1 ? 'bg-gold-metal text-[#1a1206] shadow-[0_0_30px_rgba(255,210,90,.45)]' : 'border border-gold/60 text-gold-light'}`}
+          >
+            <span className="text-lg">Abrir{count > 1 ? ` ×${count}` : ''}</span>
+            <span className="font-label text-[11px] tracking-[0.2em] opacity-80">
+              {priceLabel(count)}
+            </span>
+          </button>
+        ))}
+      </div>
       <div className="mt-5 flex items-center gap-2">
         {ORDER.map((u, i) => (
           <button

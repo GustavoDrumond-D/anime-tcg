@@ -11,8 +11,8 @@ export const SLOTS: PackSlot[] = [
   { kind: 'character', odds: { R: 50, SR: 35, SSR: 12, UR: 3 } },
 ]
 
-/** Garantia: no máximo 40 packs sem UR (aprovada em 2026-10-09). */
-export const PITY_UR = 40
+/** Garantia: no máximo 20 packs sem UR (aprovada em 2026-10-09; era 40). */
+export const PITY_UR = 20
 
 const pack = (universe: Universe): PackDef => ({ id: `pack-${universe}`, universe, slots: SLOTS })
 

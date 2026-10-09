@@ -63,14 +63,14 @@ describe('tabela de chances', () => {
 describe('garantia de UR (pity)', () => {
   const hasUR = (cs: CardDef[]) => cs.some((c) => rarity(c) === 'UR')
 
-  it('o 40º pack sem UR garante um UR', () => {
+  it('o último pack da garantia sem UR garante um UR', () => {
     const r = openPackWithPity(jjk, CATALOG, seeded(9), PITY_UR - 1, PITY_UR)
     expect(r.guaranteed).toBe(true)
     expect(hasUR(r.cards)).toBe(true)
     expect(r.sinceUR).toBe(0)
   })
 
-  it('nunca passa de 40 packs seguidos sem UR', () => {
+  it('nunca passa do limite da garantia sem UR', () => {
     const rng = seeded(123)
     let since = 0
     let maxDry = 0
@@ -92,7 +92,7 @@ describe('garantia de UR (pity)', () => {
     }
   })
 
-  it('média com garantia ≈ 23,5 packs por UR', () => {
-    expect(expectedPacksPerUR(0.03, PITY_UR)).toBeCloseTo(23.48, 1)
+  it('média com garantia de 20 ≈ 15,2 packs por UR', () => {
+    expect(expectedPacksPerUR(0.03, PITY_UR)).toBeCloseTo(15.2, 1)
   })
 })

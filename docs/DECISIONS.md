@@ -60,12 +60,35 @@ Cada pack tem 5 cartas, e cada posição tem sua própria tabela (o modelo de "s
 - **Onde ficam:** os dados estão em `src/data/packs.ts` e a lógica pura em `src/engine/packs.ts`, com RNG injetável (`src/engine/rng.ts`).
 - **Painel na tela:** o painel "Chances" é gerado a partir desses mesmos dados. Assim, a tela nunca mostra números diferentes dos que o sorteio usa.
 - **Catálogo incompleto:** enquanto não houver personagens C e R, essas posições viram energia.
-- **Garantia (aprovada):** no máximo **40 packs sem UR**.
+- **Garantia (aprovada):** no máximo **20 packs sem UR**. Começou em 40 e foi reduzida em 2026-10-09.
   - O contador é separado por tipo de pack e zera sempre que sai um UR, mesmo antes da garantia.
   - Fica salvo localmente (`src/storage/local.ts`).
   - O sorteio só acontece no corte, então recarregar a página não consome nem rerrola a garantia.
-  - Com a garantia, a média cai para ~24 packs por UR.
+  - Com a garantia de 20, a média cai para ~15 packs por UR.
 - **Em aberto:** garantia também para SSR (ex.: a cada 10 packs) e se as duplicatas viram moeda.
+
+## Economia v0.1 — Fragmentos (aprovada em 2026-10-09)
+
+**Números:**
+- **Moeda única:** Fragmentos.
+- **Saldo inicial:** 1.000 Fragmentos + 3 packs grátis.
+- **Preço do pack:** 100, inclusive o Multiverso. Os packs grátis são usados primeiro.
+- **Abrir ×5:** abre cinco packs de uma vez e mostra todas as cartas, com as raras primeiro e a marca "NOVA". A abertura de um pack só tem o botão **Pular**.
+
+**Venda:**
+- É manual, carta a carta ou com "Vender repetidas".
+- **Valores:** Energia 5 · C 10 · R 20 · SR 40 · SSR 100 · UR 300.
+- **Cópias que "Vender repetidas" mantém:** 2 por personagem, 1 de UR e 10 de cada energia.
+- **Limite de segurança:** vender um pack inteiro rende em média menos que o preço dele. Isso evita fragmentos infinitos, e um teste em `economy.test.ts` garante a regra.
+
+**Onde fica cada coisa:**
+- **Compra:** o sorteio acontece no pagamento (`buyPacks`), e as cartas entram no inventário na hora. Recarregar a página não rerrola nem perde cartas.
+- **Perfil** (Fragmentos, inventário e garantia): fica no `localStorage` (`anime-tcg:v1:profile`).
+
+**Recompensas de batalha** (aprovadas, ainda sem implementação porque o motor não existe):
+- vitória: +50;
+- derrota: +15;
+- primeira vitória do dia: +100.
 
 ## Considerado e adiado
 - **Energia Universal inicial em campo**: acelera demais a partida (ver P0.4). Reavaliar se o playtest mostrar começos lentos.

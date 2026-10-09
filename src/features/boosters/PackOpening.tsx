@@ -1,13 +1,12 @@
 import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
 import { Card } from '../../components/Card'
-import { CATALOG } from '../../data/cards'
+import { useProfile } from '../../app/profileContext'
 import { PACKS, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
 import type { CardDef, CharacterDef, Universe } from '../../engine/cards'
-import { openPackWithPity } from '../../engine/packs'
-import { load, save } from '../../storage/local'
+import type { OpenedPack } from '../../engine/economy'
 import { OddsPanel } from './OddsPanel'
-import { energyNameOf, pityKey } from './packInfo'
+import { energyNameOf } from './packInfo'
 import { Burst, Spotlight, type RareKind } from './RareReveal'
 import { setMuted, sfx } from './sfx'
 
@@ -26,19 +25,25 @@ const glowOf = (c: CardDef) =>
 
 const CHARGE_MS = 900
 
+/** Abertura animada de um pack já comprado (o sorteio acontece na compra, ver economy.ts). */
 export function PackOpening({
   packUniverse,
+  opened,
+  onAgain,
+  againLabel,
   onBack,
 }: {
   packUniverse: Universe
+  opened: OpenedPack
+  /** Ausente quando não há saldo para outro pack. */
+  onAgain?: () => void
+  againLabel: string
   onBack: () => void
 }) {
   const PACK = PACKS[packUniverse]
-  const PITY_KEY = pityKey(packUniverse)
+  const sinceUR = useProfile().profile.pity[PACK.id] ?? 0
+  const { cards, guaranteed } = opened
   const [stage, setStage] = useState<Stage>('sealed')
-  const [cards, setCards] = useState<CardDef[]>([])
-  const [sinceUR, setSinceUR] = useState(() => load(PITY_KEY, 0))
-  const [guaranteed, setGuaranteed] = useState(false)
   const [flipped, setFlipped] = useState<boolean[]>(Array(5).fill(false))
   const [charging, setCharging] = useState<boolean[]>(Array(5).fill(false))
   const [spotlight, setSpotlight] = useState<
@@ -50,18 +55,12 @@ export function PackOpening({
 
   const open = () => {
     if (stage !== 'sealed') return
-    // Sorteia só ao cortar: recarregar a página não consome nem rerrola a garantia.
-    const r = openPackWithPity(PACK, CATALOG, Math.random, sinceUR, PITY_UR)
-    setCards(r.cards)
-    setGuaranteed(r.guaranteed)
-    setSinceUR(r.sinceUR)
-    save(PITY_KEY, r.sinceUR)
     setShowOdds(false)
     setStage('tearing')
     sfx.rip()
     setTimeout(() => {
       setStage('dealt')
-      r.cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
+      cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
     }, 700)
   }
   const reveal = (i: number) => {
@@ -98,10 +97,12 @@ export function PackOpening({
     setMuted(sound)
     setSound(!sound)
   }
-  const reset = () => {
-    setCards([])
-    setFlipped(Array(5).fill(false))
-    setStage('sealed')
+  // Pular: mostra tudo já revelado, sem suspense nem tela de destaque.
+  const skip = () => {
+    setShowOdds(false)
+    setCharging(Array(5).fill(false))
+    setFlipped(Array(5).fill(true))
+    setStage('dealt')
   }
   const allFlipped = flipped.every(Boolean)
 
@@ -114,12 +115,6 @@ export function PackOpening({
         {stage === 'sealed' ? 'Corte o pack' : 'Revele suas cartas'}
       </h1>
       {stage === 'sealed' && (
-        <p className="mt-1 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase">
-          UR garantido em até <span className="text-holo">{PITY_UR - sinceUR}</span> pack
-          {PITY_UR - sinceUR === 1 ? '' : 's'}
-        </p>
-      )}
-      {stage === 'sealed' && (
         <button
           onClick={onBack}
           className="absolute top-6 left-8 font-label text-sm font-bold tracking-[0.15em] text-muted uppercase hover:text-gold-light"
@@ -128,6 +123,14 @@ export function PackOpening({
         </button>
       )}
       <div className="absolute top-6 right-8 flex gap-2">
+        {!allFlipped && (
+          <button
+            onClick={skip}
+            className="rounded-full border border-line px-4 py-1.5 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase hover:text-gold-light"
+          >
+            Pular ⏭
+          </button>
+        )}
         {stage === 'sealed' && (
           <button
             onClick={() => setShowOdds(!showOdds)}
@@ -212,10 +215,11 @@ export function PackOpening({
           )}
           {allFlipped && spotlight.length === 0 && (
             <button
-              onClick={reset}
-              className="rounded-lg bg-gold-metal px-6 py-3 font-display font-black tracking-wider text-[#1a1206] uppercase shadow-[0_0_24px_rgba(255,210,90,.45)]"
+              onClick={onAgain}
+              disabled={!onAgain}
+              className="rounded-lg bg-gold-metal px-6 py-3 font-display font-black tracking-wider text-[#1a1206] uppercase shadow-[0_0_24px_rgba(255,210,90,.45)] disabled:opacity-40 disabled:shadow-none"
             >
-              Abrir outro
+              {againLabel}
             </button>
           )}
           {allFlipped && spotlight.length === 0 && (
