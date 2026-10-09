@@ -1,8 +1,16 @@
-import { useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
+import {
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+  type ReactNode,
+} from 'react'
 import { Card } from '../../components/Card'
 import { CATALOG, CHARACTERS } from '../../data/cards'
 import type { CardDef } from '../../engine/cards'
 import { UNIVERSES } from '../../data/universes'
+import { setMuted, sfx } from './sfx'
 
 type Stage = 'sealed' | 'tearing' | 'dealt'
 
@@ -13,6 +21,10 @@ function draw(): CardDef[] {
 }
 
 const rarityOf = (c: CardDef) => (c.type === 'character' ? c.rarity : 'C')
+const rareOf = (c: CardDef) => {
+  const r = rarityOf(c)
+  return r === 'UR' || r === 'SSR' ? r : null
+}
 const glowOf = (c: CardDef) =>
   ({
     UR: '0 0 34px 8px rgba(125,249,255,.75), 0 0 70px rgba(255,106,213,.5)',
@@ -23,14 +35,30 @@ export function PackOpening() {
   const [stage, setStage] = useState<Stage>('sealed')
   const [cards, setCards] = useState(draw)
   const [flipped, setFlipped] = useState<boolean[]>(Array(5).fill(false))
+  const [sound, setSound] = useState(true)
   const universe = UNIVERSES['jujutsu-kaisen']
 
   const open = () => {
     if (stage !== 'sealed') return
     setStage('tearing')
-    setTimeout(() => setStage('dealt'), 700)
+    sfx.rip()
+    setTimeout(() => {
+      setStage('dealt')
+      cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
+    }, 700)
   }
-  const flip = (i: number) => setFlipped((f) => f.map((v, j) => v || j === i))
+  const flip = (i: number) => {
+    setFlipped((f) => f.map((v, j) => v || j === i))
+    sfx.flip()
+    const rare = rareOf(cards[i]!)
+    if (rare) setTimeout(() => sfx.rare(rare), 350)
+  }
+  // Revela em cascata, para cada carta ter seu momento.
+  const revealAll = () => flipped.forEach((done, i) => !done && setTimeout(() => flip(i), i * 160))
+  const toggleSound = () => {
+    setMuted(sound)
+    setSound(!sound)
+  }
   const reset = () => {
     setCards(draw())
     setFlipped(Array(5).fill(false))
@@ -44,8 +72,15 @@ export function PackOpening() {
         BOOSTER {universe.name.toUpperCase()}
       </p>
       <h1 className="font-display text-3xl font-black text-parchment">
-        {stage === 'sealed' ? 'Clique para abrir' : 'Revele suas cartas'}
+        {stage === 'sealed' ? 'Corte o pack' : 'Revele suas cartas'}
       </h1>
+      <button
+        onClick={toggleSound}
+        aria-pressed={sound}
+        className="absolute top-6 right-8 rounded-full border border-line px-4 py-1.5 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase"
+      >
+        Som: {sound ? 'ligado' : 'mudo'}
+      </button>
 
       <div className="relative mt-6 h-[520px] w-full max-w-[1200px]">
         {stage !== 'dealt' && (
@@ -74,6 +109,7 @@ export function PackOpening() {
                 onFlip={() => flip(i)}
                 label={`Revelar carta ${i + 1}`}
               />
+              {flipped[i] && rareOf(c) && <Burst kind={rareOf(c)!} />}
             </div>
           )
         })}
@@ -83,7 +119,7 @@ export function PackOpening() {
         <div className="flex gap-3">
           {!allFlipped && (
             <button
-              onClick={() => setFlipped(Array(5).fill(true))}
+              onClick={revealAll}
               className="rounded-lg border border-gold/60 px-6 py-3 font-display font-black tracking-wider text-gold-light uppercase"
             >
               Revelar todas
@@ -103,8 +139,43 @@ export function PackOpening() {
   )
 }
 
-/** Pacote recortado da arte (a imagem tem fundo desfocado em volta). Ao abrir, a tira de cima voa. */
+/**
+ * Pacote recortado da arte (a imagem tem fundo desfocado em volta).
+ * Abre arrastando ao longo da linha de corte (≥ 75% da largura); Enter/Espaço também abrem.
+ */
 function Pack({ src, tearing, onOpen }: { src: string; tearing: boolean; onOpen: () => void }) {
+  const [cut, setCut] = useState<{ from: number; to: number } | null>(null)
+  const steps = useRef(0)
+  const frac = (e: PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width))
+  }
+  const down = (e: PointerEvent<HTMLButtonElement>) => {
+    if (tearing) return
+    e.currentTarget.setPointerCapture(e.pointerId)
+    const x = frac(e)
+    setCut({ from: x, to: x })
+    steps.current = 0
+  }
+  const move = (e: PointerEvent<HTMLButtonElement>) => {
+    if (!cut || tearing) return
+    const x = frac(e)
+    const next = { from: Math.min(cut.from, x), to: Math.max(cut.to, x) }
+    const len = next.to - next.from
+    if (Math.floor(len * 10) > steps.current) {
+      steps.current = Math.floor(len * 10)
+      sfx.snip()
+    }
+    if (len >= 0.75 && steps.current < 99) {
+      steps.current = 99 // abre uma vez só, mesmo com eventos de movimento em sequência
+      setCut({ from: 0, to: 1 })
+      onOpen()
+    } else setCut(next)
+  }
+  const up = () => {
+    if (!tearing) setCut(null)
+  }
+
   const img = (clip: string) => (
     <img
       src={src}
@@ -116,9 +187,13 @@ function Pack({ src, tearing, onOpen }: { src: string; tearing: boolean; onOpen:
   )
   return (
     <button
-      onClick={onOpen}
-      aria-label="Abrir pack"
-      className="absolute top-0 left-1/2 -ml-[150px] h-[519px] w-[300px] cursor-pointer"
+      onPointerDown={down}
+      onPointerMove={move}
+      onPointerUp={up}
+      onPointerCancel={up}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpen()}
+      aria-label="Abrir pack: arraste ao longo da linha de corte ou pressione Enter"
+      className="absolute top-0 left-1/2 -ml-[150px] h-[519px] w-[300px] cursor-crosshair touch-none select-none"
       style={{ animation: tearing ? 'shake .35s ease-in-out 2' : undefined }}
     >
       <div
@@ -139,11 +214,98 @@ function Pack({ src, tearing, onOpen }: { src: string; tearing: boolean; onOpen:
       >
         {img('inset(14% 7.5% 0 7.5%)')}
       </div>
+      {/* linha de corte: guia tracejada + rastro brilhante do corte */}
+      <div
+        className="pointer-events-none absolute top-[14%] right-0 left-0 border-t-2 border-dashed border-white/50 transition-opacity"
+        style={{ opacity: tearing ? 0 : 1 }}
+      />
+      {cut && (
+        <div
+          className="pointer-events-none absolute top-[14%] -mt-[2px] h-[3px] rounded-full bg-white shadow-[0_0_12px_4px_rgba(255,230,160,.9)]"
+          style={{ left: `${cut.from * 100}%`, width: `${(cut.to - cut.from) * 100}%` }}
+        />
+      )}
+      {!tearing && !cut && (
+        <span className="pointer-events-none absolute top-[calc(14%-30px)] right-2 animate-pulse font-label text-xs font-bold tracking-[0.15em] text-white uppercase drop-shadow">
+          ✂ arraste para cortar
+        </span>
+      )}
       <div
         className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.9),transparent_60%)] transition-opacity duration-300"
         style={{ opacity: tearing ? 1 : 0 }}
       />
     </button>
+  )
+}
+
+/** Explosão de partículas + anel de luz no momento da revelação, depois brilhos piscando em volta. */
+function Burst({ kind }: { kind: 'UR' | 'SSR' }) {
+  const colors =
+    kind === 'UR'
+      ? ['#7DF9FF', '#FF6AD5', '#FFD86B', '#FFFFFF', '#A78BFA']
+      : ['#FFD86B', '#F7E7A6', '#FFFFFF']
+  const parts = useMemo(() => {
+    const n = kind === 'UR' ? 44 : 26
+    return Array.from({ length: n }, (_, i) => ({
+      a: (i / n) * 360 + Math.random() * 8,
+      d: 110 + Math.random() * (kind === 'UR' ? 170 : 110),
+      s: 4 + Math.random() * 6,
+      c: colors[i % colors.length]!,
+      dl: 0.3 + Math.random() * 0.12,
+    }))
+  }, [kind])
+  const sparkles = useMemo(
+    () =>
+      Array.from({ length: kind === 'UR' ? 10 : 6 }, () => ({
+        x: -10 + Math.random() * 120,
+        y: -8 + Math.random() * 116,
+        dl: 1 + Math.random() * 2,
+        dur: 1.2 + Math.random() * 1.2,
+      })),
+    [kind],
+  )
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
+      <span
+        className="absolute top-1/2 left-1/2 -mt-[110px] -ml-[110px] size-[220px] rounded-full"
+        style={{
+          background: `radial-gradient(circle, ${kind === 'UR' ? 'rgba(125,249,255,.55)' : 'rgba(255,216,107,.55)'}, transparent 65%)`,
+          animation: 'ring 1s ease-out .3s both',
+        }}
+      />
+      {parts.map((p, i) => (
+        <span
+          key={i}
+          className="absolute top-1/2 left-1/2 rounded-full"
+          style={
+            {
+              width: p.s,
+              height: p.s,
+              background: p.c,
+              boxShadow: `0 0 8px ${p.c}`,
+              '--a': `${p.a}deg`,
+              '--d': `${p.d}px`,
+              animation: `burst 1.4s cubic-bezier(.15,.7,.35,1) ${p.dl}s both`,
+            } as CSSProperties
+          }
+        />
+      ))}
+      {sparkles.map((s, i) => (
+        <span
+          key={`s${i}`}
+          className="absolute text-sm"
+          style={{
+            left: `${s.x}%`,
+            top: `${s.y}%`,
+            color: kind === 'UR' ? '#bff8ff' : '#ffe9a8',
+            textShadow: '0 0 6px currentColor',
+            animation: `twinkle ${s.dur}s ease-in-out ${s.dl}s infinite both`,
+          }}
+        >
+          ✦
+        </span>
+      ))}
+    </div>
   )
 }
 
