@@ -26,13 +26,13 @@ stat boxes, kanji, title, extra fingers, deformed hands, blurry, low quality
 
 ### Naruto (paleta laranja e azul-chakra)
 - **nar-naruto-001 · Naruto Uzumaki (SSR):** Naruto Uzumaki from Naruto Shippuden, spiky blond hair, whisker marks, confident grin, orange and black jacket, Leaf headband, holding a swirling blue Rasengan in one hand, shadow clones faintly behind him, Hidden Leaf village rooftops at sunset, orange and chakra-blue palette.
-- **nar-gaara-001 · Gaara (R):** Gaara from Naruto, red hair, love kanji tattoo on forehead, dark-ringed eyes, calm stern expression, gourd of sand on his back, a wall of swirling sand rising protectively around him, desert village at dusk, sand-gold and crimson palette.
-- **nar-hinata-001 · Hinata Hyuga (C):** Hinata Hyuga from Naruto, long dark indigo hair, pale lavender Byakugan eyes with veins activated, gentle-fist stance with glowing blue chakra palms, lavender jacket, soft moonlit training ground, lavender and pale-blue palette.
+- **nar-sasuke-001 · Sasuke Uchiha (R):** Sasuke Uchiha from Naruto Shippuden, spiky black hair, red Sharingan eyes, cold focused expression, white open-collar shirt with purple rope belt, sword on his back, crackling blue-white Chidori lightning in one hand, stormy valley with lightning, dark blue and electric white palette.
+- **nar-sakura-001 · Sakura Haruno (C):** Sakura Haruno from Naruto Shippuden, short pink hair, green eyes, diamond mark on her forehead, red top and black gloves, determined smile, glowing green medical chakra in her hands, Hidden Leaf training field with cherry blossoms, pink, red and soft green palette.
 
 ### Hunter x Hunter (paleta verde-Nen)
 - **hxh-gon-001 · Gon Freecss (SSR):** Gon Freecss from Hunter x Hunter, spiky black-green hair, determined amber eyes, green jacket and shorts, fist raised and charged with glowing Nen aura (Jajanken Rock), fishing rod on his back, forest clearing with sun rays, green and gold palette.
 - **hxh-killua-001 · Killua Zoldyck (SSR):** Killua Zoldyck from Hunter x Hunter, messy white hair, sharp blue eyes, purple long-sleeve shirt and shorts, crackling blue-white lightning around his body (Godspeed), skateboard nearby, night city rooftops, electric blue and violet palette.
-- **hxh-leorio-001 · Leorio (C):** Leorio Paradinight from Hunter x Hunter, tall man with short dark hair, round sunglasses, dark blue business suit, holding an open medical briefcase with a glowing green Nen hand, confident smile, hospital corridor with soft lights, navy and green palette.
+- **hxh-hisoka-001 · Hisoka (UR):** Hisoka from Hunter x Hunter, slicked-back magenta hair, sly golden eyes, star and teardrop face paint, jester-style outfit with card suit symbols, playing cards fanned between his fingers, pink stretchy aura strands (Bungee Gum) around his hand, dim arena with spotlights, magenta, gold and dark teal palette.
 
 ### Bleach (paleta azul-gelo e preto)
 - **ble-ichigo-001 · Ichigo Kurosaki (SSR):** Ichigo Kurosaki from Bleach, spiky orange hair, intense brown eyes, black shihakusho robe, huge cleaver-like Zangetsu sword resting on his shoulder, black and red Getsuga Tensho energy swirling, Karakura town night sky with a full moon, black, crimson and white palette.
