@@ -238,32 +238,33 @@ function Pack({ src, tearing, onOpen }: { src: string; tearing: boolean; onOpen:
   )
 }
 
-/** Explosão de partículas + anel de luz no momento da revelação, depois brilhos piscando em volta. */
-function Burst({ kind }: { kind: 'UR' | 'SSR' }) {
+/** Gerado uma vez por revelação (fora do render, para manter o componente puro). */
+function makeBurst(kind: 'UR' | 'SSR') {
   const colors =
     kind === 'UR'
       ? ['#7DF9FF', '#FF6AD5', '#FFD86B', '#FFFFFF', '#A78BFA']
       : ['#FFD86B', '#F7E7A6', '#FFFFFF']
-  const parts = useMemo(() => {
-    const n = kind === 'UR' ? 44 : 26
-    return Array.from({ length: n }, (_, i) => ({
+  const n = kind === 'UR' ? 44 : 26
+  return {
+    parts: Array.from({ length: n }, (_, i) => ({
       a: (i / n) * 360 + Math.random() * 8,
       d: 110 + Math.random() * (kind === 'UR' ? 170 : 110),
       s: 4 + Math.random() * 6,
       c: colors[i % colors.length]!,
       dl: 0.3 + Math.random() * 0.12,
-    }))
-  }, [kind])
-  const sparkles = useMemo(
-    () =>
-      Array.from({ length: kind === 'UR' ? 10 : 6 }, () => ({
-        x: -10 + Math.random() * 120,
-        y: -8 + Math.random() * 116,
-        dl: 1 + Math.random() * 2,
-        dur: 1.2 + Math.random() * 1.2,
-      })),
-    [kind],
-  )
+    })),
+    sparkles: Array.from({ length: kind === 'UR' ? 10 : 6 }, () => ({
+      x: -10 + Math.random() * 120,
+      y: -8 + Math.random() * 116,
+      dl: 1 + Math.random() * 2,
+      dur: 1.2 + Math.random() * 1.2,
+    })),
+  }
+}
+
+/** Explosão de partículas + anel de luz no momento da revelação, depois brilhos piscando em volta. */
+function Burst({ kind }: { kind: 'UR' | 'SSR' }) {
+  const [{ parts, sparkles }] = useState(() => makeBurst(kind))
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
       <span
