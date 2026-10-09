@@ -1,4 +1,4 @@
-# Livro de regras — Alpha v0.3
+# Livro de regras — Alpha v0.3.1
 
 > Regras fechadas para prototipação: o motor pode ser implementado com base nelas. Os **números** (HP, pesos, multiplicadores, custos) continuam sendo hipóteses de balanceamento até haver playtest. As regras inspiradas em Magic (MTG) ou Pokémon TCG (PTCG) estão marcadas, e as adaptações estão explicadas em [DECISIONS](DECISIONS.md).
 
@@ -22,10 +22,9 @@
 
 ## 3. Preparação da partida
 1. Embaralhe o deck. Um sorteio define quem começa.
-2. Cada jogador compra 5 cartas.
-3. **Mão inválida** *(PTCG)*: uma mão sem personagem ou sem energia é revelada, devolvida e embaralhada, e o jogador compra 5 novas. A cada vez que isso acontece, o oponente pode comprar 1 carta extra. Repete até a mão ser válida.
-4. **Mulligan voluntário** *(mulligan londrino do MTG, simplificado)*: uma vez por partida, você pode embaralhar a mão no deck e comprar 5 novas. Depois, coloca 1 carta da mão no fundo do deck.
-5. O jogador que começa **não compra** no seu primeiro turno.
+2. **Mão garantida**: cada jogador recebe 1 personagem aleatório e 1 energia aleatória do deck, mais 3 cartas do topo. Toda mão inicial é válida, então não há refazer de mão nem compensação ao oponente.
+3. **Mulligan voluntário** *(mulligan londrino do MTG, simplificado)*: uma vez por partida, o jogador pode devolver a mão ao deck, embaralhar e receber uma nova mão garantida. Depois, coloca 1 carta da mão no fundo do deck. Não existe segundo mulligan.
+4. O jogador que começa **não compra** no seu primeiro turno.
 
 ## 4. Zonas
 - **Deck**: cartas ainda não compradas.
@@ -123,7 +122,7 @@ Referência de habilidades (dano típico, antes de efeitos extras):
 
 | Custo total | Multiplicador |
 |---|---|
-| 0 (sem recarga) | 1× (equivale ao Golpe Básico) |
+| 0 (sem recarga) | 1×, com no máximo 1 efeito menor (ex.: crítico elevado) |
 | 1 | 1,5× |
 | 2 | 1,75–2× |
 | 3+ | 2,5× |
@@ -133,17 +132,27 @@ Cada efeito extra (Perfurante, condição, cura) custa cerca de 0,25× do multip
 
 ## 11. Resolução e eventos
 O motor é orientado a eventos e resolve cada ação nesta ordem:
-1. Validar a ação, os alvos (incluindo Provocar) e os custos.
-2. Pagar os custos.
-3. Aplicar os efeitos na ordem declarada na carta.
-4. **Verificação de estado** *(ações baseadas em estado do MTG)*:
-   - Todos os personagens com HP ≤ 0 são derrotados **ao mesmo tempo**.
-   - Cada um vai para o Cemitério e aplica o Abalo ao dono.
+1. **Validar** a ação, os alvos (incluindo Provocar) e os custos.
+2. **Pagar** os custos.
+3. **Aplicar os efeitos** na ordem declarada na carta.
+   - Nesta etapa não se verifica derrota: um personagem pode ficar com HP ≤ 0 e ainda ser salvo por uma cura posterior da mesma habilidade.
+   - A Penetração é calculada no momento do dano: `excedente = dano final − HP antes do golpe`.
+4. **Verificação de estado** *(ações baseadas em estado do MTG)*. Tudo nesta etapa acontece ao mesmo tempo:
+   1. Todos os personagens com HP ≤ 0 vão para o Cemitério.
+   2. O Abalo de cada um é somado e aplicado ao dono.
+   3. Checagem de vitória:
+      - se um jogador ficou com HP ≤ 0, ele perde;
+      - se os dois ficaram, é empate.
+   4. A partida termina **imediatamente**, e os gatilhos pendentes são descartados.
 5. **Gatilhos** *(ordem APNAP do MTG)*:
    - Primeiro resolvem os gatilhos do jogador ativo, depois os do oponente.
    - Dentro de cada jogador, a ordem segue as posições do campo, da 1 à 4.
-   - Depois de cada gatilho, repete-se a verificação de estado.
-6. **Checagem de vitória**: se os dois jogadores estão com HP ≤ 0, é empate.
+   - Gatilhos de “ao ser derrotado” resolvem mesmo que o personagem já esteja no Cemitério.
+   - Depois de cada gatilho, repete-se a etapa 4.
+
+A verificação de estado (etapa 4) também acontece depois de:
+- cada compra, incluindo a fadiga;
+- cada efeito de início e de fim de turno, como Envenenado.
 
 Todo evento é registrado em log, para depuração e replay.
 
@@ -159,14 +168,14 @@ Proposta, ainda não implementada:
 - Somem se o invocador for derrotado.
 - Não vão ao Cemitério e não causam Abalo.
 
-## 14. Cartas de exemplo (v0.3)
+## 14. Cartas de exemplo (v0.3.1)
 - **Gojo Satoru**: UR, Lutador, ATQ 4, HP 16, invocação 3, Peso 4.
   - *Azul*: 1 Amaldiçoada + 1 genérica, 1,75× (7 de dano).
   - *Vermelho*: 2 Amaldiçoadas + 1 genérica, 2,5× (10 de dano), com Penetração.
   - *Seis Olhos* (passiva): a primeira habilidade de cada turno custa 1 genérica a menos.
 - **Toji Fushiguro**: SSR, Lutador, ATQ 4, HP 14, invocação 2, Peso 3.
   - *Lança Invertida*: 0 energia, 2× (8 de dano), Perfurante, Recarga 2.
-  - *Instinto Assassino*: 0 energia, 1,25× (5 de dano), chance de crítico 30%.
+  - *Instinto Assassino*: 0 energia, 1× (4 de dano), chance de crítico 30%. É a variante gratuita da identidade do Toji, dentro do orçamento de §10.
   - *Restrição Celestial* (passiva): Imune.
 - **Shoko Ieiri**: SR, Suporte, ATQ 1, HP 12, invocação 1, Peso 3.
   - *Técnica Reversa*: 1 Amaldiçoada. Cura 5 de um aliado e remove 1 condição ou debuff dele.

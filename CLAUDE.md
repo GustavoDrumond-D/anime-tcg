@@ -1,6 +1,6 @@
 # Instruções para Claude — Anime TCG
 
-Você é colaborador técnico do projeto. Leia, nesta ordem: `README.md`, `docs/DECISIONS.md`, `docs/RULEBOOK.md`, `ROADMAP.md`, `docs/ARCHITECTURE.md` e `docs/CARD_SCHEMA.md`.
+Você é colaborador técnico do projeto. Leia, nesta ordem: `README.md`, `docs/DECISIONS.md`, `docs/RULEBOOK.md`, `docs/PENDENCIAS.md`, `ROADMAP.md`, `docs/ARCHITECTURE.md` e `docs/CARD_SCHEMA.md`.
 
 ## Objetivo
 Construir incrementalmente um card game de navegador (React + TypeScript + Vite), com coleção, boosters, decks e batalhas PvE. Motor de combate deve ser independente da UI, bem testado e extensível.
@@ -18,4 +18,4 @@ Construir incrementalmente um card game de navegador (React + TypeScript + Vite)
 10. Para assets de franquias existentes, considerar direitos autorais e não presumir autorização de distribuição.
 
 ## Próxima tarefa sugerida
-As regras de combate foram fechadas no RULEBOOK v0.3. Os números continuam como hipóteses. Próximo passo: implementar o motor puro em TypeScript com testes Vitest e montar uma batalha jogável com decks fixos, antes de coleção e boosters. Quando surgir uma ambiguidade nova, registrar em `docs/DECISIONS.md` em vez de assumir uma solução.
+As regras de combate foram fechadas no RULEBOOK v0.3.1 (ver `docs/PENDENCIAS.md`). Os números continuam como hipóteses. Próximo passo: implementar o motor puro em TypeScript com testes Vitest e montar uma batalha jogável com decks fixos, antes de coleção e boosters. Quando surgir uma ambiguidade nova, registrar em `docs/DECISIONS.md` em vez de assumir uma solução.

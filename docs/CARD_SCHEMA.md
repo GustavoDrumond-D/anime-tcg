@@ -1,6 +1,6 @@
 # Esquema de cartas — proposta
 
-Exemplo de registro declarativo, alinhado ao RULEBOOK v0.3. Não é uma implementação completa.
+Exemplo de registro declarativo, alinhado ao RULEBOOK v0.3.1. Não é uma implementação completa.
 
 ```json
 {
@@ -17,7 +17,7 @@ Exemplo de registro declarativo, alinhado ao RULEBOOK v0.3. Não é uma implemen
   "art": "/assets/cards/jujutsu-kaisen/jjk-toji-001.webp",
   "abilities": [
     { "id": "inverted-spear", "name": "Lança Invertida", "cost": { "specific": {}, "generic": 0 }, "multiplier": 2, "cooldown": 2, "keywords": ["piercing"], "effects": [] },
-    { "id": "assassin-instinct", "name": "Instinto Assassino", "cost": { "specific": {}, "generic": 0 }, "multiplier": 1.25, "cooldown": 0, "effects": [{ "type": "critical_chance", "value": 0.3 }] }
+    { "id": "assassin-instinct", "name": "Instinto Assassino", "cost": { "specific": {}, "generic": 0 }, "multiplier": 1, "cooldown": 0, "effects": [{ "type": "critical_chance", "value": 0.3 }] }
   ],
   "passives": [{ "id": "heavenly-restriction", "keywords": ["immune"] }]
 }

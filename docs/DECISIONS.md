@@ -31,7 +31,17 @@
 - **Fases**: Preparação, Suporte e Combate foram fundidas em uma **fase Principal** de ordem livre (MTG). Isso permite jogar um suporte depois de atacar.
 - **O primeiro jogador não compra no turno 1** (MTG/PTCG), para compensar a vantagem de começar.
 
+## Correções da v0.3.1 (P0 de `docs/PENDENCIAS.md`)
+
+| # | Pendência | Decisão | Evidência |
+|---|---|---|---|
+| P0.1 | Instinto Assassino (1,25× grátis) violava o próprio orçamento | Cai para **1× com crítico de 30%**, sem recarga. A tabela agora permite 1 efeito menor em habilidades de custo 0 | Dano esperado de 4,6 contra 4,3 do Golpe Básico: o Toji continua independente de energia sem superar o orçamento |
+| P0.2 | Ordem de resolução ambígua | Derrota não é checada durante a resolução dos efeitos. Derrotas e Abalo acontecem juntos. HP do jogador ≤ 0 encerra a partida na hora e descarta os gatilhos pendentes (RULEBOOK §11) | Modelo das ações baseadas em estado do MTG: é determinístico e cabe em testes simples |
+| P0.3 | Refazer a mão com compensação desequilibrava | **Mão garantida** (1 personagem + 1 energia + 3 do topo) e 1 mulligan voluntário. A compensação ao oponente foi removida | Sem garantia, um deck 8/8/4 tem 10% de mãos inválidas, e um deck 6/10/4 ou 10/6/4 tem 15% |
+| P0.4 | UR demorar a entrar | Custos mantidos (0 a 3) e **sem energia inicial grátis** | Simulação com 100 mil partidas e deck 8/8/4: o UR é pagável no turno 3 em 81% (1º jogador) a 90% (2º jogador) das partidas. Fica a curva T1 C/R/SR → T2 SSR → T3 UR, como no MTG. Com energia inicial o UR sairia no turno 2 (95%) e os comuns perderiam espaço |
+
 ## Considerado e adiado
+- **Energia Universal inicial em campo**: acelera demais a partida (ver P0.4). Reavaliar se o playtest mostrar começos lentos.
 - **Fraqueza e resistência (PTCG)**: um triângulo entre classes ou universos parece arbitrário entre franquias. Pode ser reavaliado depois do playtest.
 - **Bloqueio e combate do MTG**: exige decisões do oponente durante o turno ativo e complica a IA. O Provocar cobre a parte de proteção.
 - **Evolução (PTCG)**: pode servir como mecânica de “versão desperta” de um personagem, depois do MVP.

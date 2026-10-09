@@ -2,13 +2,13 @@
 
 > Card game colecionável de navegador, com personagens de diferentes universos de anime, boosters, construção de decks e combate tático por turnos.
 
-**Estado:** Pré-produção / regras v0.3 fechadas para protótipo. **Nenhum sistema de gameplay está implementado ainda.**
+**Estado:** Pré-produção / regras v0.3.1 fechadas para protótipo. **Nenhum sistema de gameplay está implementado ainda.**
 
 ## Visão
 
 Misturar o colecionismo e leitura acessível de Pokémon TCG, zonas de Yu-Gi-Oh! e efeitos estratégicos de Magic, sem copiar integralmente nenhuma dessas regras. A identidade dos personagens deve ser refletida em suas classes, técnicas e passivas. Projeto inicialmente pessoal, gratuito e PvE.
 
-## Mecânicas-base da Alpha (v0.3)
+## Mecânicas-base da Alpha (v0.3.1)
 
 | Parâmetro | Valor inicial |
 |---|---|
@@ -58,7 +58,7 @@ Seis packs planejados: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Blea
 
 ## Início do desenvolvimento
 
-1. Escrever testes para o motor de combate a partir do RULEBOOK v0.3.
+1. Escrever testes para o motor de combate a partir do RULEBOOK v0.3.1.
 2. Inicializar Vite + React + TypeScript e o catálogo de cartas.
 3. Implementar primeiro o ciclo coleção → booster → deck → PvE.
 4. Usar assets locais devidamente autorizados; renderizar estatísticas e textos dinamicamente.
