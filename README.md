@@ -2,7 +2,7 @@
 
 > Card game colecionável de navegador, com personagens de diferentes universos de anime, boosters, construção de decks e combate tático por turnos.
 
-**Estado:** Pré-produção / regras v0.3.1 fechadas para protótipo. Protótipo 0.1: projeto configurado, catálogo tipado e carta dinâmica. **O motor de combate ainda não foi implementado.**
+**Estado:** protótipo 0.1. Já funcionam a loja de boosters, a abertura de packs, os Fragmentos e a coleção. **O motor de combate ainda não foi implementado.** Regras de combate: v0.3.1. Veja o andamento no [ROADMAP](ROADMAP.md).
 
 ## Visão
 
@@ -24,19 +24,43 @@ Regras inspiradas em Magic e Pokémon TCG e adaptadas ao projeto. **Os números 
 
 ## Classes
 
-- **Lutador:** dano e ofensiva (Gojo, Toji).
-- **Tanque:** proteção e interceptação.
-- **Suporte:** cura e buffs (Shoko Ieiri).
-- **Controlador:** debuffs e condições.
-- **Invocador:** unidades auxiliares.
+- **Lutador:** dano e ofensiva (Gojo, Toji, Naruto, Sasuke, Gon, Ichigo, Goku, Kuririn).
+- **Tanque:** proteção e interceptação (Piccolo).
+- **Suporte:** cura, escudos e limpeza de condições (Shoko, Sakura, Orihime).
+- **Controlador:** debuffs e condições (Killua, Hisoka, Rukia).
+- **Invocador:** unidades auxiliares (só depois do MVP).
 
 ## Energias
 
 Universal (custo genérico), Amaldiçoada (Jujutsu Kaisen), Chakra (Naruto), Nen (Hunter x Hunter), Reiatsu (Bleach) e Ki (Dragon Ball). Energias especializadas também pagam custos genéricos; a Universal não substitui exigências específicas. Energias pagas ficam esgotadas até o próximo turno do controlador.
 
-## Boosters
+## Boosters e economia
 
-Seis packs planejados: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach e Dragon Ball. Cada pack contém 5 cartas; probabilidades e composição ainda sujeitas a teste. Não há monetização real planejada.
+São seis packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach e Dragon Ball.
+
+**Composição de um pack (5 cartas):**
+- 2 energias;
+- 2 personagens comuns (C ou R);
+- 1 posição rara: R 50% · SR 35% · SSR 12% · UR 3%.
+
+**Garantia:** você recebe um UR em no máximo 20 packs. A conta é separada por tipo de pack.
+
+**Economia em Fragmentos ◆:**
+- você começa com 1.000 Fragmentos e 3 packs grátis;
+- cada pack custa 100;
+- dá para vender cartas, e "Vender repetidas" preserva o que o deck usa.
+
+Não há monetização real planejada. Os detalhes estão em [DECISIONS](docs/DECISIONS.md).
+
+## Personagens (15)
+
+| Universo | Cartas |
+|---|---|
+| Jujutsu Kaisen | Gojo (UR), Toji (SSR), Shoko (SR) |
+| Naruto (fase criança) | Naruto (SSR), Sasuke (SSR), Sakura (C) |
+| Hunter x Hunter | Hisoka (UR), Gon (SSR), Killua (SSR) |
+| Bleach | Ichigo (SSR), Rukia (R), Orihime (C) |
+| Dragon Ball | Goku (UR), Piccolo (SSR), Kuririn (C) |
 
 ## Tecnologia sugerida
 
@@ -54,6 +78,8 @@ npm install
 npm run dev     # app em http://localhost:5173
 npm run check   # lint + formatação + tipos + testes + build (o mesmo da CI)
 ```
+
+No modo de desenvolvimento (`npm run dev`), a barra do topo tem botões **DEV**: adicionar Fragmentos e resetar o perfil. Eles são removidos automaticamente do build de produção.
 
 ## Documentação
 

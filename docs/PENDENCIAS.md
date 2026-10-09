@@ -110,11 +110,11 @@ As classes existem conceitualmente, mas algumas ainda precisam de mecânicas exc
 ### 9. Criar o catálogo inicial de cartas
 
 - [ ] Criar 20 definições de cartas de teste. *(15 personagens: 3 por universo, os de Naruto, HxH, Bleach e DB como proposta aguardando aprovação; arte pendente, ver `docs/ART_PROMPTS.md`.)*
-- [ ] Incluir exemplos das cinco classes.
+- [ ] Incluir exemplos das cinco classes. *(Quatro estão cobertas; Invocador fica para depois do MVP.)*
 - [ ] Definir energias, suportes e habilidades.
-- [ ] Usar IDs estáveis.
-- [ ] Separar artes, textos e atributos.
-- [ ] Validar os registros com TypeScript.
+- [x] Usar IDs estáveis.
+- [x] Separar artes, textos e atributos.
+- [x] Validar os registros com TypeScript (com teste do orçamento de raridade).
 
 ### 10. Implementar o motor de combate
 
@@ -157,21 +157,21 @@ As classes existem conceitualmente, mas algumas ainda precisam de mecânicas exc
 
 ### 13. Padronizar as artes das cartas
 
-- [ ] Separar as ilustrações das informações das cartas.
+- [x] Separar as ilustrações das informações das cartas.
 - [ ] Corrigir divergências entre atributos antigos e o RULEBOOK v0.3.1.
-- [ ] Criar templates dinâmicos por raridade.
+- [x] Criar templates dinâmicos por raridade.
 - [ ] Integrar os símbolos das cinco classes.
-- [ ] Definir tamanhos padronizados para cartas completas e compactas.
+- [x] Definir tamanhos padronizados para cartas completas e compactas.
 
 ### 14. Implementar colecionismo
 
-- [ ] Criar a coleção de personagens.
+- [x] Criar a coleção de personagens.
 - [ ] Implementar filtros por universo, classe e raridade.
-- [ ] Desenvolver os seis boosters iniciais.
+- [x] Desenvolver os seis boosters iniciais.
 - [x] Definir as probabilidades de raridade (v0.1 + garantia de UR em 40 packs, ver DECISIONS).
-- [ ] Implementar moedas fictícias.
-- [ ] Registrar cartas repetidas.
-- [ ] Salvar o inventário localmente.
+- [x] Implementar moedas fictícias (Fragmentos).
+- [x] Registrar cartas repetidas (com venda).
+- [x] Salvar o inventário localmente.
 
 ### 15. Questões de direitos autorais
 
