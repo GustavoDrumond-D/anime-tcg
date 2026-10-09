@@ -109,7 +109,7 @@ As classes existem conceitualmente, mas algumas ainda precisam de mecânicas exc
 
 ### 9. Criar o catálogo inicial de cartas
 
-- [ ] Criar 20 definições de cartas de teste.
+- [ ] Criar 20 definições de cartas de teste. *(15 personagens: 3 por universo, os de Naruto, HxH, Bleach e DB como proposta aguardando aprovação; arte pendente, ver `docs/ART_PROMPTS.md`.)*
 - [ ] Incluir exemplos das cinco classes.
 - [ ] Definir energias, suportes e habilidades.
 - [ ] Usar IDs estáveis.

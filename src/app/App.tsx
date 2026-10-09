@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Card } from '../components/Card'
 import { CHARACTERS, ENERGIES } from '../data/cards'
+import { UNIVERSES } from '../data/universes'
 import { PackOpening } from '../features/boosters/PackOpening'
 
 // ponytail: troca de tela por estado; vira rota quando houver as 4 abas da v3.
@@ -35,13 +36,19 @@ export function App() {
 function Catalog() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10">
-      <Section title="Personagens">
-        <div className="flex flex-wrap gap-8">
-          {CHARACTERS.map((c) => (
-            <Card key={c.id} card={c} variant="full" className="w-[340px]" />
-          ))}
-        </div>
-      </Section>
+      {Object.entries(UNIVERSES).map(([id, u]) => {
+        const chars = CHARACTERS.filter((c) => c.universe === id)
+        if (!chars.length) return null
+        return (
+          <Section key={id} title={u.name}>
+            <div className="flex flex-wrap gap-8">
+              {chars.map((c) => (
+                <Card key={c.id} card={c} variant="full" className="w-[340px]" />
+              ))}
+            </div>
+          </Section>
+        )
+      })}
 
       <Section title="Compactas (arena e mão)">
         <div className="flex flex-wrap gap-4">

@@ -1,0 +1,91 @@
+import type { CharacterDef } from '../../engine/cards'
+
+// Proposta 2026-10-09 — aguardando aprovação. Números = hipóteses de balanceamento.
+
+export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
+  {
+    id: 'hxh-gon-001',
+    type: 'character',
+    identity: 'gon-freecss',
+    name: 'Gon Freecss',
+    kanji: 'ゴン=フリークス',
+    universe: 'hunter-x-hunter',
+    class: 'fighter',
+    rarity: 'SSR',
+    stats: { attack: 4, hp: 14 },
+    abilities: [
+      {
+        id: 'jajanken-rock',
+        name: 'Jajanken: Pedra',
+        cost: { specific: { nen: 2 }, generic: 1 },
+        multiplier: 2.5,
+        cooldown: 0,
+        text: '2,5× ATQ.',
+      },
+      {
+        id: 'jajanken-scissors',
+        name: 'Jajanken: Tesoura',
+        cost: { specific: { nen: 1 }, generic: 0 },
+        multiplier: 1.25,
+        cooldown: 0,
+        keywords: ['piercing'],
+        text: '1,25× ATQ. Perfurante.',
+      },
+    ],
+    passives: [
+      {
+        id: 'wild-instinct',
+        name: 'Instinto Selvagem',
+        text: '+1 ATQ enquanto estiver com metade do HP ou menos.',
+      },
+    ],
+  },
+  {
+    id: 'hxh-killua-001',
+    type: 'character',
+    identity: 'killua-zoldyck',
+    name: 'Killua Zoldyck',
+    kanji: 'キルア=ゾルディック',
+    universe: 'hunter-x-hunter',
+    class: 'controller',
+    rarity: 'R',
+    stats: { attack: 3, hp: 10 },
+    keywords: ['haste'],
+    abilities: [
+      {
+        id: 'narukami',
+        name: 'Narukami',
+        cost: { specific: { nen: 1 }, generic: 0 },
+        multiplier: 1,
+        cooldown: 2,
+        effects: [{ type: 'condition', condition: 'stunned' }],
+        text: '1× ATQ. O alvo fica Atordoado. Recarga 2.',
+      },
+    ],
+    passives: [],
+  },
+  {
+    id: 'hxh-leorio-001',
+    type: 'character',
+    identity: 'leorio-paradinight',
+    name: 'Leorio',
+    kanji: 'レオリオ',
+    universe: 'hunter-x-hunter',
+    class: 'support',
+    rarity: 'C',
+    stats: { attack: 2, hp: 8 },
+    abilities: [
+      {
+        id: 'first-aid',
+        name: 'Primeiros Socorros',
+        cost: { specific: {}, generic: 1 },
+        multiplier: 0,
+        cooldown: 0,
+        target: 'ally',
+        effects: [{ type: 'heal', value: 3 }],
+        text: 'Cura 3 de um aliado.',
+      },
+    ],
+    passives: [],
+  },
+]

@@ -29,6 +29,10 @@ export type Effect =
   | { type: 'critical_chance'; value: number }
   | { type: 'heal'; value: number }
   | { type: 'cleanse'; value: number }
+  | { type: 'condition'; condition: 'stunned' | 'poisoned' | 'sealed' }
+  | { type: 'shield'; value: number }
+  | { type: 'buff_attack'; value: number }
+  | { type: 'self_damage'; value: number }
 
 export interface AbilityDef {
   id: string
@@ -36,6 +40,8 @@ export interface AbilityDef {
   cost: Cost
   multiplier: number
   cooldown: number
+  /** Padrão: 'enemy'. Cura/escudo miram 'ally'; buffs próprios, 'self'. */
+  target?: 'enemy' | 'ally' | 'self'
   keywords?: Keyword[]
   effects?: Effect[]
   /** Texto exibido; o motor usa só os campos estruturados. */
@@ -61,6 +67,8 @@ export interface CharacterDef {
   class: CardClass
   rarity: Rarity
   stats: { attack: number; hp: number }
+  /** Palavras-chave permanentes do personagem (Provocar, Ímpeto, Defesa…). */
+  keywords?: Keyword[]
   /** Arte sem texto. Ausente = fallback visual. */
   art?: string
   abilities: AbilityDef[]

@@ -1,4 +1,4 @@
-import type { CardDef, CharacterDef, Cost, Rarity } from '../engine/cards'
+import type { CardDef, CharacterDef, Cost, Keyword, Rarity } from '../engine/cards'
 import { RARITY } from '../engine/cards'
 import { ENERGY_COLOR, UNIVERSES } from '../data/universes'
 
@@ -26,6 +26,18 @@ const RARITY_TEXT: Record<Rarity, string> = {
   C: 'text-muted',
 }
 
+const KEYWORD_LABEL: Record<Exclude<Keyword, object>, string> = {
+  provoke: 'Provocar',
+  haste: 'Ímpeto',
+  piercing: 'Perfurante',
+  trample: 'Penetração',
+  immune: 'Imune',
+}
+const keywordLabel = (k: Keyword) =>
+  typeof k === 'string'
+    ? KEYWORD_LABEL[k]
+    : `${k.id === 'defense' ? 'Defesa' : 'Escudo'} ${k.value}`
+
 export type CardVariant = 'full' | 'compact'
 
 interface Props {
@@ -49,7 +61,7 @@ export function Card({ card, variant = 'compact', className = '' }: Props) {
   return (
     <article
       aria-label={`${card.name}, ${card.rarity}, ATQ ${card.stats.attack}, HP ${card.stats.hp}`}
-      className={`aspect-[3/4] ${full ? 'rounded-2xl p-[3px]' : 'rounded-[10px] p-[2px]'} ${FRAME[card.rarity]} ${className}`}
+      className={`@container aspect-[3/4] ${full ? 'rounded-2xl p-[3px]' : 'rounded-[10px] p-[2px]'} ${FRAME[card.rarity]} ${className}`}
     >
       <div
         className={`relative flex h-full flex-col overflow-hidden bg-ink ${full ? 'gap-2 rounded-[13px] p-3.5' : 'gap-1 rounded-[8px] p-2'}`}
@@ -72,9 +84,19 @@ function Art({ card }: { card: CharacterDef }) {
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        // Fallback sem arte: inicial + gradiente, nunca imagem quebrada.
-        <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-[#1a1240] to-ink">
-          <span className="font-display text-6xl text-line">{card.name[0]}</span>
+        // Placeholder sem arte: cor da energia do universo + nome em japonês. Nunca imagem quebrada.
+        <div
+          className="absolute inset-0 grid place-items-center"
+          style={{
+            background: `radial-gradient(circle at 50% 38%, ${ENERGY_COLOR[UNIVERSES[card.universe].energy]}55, #0b0d16 70%)`,
+          }}
+        >
+          <span className="font-kanji text-[clamp(1.5rem,18cqw,4rem)] leading-none text-white/15 [writing-mode:vertical-rl]">
+            {card.kanji ?? card.name}
+          </span>
+          <span className="absolute top-[42%] font-label text-[10px] font-bold tracking-[0.25em] text-white/35 uppercase">
+            arte em breve
+          </span>
         </div>
       )}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,10,.85)_0%,transparent_20%,transparent_40%,rgba(5,6,10,.82)_60%,rgba(5,6,10,.97)_100%)]" />
@@ -127,6 +149,18 @@ function FullBody({ card }: { card: CharacterDef }) {
         </span>
       )}
       <div className="flex-1" />
+      {card.keywords && (
+        <div className="flex flex-wrap gap-1">
+          {card.keywords.map((k) => (
+            <span
+              key={keywordLabel(k)}
+              className="rounded border border-gold/50 bg-ink/80 px-1.5 font-label text-[10px] font-bold tracking-[0.1em] text-gold-light uppercase"
+            >
+              {keywordLabel(k)}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="flex items-center gap-2">
         <Stat label="ATQ" value={card.stats.attack} tone="atk" />
         <Stat label="HP" value={card.stats.hp} tone="hp" />
