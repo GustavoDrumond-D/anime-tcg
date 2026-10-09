@@ -168,7 +168,7 @@ As classes existem conceitualmente, mas algumas ainda precisam de mecânicas exc
 - [ ] Criar a coleção de personagens.
 - [ ] Implementar filtros por universo, classe e raridade.
 - [ ] Desenvolver os seis boosters iniciais.
-- [ ] Definir as probabilidades de raridade. *(Proposta v0.1 implementada em DECISIONS, aguardando aprovação.)*
+- [x] Definir as probabilidades de raridade (v0.1 + garantia de UR em 40 packs, ver DECISIONS).
 - [ ] Implementar moedas fictícias.
 - [ ] Registrar cartas repetidas.
 - [ ] Salvar o inventário localmente.

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { CATALOG } from '../data/cards'
-import { PACKS, SLOTS } from '../data/packs'
+import { PACKS, PITY_UR, SLOTS } from '../data/packs'
 import type { CardDef } from './cards'
-import { chanceAtLeastOne, openPack } from './packs'
+import { chanceAtLeastOne, expectedPacksPerUR, openPack, openPackWithPity } from './packs'
 import { seeded } from './rng'
 
 const jjk = PACKS['jujutsu-kaisen']
@@ -57,5 +57,42 @@ describe('tabela de chances', () => {
   })
   it('chance de ao menos um UR por pack = 3%', () => {
     expect(chanceAtLeastOne(jjk, 'UR')).toBeCloseTo(0.03, 5)
+  })
+})
+
+describe('garantia de UR (pity)', () => {
+  const hasUR = (cs: CardDef[]) => cs.some((c) => rarity(c) === 'UR')
+
+  it('o 40º pack sem UR garante um UR', () => {
+    const r = openPackWithPity(jjk, CATALOG, seeded(9), PITY_UR - 1, PITY_UR)
+    expect(r.guaranteed).toBe(true)
+    expect(hasUR(r.cards)).toBe(true)
+    expect(r.sinceUR).toBe(0)
+  })
+
+  it('nunca passa de 40 packs seguidos sem UR', () => {
+    const rng = seeded(123)
+    let since = 0
+    let maxDry = 0
+    for (let i = 0; i < 5000; i++) {
+      const r = openPackWithPity(jjk, CATALOG, rng, since, PITY_UR)
+      since = r.sinceUR
+      maxDry = Math.max(maxDry, since)
+    }
+    expect(maxDry).toBeLessThanOrEqual(PITY_UR - 1)
+  })
+
+  it('o contador zera quando sai UR antes da garantia e soma quando não sai', () => {
+    const rng = seeded(5)
+    let since = 0
+    for (let i = 0; i < 300; i++) {
+      const r = openPackWithPity(jjk, CATALOG, rng, since, PITY_UR)
+      expect(r.sinceUR).toBe(hasUR(r.cards) ? 0 : since + 1)
+      since = r.sinceUR
+    }
+  })
+
+  it('média com garantia ≈ 23,5 packs por UR', () => {
+    expect(expectedPacksPerUR(0.03, PITY_UR)).toBeCloseTo(23.48, 1)
   })
 })

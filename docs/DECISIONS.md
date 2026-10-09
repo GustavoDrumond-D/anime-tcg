@@ -47,7 +47,7 @@
 - **Assets:** as 14 imagens (2 personagens, 6 energias, 6 packs) foram convertidas para WebP (~3,6 MB) e estão em `public/assets/`, no repositório privado.
 - **Orçamento de raridade:** os valores de ATQ e HP da tabela são **tetos**. A Shoko (SR, ATQ 1) fica abaixo do teto, porque é Suporte. Um teste do catálogo valida stats e multiplicadores.
 
-## Chances dos boosters — proposta v0.1 (aguardando aprovação)
+## Chances dos boosters — v0.1 (UR 3% e garantia aprovados em 2026-10-09)
 Cada pack tem 5 cartas, e cada posição tem sua própria tabela (o modelo de "slot raro" dos TCGs).
 
 | Posição | Conteúdo |
@@ -60,7 +60,12 @@ Cada pack tem 5 cartas, e cada posição tem sua própria tabela (o modelo de "s
 - **Onde ficam:** os dados estão em `src/data/packs.ts` e a lógica pura em `src/engine/packs.ts`, com RNG injetável (`src/engine/rng.ts`).
 - **Painel na tela:** o painel "Chances" é gerado a partir desses mesmos dados. Assim, a tela nunca mostra números diferentes dos que o sorteio usa.
 - **Catálogo incompleto:** enquanto não houver personagens C e R, essas posições viram energia.
-- **Em aberto:** sistema de garantia (pity), por exemplo 1 UR garantido a cada N packs, e se as duplicatas viram moeda.
+- **Garantia (aprovada):** no máximo **40 packs sem UR**.
+  - O contador é separado por tipo de pack e zera sempre que sai um UR, mesmo antes da garantia.
+  - Fica salvo localmente (`src/storage/local.ts`).
+  - O sorteio só acontece no corte, então recarregar a página não consome nem rerrola a garantia.
+  - Com a garantia, a média cai para ~24 packs por UR.
+- **Em aberto:** garantia também para SSR (ex.: a cada 10 packs) e se as duplicatas viram moeda.
 
 ## Considerado e adiado
 - **Energia Universal inicial em campo**: acelera demais a partida (ver P0.4). Reavaliar se o playtest mostrar começos lentos.

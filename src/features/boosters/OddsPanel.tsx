@@ -1,5 +1,5 @@
 import type { PackDef, PackSlot } from '../../engine/packs'
-import { chanceAtLeastOne } from '../../engine/packs'
+import { chanceAtLeastOne, expectedPacksPerUR } from '../../engine/packs'
 
 const pct = (n: number) => `${Math.round(n * 1000) / 10}%`.replace('.', ',')
 
@@ -14,7 +14,17 @@ function describe(s: PackSlot, energyName: string): [string, string] {
 }
 
 /** Chances do pack geradas a partir dos dados (nunca texto fixo divergente). */
-export function OddsPanel({ pack, energyName }: { pack: PackDef; energyName: string }) {
+export function OddsPanel({
+  pack,
+  energyName,
+  pity,
+  sinceUR,
+}: {
+  pack: PackDef
+  energyName: string
+  pity: number
+  sinceUR: number
+}) {
   // Agrupa posições consecutivas iguais: "1–2", "3–4", "5".
   const rows: { from: number; to: number; slot: PackSlot }[] = []
   pack.slots.forEach((slot, i) => {
@@ -26,16 +36,20 @@ export function OddsPanel({ pack, energyName }: { pack: PackDef; energyName: str
   const ssr = chanceAtLeastOne(pack, 'SSR')
   return (
     <aside className="w-[320px] rounded-xl border border-gold/40 bg-ink/90 p-4 text-left backdrop-blur">
-      <p className="font-label text-xs font-bold tracking-[0.2em] text-gold-dim">
-        CHANCES · PROPOSTA v0.1
-      </p>
+      <p className="font-label text-xs font-bold tracking-[0.2em] text-gold-dim">CHANCES · v0.1</p>
       <div className="mt-3 flex gap-3">
         <Big label="UR por pack" value={pct(ur)} cls="text-holo" />
         <Big label="SSR por pack" value={pct(ssr)} cls="text-gold-metal" />
       </div>
       <p className="mt-2 text-xs text-muted">
-        Em média: 1 UR a cada {Math.round(1 / ur)} packs · 1 SSR ou melhor a cada{' '}
-        {Math.round(1 / (ur + ssr))}.
+        Em média: 1 UR a cada {Math.round(expectedPacksPerUR(ur, pity))} packs (com garantia) · 1
+        SSR ou melhor a cada {Math.round(1 / (ur + ssr))}.
+      </p>
+      <p className="mt-2 rounded-md border border-line bg-panel px-3 py-2 text-xs text-parchment">
+        <span className="font-label font-bold tracking-wider text-gold-light uppercase">
+          Garantia:
+        </span>{' '}
+        no máximo {pity} packs sem UR. Faltam <b>{pity - sinceUR}</b>.
       </p>
       <ul className="mt-3 flex flex-col gap-2 border-t border-line pt-3">
         {rows.map(({ from, to, slot }) => {

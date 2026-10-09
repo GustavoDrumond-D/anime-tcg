@@ -1,10 +1,11 @@
 import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
 import { Card } from '../../components/Card'
 import { CATALOG } from '../../data/cards'
-import { PACKS } from '../../data/packs'
+import { PACKS, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
 import type { CardDef, CharacterDef } from '../../engine/cards'
-import { openPack } from '../../engine/packs'
+import { openPackWithPity } from '../../engine/packs'
+import { load, save } from '../../storage/local'
 import { OddsPanel } from './OddsPanel'
 import { Burst, Spotlight, type RareKind } from './RareReveal'
 import { setMuted, sfx } from './sfx'
@@ -12,7 +13,7 @@ import { setMuted, sfx } from './sfx'
 type Stage = 'sealed' | 'tearing' | 'dealt'
 
 const PACK = PACKS['jujutsu-kaisen']
-const draw = () => openPack(PACK, CATALOG, Math.random)
+const PITY_KEY = `pity:${PACK.id}`
 
 const rarityOf = (c: CardDef) => (c.type === 'character' ? c.rarity : 'C')
 const rareOf = (c: CardDef): RareKind | null => {
@@ -29,22 +30,32 @@ const CHARGE_MS = 900
 
 export function PackOpening() {
   const [stage, setStage] = useState<Stage>('sealed')
-  const [cards, setCards] = useState(draw)
+  const [cards, setCards] = useState<CardDef[]>([])
+  const [sinceUR, setSinceUR] = useState(() => load(PITY_KEY, 0))
+  const [guaranteed, setGuaranteed] = useState(false)
   const [flipped, setFlipped] = useState<boolean[]>(Array(5).fill(false))
   const [charging, setCharging] = useState<boolean[]>(Array(5).fill(false))
-  const [spotlight, setSpotlight] = useState<{ card: CharacterDef; key: number }[]>([])
+  const [spotlight, setSpotlight] = useState<
+    { card: CharacterDef; key: number; guaranteed: boolean }[]
+  >([])
   const [showOdds, setShowOdds] = useState(false)
   const [sound, setSound] = useState(true)
   const universe = UNIVERSES[PACK.universe]
 
   const open = () => {
     if (stage !== 'sealed') return
+    // Sorteia só ao cortar: recarregar a página não consome nem rerrola a garantia.
+    const r = openPackWithPity(PACK, CATALOG, Math.random, sinceUR, PITY_UR)
+    setCards(r.cards)
+    setGuaranteed(r.guaranteed)
+    setSinceUR(r.sinceUR)
+    save(PITY_KEY, r.sinceUR)
     setShowOdds(false)
     setStage('tearing')
     sfx.rip()
     setTimeout(() => {
       setStage('dealt')
-      cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
+      r.cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
     }, 700)
   }
   const reveal = (i: number) => {
@@ -63,7 +74,14 @@ export function PackOpening() {
       reveal(i)
       setTimeout(() => {
         sfx.rare(rare)
-        setSpotlight((q) => [...q, { card: card as CharacterDef, key: Date.now() + i }])
+        setSpotlight((q) => [
+          ...q,
+          {
+            card: card as CharacterDef,
+            key: Date.now() + i,
+            guaranteed: guaranteed && rare === 'UR',
+          },
+        ])
       }, 450)
     }, CHARGE_MS)
   }
@@ -75,7 +93,7 @@ export function PackOpening() {
     setSound(!sound)
   }
   const reset = () => {
-    setCards(draw())
+    setCards([])
     setFlipped(Array(5).fill(false))
     setStage('sealed')
   }
@@ -89,6 +107,12 @@ export function PackOpening() {
       <h1 className="font-display text-3xl font-black text-parchment">
         {stage === 'sealed' ? 'Corte o pack' : 'Revele suas cartas'}
       </h1>
+      {stage === 'sealed' && (
+        <p className="mt-1 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase">
+          UR garantido em até <span className="text-holo">{PITY_UR - sinceUR}</span> pack
+          {PITY_UR - sinceUR === 1 ? '' : 's'}
+        </p>
+      )}
       <div className="absolute top-6 right-8 flex gap-2">
         {stage === 'sealed' && (
           <button
@@ -117,7 +141,7 @@ export function PackOpening() {
             className="absolute top-10 left-1/2 ml-[180px]"
             style={{ animation: 'fade-in .25s both' }}
           >
-            <OddsPanel pack={PACK} energyName="Amaldiçoada" />
+            <OddsPanel pack={PACK} energyName="Amaldiçoada" pity={PITY_UR} sinceUR={sinceUR} />
           </div>
         )}
 
@@ -182,6 +206,7 @@ export function PackOpening() {
         <Spotlight
           key={spotlight[0].key}
           card={spotlight[0].card}
+          guaranteed={spotlight[0].guaranteed}
           onClose={() => setSpotlight((q) => q.slice(1))}
         />
       )}

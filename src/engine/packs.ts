@@ -16,7 +16,13 @@ export interface PackDef {
  * Abre um pack. Puro: o mesmo rng gera o mesmo resultado.
  * Se o catálogo ainda não tem personagem da raridade sorteada, a posição vira energia do universo.
  */
-export function openPack(pack: PackDef, catalog: readonly CardDef[], rng: Rng): CardDef[] {
+export function openPack(
+  pack: PackDef,
+  catalog: readonly CardDef[],
+  rng: Rng,
+  /** Força a raridade do slot raro (o que tem chance de UR). Usado pela garantia. */
+  forceRare?: Rarity,
+): CardDef[] {
   const inUniverse = (u: Universe) => pack.universe === 'multiverse' || u === pack.universe
   const chars = catalog.filter(
     (c): c is CharacterDef => c.type === 'character' && inUniverse(c.universe),
@@ -29,7 +35,7 @@ export function openPack(pack: PackDef, catalog: readonly CardDef[], rng: Rng): 
 
   return pack.slots.map((slot) => {
     if (slot.kind === 'energy') return energy(slot.universalChance)
-    const rarity = weighted(rng, slot.odds)
+    const rarity = forceRare && slot.odds.UR ? forceRare : weighted(rng, slot.odds)
     const pool = chars.filter((c) => c.rarity === rarity)
     return pool.length ? pick(rng, pool) : energy(0)
   })
@@ -45,3 +51,23 @@ export function chanceAtLeastOne(pack: PackDef, rarity: Rarity): number {
   }
   return 1 - none
 }
+
+/**
+ * Garantia (pity): se os últimos `pity - 1` packs não deram UR, este pack garante um.
+ * `sinceUR` = packs abertos desde o último UR; volta a 0 sempre que sai um UR.
+ */
+export function openPackWithPity(
+  pack: PackDef,
+  catalog: readonly CardDef[],
+  rng: Rng,
+  sinceUR: number,
+  pity: number,
+): { cards: CardDef[]; sinceUR: number; guaranteed: boolean } {
+  const guaranteed = sinceUR >= pity - 1
+  const cards = openPack(pack, catalog, rng, guaranteed ? 'UR' : undefined)
+  const gotUR = cards.some((c) => c.type === 'character' && c.rarity === 'UR')
+  return { cards, sinceUR: gotUR ? 0 : sinceUR + 1, guaranteed }
+}
+
+/** Média de packs por UR com garantia: (1 − (1 − p)^pity) / p. */
+export const expectedPacksPerUR = (p: number, pity: number) => (1 - (1 - p) ** pity) / p

@@ -82,7 +82,15 @@ const RAYS: Record<RareKind, string> = {
 }
 
 /** Momento em tela cheia ao tirar UR/SSR: raios girando, anúncio da raridade e carta ampliada. */
-export function Spotlight({ card, onClose }: { card: CharacterDef; onClose: () => void }) {
+export function Spotlight({
+  card,
+  guaranteed,
+  onClose,
+}: {
+  card: CharacterDef
+  guaranteed?: boolean
+  onClose: () => void
+}) {
   const kind = card.rarity as RareKind
   const ur = kind === 'UR'
   const btn = useRef<HTMLButtonElement>(null)
@@ -113,6 +121,11 @@ export function Spotlight({ card, onClose }: { card: CharacterDef; onClose: () =
         >
           {ur ? 'ULTRA RARO' : 'SUPER RARO'}
         </p>
+        {guaranteed && (
+          <p className="-mt-4 font-label text-xs font-bold tracking-[0.3em] text-muted uppercase">
+            Garantia de UR ativada
+          </p>
+        )}
         <div
           className="relative"
           style={{ animation: 'pop-in .8s cubic-bezier(.2,.9,.3,1.2) both' } as CSSProperties}
