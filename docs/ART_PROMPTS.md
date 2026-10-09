@@ -31,7 +31,7 @@ stat boxes, kanji, title, extra fingers, deformed hands, blurry, low quality
 
 ### Hunter x Hunter (paleta verde-Nen)
 - **hxh-gon-001 · Gon Freecss (SSR):** Gon Freecss from Hunter x Hunter, spiky black-green hair, determined amber eyes, green jacket and shorts, fist raised and charged with glowing Nen aura (Jajanken Rock), fishing rod on his back, forest clearing with sun rays, green and gold palette.
-- **hxh-killua-001 · Killua Zoldyck (R):** Killua Zoldyck from Hunter x Hunter, messy white hair, sharp blue eyes, purple long-sleeve shirt and shorts, crackling blue-white lightning around his body (Godspeed), skateboard nearby, night city rooftops, electric blue and violet palette.
+- **hxh-killua-001 · Killua Zoldyck (SSR):** Killua Zoldyck from Hunter x Hunter, messy white hair, sharp blue eyes, purple long-sleeve shirt and shorts, crackling blue-white lightning around his body (Godspeed), skateboard nearby, night city rooftops, electric blue and violet palette.
 - **hxh-leorio-001 · Leorio (C):** Leorio Paradinight from Hunter x Hunter, tall man with short dark hair, round sunglasses, dark blue business suit, holding an open medical briefcase with a glowing green Nen hand, confident smile, hospital corridor with soft lights, navy and green palette.
 
 ### Bleach (paleta azul-gelo e preto)
@@ -41,5 +41,5 @@ stat boxes, kanji, title, extra fingers, deformed hands, blurry, low quality
 
 ### Dragon Ball (paleta laranja e dourada de Ki)
 - **db-goku-001 · Son Goku (UR):** Son Goku from Dragon Ball Z, spiky black hair, orange and blue gi, cupped hands charging a bright blue Kamehameha, golden-white ki aura, rocky wasteland with floating debris and cracked ground, orange, blue and gold palette.
-- **db-piccolo-001 · Piccolo (R):** Piccolo from Dragon Ball Z, green Namekian with antennae, white turban and long cape, arms crossed in a calm defensive stance, faint purple ki aura, cliffs and stormy sky, green, purple and white palette.
+- **db-piccolo-001 · Piccolo (SSR):** Piccolo from Dragon Ball Z, green Namekian with antennae, white turban and long cape, arms crossed in a calm defensive stance, faint purple ki aura, cliffs and stormy sky, green, purple and white palette.
 - **db-krillin-001 · Kuririn (C):** Krillin from Dragon Ball Z, short bald monk with six dots on his forehead, orange gi, holding a spinning golden energy disc (Destructo Disc) overhead, determined look, grassy plains with wind, orange and gold palette.

@@ -52,9 +52,9 @@ export const DRAGON_BALL: readonly CharacterDef[] = [
     kanji: 'ピッコロ',
     universe: 'dragon-ball',
     class: 'tank',
-    rarity: 'R',
-    stats: { attack: 3, hp: 10 },
-    keywords: ['provoke'],
+    rarity: 'SSR',
+    stats: { attack: 3, hp: 14 },
+    keywords: ['provoke', { id: 'defense', value: 1 }],
     abilities: [
       {
         id: 'regeneration',
@@ -66,8 +66,23 @@ export const DRAGON_BALL: readonly CharacterDef[] = [
         effects: [{ type: 'heal', value: 4 }],
         text: 'Cura 4 de si mesmo.',
       },
+      {
+        id: 'makankosappo',
+        name: 'Makankōsappō',
+        cost: { specific: { ki: 2 }, generic: 1 },
+        multiplier: 2.25,
+        cooldown: 0,
+        keywords: ['piercing'],
+        text: '2,25× ATQ. Perfurante.',
+      },
     ],
-    passives: [],
+    passives: [
+      {
+        id: 'demanding-mentor',
+        name: 'Mestre Exigente',
+        text: 'Aliados de raridade C ou R ganham Defesa 1.',
+      },
+    ],
   },
   {
     id: 'db-krillin-001',

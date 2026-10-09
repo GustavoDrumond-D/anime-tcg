@@ -48,8 +48,8 @@ export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
     kanji: 'キルア=ゾルディック',
     universe: 'hunter-x-hunter',
     class: 'controller',
-    rarity: 'R',
-    stats: { attack: 3, hp: 10 },
+    rarity: 'SSR',
+    stats: { attack: 4, hp: 12 },
     keywords: ['haste'],
     abilities: [
       {
@@ -61,8 +61,23 @@ export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
         effects: [{ type: 'condition', condition: 'stunned' }],
         text: '1× ATQ. O alvo fica Atordoado. Recarga 2.',
       },
+      {
+        id: 'shippu-jinrai',
+        name: 'Shippū Jinrai',
+        cost: { specific: { nen: 1 }, generic: 1 },
+        multiplier: 1.75,
+        cooldown: 0,
+        keywords: ['piercing'],
+        text: '1,75× ATQ. Perfurante.',
+      },
     ],
-    passives: [],
+    passives: [
+      {
+        id: 'zoldyck-training',
+        name: 'Treinamento Zoldyck',
+        text: 'Não pode ficar Envenenado.',
+      },
+    ],
   },
   {
     id: 'hxh-leorio-001',
