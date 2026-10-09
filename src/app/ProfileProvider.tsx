@@ -33,6 +33,10 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       commit(r.profile)
       return r.gained
     },
+    dev: {
+      grant: (n) => commit({ ...profile, fragments: profile.fragments + n }),
+      reset: () => commit(eco.newProfile(START_FRAGMENTS, START_FREE_PACKS)),
+    },
   }
   return <ProfileContext.Provider value={api}>{children}</ProfileContext.Provider>
 }

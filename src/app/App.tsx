@@ -37,6 +37,7 @@ export function App() {
           </button>
         ))}
         <span className="flex-1" />
+        {import.meta.env.DEV && <DevTools />}
         {profile.freePacks > 0 && (
           <span className="font-label text-xs font-bold tracking-[0.15em] text-hp uppercase">
             {profile.freePacks} pack{profile.freePacks > 1 ? 's' : ''} grátis
@@ -197,6 +198,31 @@ function Owned({
         Vender 1 · +◆ {ECONOMY.sell[tierOf(card)]}
       </button>
     </div>
+  )
+}
+
+/** Atalhos de teste. `import.meta.env.DEV` é falso no build: o Vite remove tudo isto da versão final. */
+function DevTools() {
+  const { dev } = useProfile()
+  const btn =
+    'rounded border border-dashed border-atk/60 px-2 py-1 font-label text-[11px] font-bold tracking-[0.1em] text-atk uppercase hover:bg-atk/10'
+  return (
+    <span className="flex items-center gap-1.5" title="Visível só em desenvolvimento">
+      <span className="font-label text-[10px] tracking-[0.15em] text-atk/70 uppercase">Dev</span>
+      <button className={btn} onClick={() => dev.grant(1000)}>
+        +◆ 1.000
+      </button>
+      <button className={btn} onClick={() => dev.grant(10000)}>
+        +◆ 10.000
+      </button>
+      <button
+        className={btn}
+        onClick={dev.reset}
+        title="Volta para 1.000 Fragmentos, 3 packs grátis, coleção vazia"
+      >
+        Resetar perfil
+      </button>
+    </span>
   )
 }
 

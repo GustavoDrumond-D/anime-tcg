@@ -7,6 +7,8 @@ export interface ProfileApi {
   buy: (u: Universe, count: number) => BuyResult
   sell: (card: CardDef, qty: number) => void
   sellExtras: () => number
+  /** Só em desenvolvimento (import.meta.env.DEV). */
+  dev: { grant: (fragments: number) => void; reset: () => void }
 }
 
 export const ProfileContext = createContext<ProfileApi | null>(null)
