@@ -94,6 +94,7 @@ const shoko = {
   class: 'support',
   rarity: 'SR',
   stats: { attack: 1, hp: 12 },
+  art: '/assets/cards/jujutsu-kaisen/jjk-shoko-001.webp',
   abilities: [
     {
       id: 'reverse-technique',
