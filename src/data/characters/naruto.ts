@@ -49,8 +49,8 @@ export const NARUTO: readonly CharacterDef[] = [
     kanji: 'うちはサスケ',
     universe: 'naruto',
     class: 'fighter',
-    rarity: 'R',
-    stats: { attack: 3, hp: 10 },
+    rarity: 'SSR',
+    stats: { attack: 4, hp: 13 },
     abilities: [
       {
         id: 'chidori',
@@ -61,8 +61,23 @@ export const NARUTO: readonly CharacterDef[] = [
         keywords: ['piercing'],
         text: '1,75× ATQ. Perfurante.',
       },
+      {
+        id: 'amaterasu',
+        name: 'Amaterasu',
+        cost: { specific: { chakra: 2 }, generic: 0 },
+        multiplier: 1,
+        cooldown: 2,
+        effects: [{ type: 'condition', condition: 'poisoned' }],
+        text: '1× ATQ. Chamas negras: o alvo fica Envenenado. Recarga 2.',
+      },
     ],
-    passives: [],
+    passives: [
+      {
+        id: 'sharingan',
+        name: 'Sharingan',
+        text: 'O primeiro ataque que receber a cada turno do oponente causa 1 de dano a menos.',
+      },
+    ],
   },
   {
     id: 'nar-sakura-001',
