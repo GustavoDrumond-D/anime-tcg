@@ -91,7 +91,13 @@ function Boosters() {
   return count === 1 ? (
     <PackOpening key={view.key} packUniverse={view.universe} opened={view.packs[0]!} {...props} />
   ) : (
-    <MultiOpen key={view.key} packs={view.packs} before={view.before} {...props} />
+    <MultiOpen
+      key={view.key}
+      packUniverse={view.universe}
+      packs={view.packs}
+      before={view.before}
+      {...props}
+    />
   )
 }
 
