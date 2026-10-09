@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// Proposta 2026-10-09 — aguardando aprovação. Números = hipóteses de balanceamento.
+// Aprovados em 2026-10-09. Números = hipóteses de balanceamento.
 
 export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
   {
@@ -13,6 +13,7 @@ export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'SSR',
     stats: { attack: 4, hp: 14 },
+    art: '/assets/cards/hunter-x-hunter/hxh-gon-001.webp',
     abilities: [
       {
         id: 'jajanken-rock',
@@ -50,6 +51,7 @@ export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
     class: 'controller',
     rarity: 'SSR',
     stats: { attack: 4, hp: 12 },
+    art: '/assets/cards/hunter-x-hunter/hxh-killua-001.webp',
     keywords: ['haste'],
     abilities: [
       {
@@ -89,6 +91,7 @@ export const HUNTER_X_HUNTER: readonly CharacterDef[] = [
     class: 'controller',
     rarity: 'UR',
     stats: { attack: 4, hp: 15 },
+    art: '/assets/cards/hunter-x-hunter/hxh-hisoka-001.webp',
     abilities: [
       {
         id: 'bungee-gum',

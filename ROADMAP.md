@@ -19,9 +19,9 @@ Status: planejado. Checkboxes representam trabalho efetivamente concluído, não
 - [ ] Inventário persistido localmente
 
 ## M2 — Boosters
-- [ ] Catálogo de packs: Multiverso + 5 universos
-- [ ] Sorteio determinístico testável e probabilidades configuráveis
-- [ ] Revelação animada de 5 cartas
+- [x] Catálogo de packs: Multiverso + 5 universos (loja em carrossel)
+- [x] Sorteio determinístico testável e probabilidades configuráveis (+ garantia de UR)
+- [x] Revelação animada de 5 cartas (corte arrastando, sons, partículas, destaque UR/SSR)
 - [ ] Inventário recebe cartas abertas; duplicatas contabilizadas
 - [ ] Moeda fictícia e recompensas locais
 

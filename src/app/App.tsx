@@ -2,7 +2,9 @@ import { useState, type ReactNode } from 'react'
 import { Card } from '../components/Card'
 import { CHARACTERS, ENERGIES } from '../data/cards'
 import { UNIVERSES } from '../data/universes'
+import type { Universe } from '../engine/cards'
 import { PackOpening } from '../features/boosters/PackOpening'
+import { Store } from '../features/boosters/Store'
 
 // ponytail: troca de tela por estado; vira rota quando houver as 4 abas da v3.
 type Screen = 'catalog' | 'pack'
@@ -15,7 +17,7 @@ export function App() {
         <span className="font-display text-xl font-black text-gold-metal">Anime TCG</span>
         {(
           [
-            ['pack', 'Abrir pack'],
+            ['pack', 'Boosters'],
             ['catalog', 'Catálogo'],
           ] as const
         ).map(([id, label]) => (
@@ -28,8 +30,17 @@ export function App() {
           </button>
         ))}
       </nav>
-      {screen === 'pack' ? <PackOpening /> : <Catalog />}
+      {screen === 'pack' ? <Boosters /> : <Catalog />}
     </>
+  )
+}
+
+function Boosters() {
+  const [opening, setOpening] = useState<Universe | null>(null)
+  return opening ? (
+    <PackOpening key={opening} packUniverse={opening} onBack={() => setOpening(null)} />
+  ) : (
+    <Store onOpen={setOpening} />
   )
 }
 

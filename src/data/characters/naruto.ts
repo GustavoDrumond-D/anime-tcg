@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// Proposta 2026-10-09 — aguardando aprovação. Números = hipóteses de balanceamento.
+// Aprovados em 2026-10-09. Números = hipóteses de balanceamento.
 
 export const NARUTO: readonly CharacterDef[] = [
   {
@@ -13,6 +13,7 @@ export const NARUTO: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'SSR',
     stats: { attack: 4, hp: 14 },
+    art: '/assets/cards/naruto/nar-naruto-001.webp',
     abilities: [
       {
         id: 'rasengan',
@@ -51,6 +52,7 @@ export const NARUTO: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'SSR',
     stats: { attack: 4, hp: 13 },
+    art: '/assets/cards/naruto/nar-sasuke-001.webp',
     abilities: [
       {
         id: 'chidori',
@@ -89,6 +91,7 @@ export const NARUTO: readonly CharacterDef[] = [
     class: 'support',
     rarity: 'C',
     stats: { attack: 2, hp: 8 },
+    art: '/assets/cards/naruto/nar-sakura-001.webp',
     abilities: [
       {
         id: 'genjutsu-release',

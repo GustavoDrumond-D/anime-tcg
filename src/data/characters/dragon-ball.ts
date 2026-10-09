@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// Proposta 2026-10-09 — aguardando aprovação. Números = hipóteses de balanceamento.
+// Aprovados em 2026-10-09. Números = hipóteses de balanceamento.
 
 export const DRAGON_BALL: readonly CharacterDef[] = [
   {
@@ -13,6 +13,7 @@ export const DRAGON_BALL: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'UR',
     stats: { attack: 5, hp: 16 },
+    art: '/assets/cards/dragon-ball/db-goku-001.webp',
     abilities: [
       {
         id: 'kamehameha',
@@ -54,6 +55,7 @@ export const DRAGON_BALL: readonly CharacterDef[] = [
     class: 'tank',
     rarity: 'SSR',
     stats: { attack: 3, hp: 14 },
+    art: '/assets/cards/dragon-ball/db-piccolo-001.webp',
     keywords: ['provoke', { id: 'defense', value: 1 }],
     abilities: [
       {
@@ -94,6 +96,7 @@ export const DRAGON_BALL: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'C',
     stats: { attack: 2, hp: 8 },
+    art: '/assets/cards/dragon-ball/db-krillin-001.webp',
     abilities: [
       {
         id: 'kienzan',

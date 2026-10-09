@@ -3,17 +3,15 @@ import { Card } from '../../components/Card'
 import { CATALOG } from '../../data/cards'
 import { PACKS, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
-import type { CardDef, CharacterDef } from '../../engine/cards'
+import type { CardDef, CharacterDef, Universe } from '../../engine/cards'
 import { openPackWithPity } from '../../engine/packs'
 import { load, save } from '../../storage/local'
 import { OddsPanel } from './OddsPanel'
+import { energyNameOf, pityKey } from './packInfo'
 import { Burst, Spotlight, type RareKind } from './RareReveal'
 import { setMuted, sfx } from './sfx'
 
 type Stage = 'sealed' | 'tearing' | 'dealt'
-
-const PACK = PACKS['jujutsu-kaisen']
-const PITY_KEY = `pity:${PACK.id}`
 
 const rarityOf = (c: CardDef) => (c.type === 'character' ? c.rarity : 'C')
 const rareOf = (c: CardDef): RareKind | null => {
@@ -28,7 +26,15 @@ const glowOf = (c: CardDef) =>
 
 const CHARGE_MS = 900
 
-export function PackOpening() {
+export function PackOpening({
+  packUniverse,
+  onBack,
+}: {
+  packUniverse: Universe
+  onBack: () => void
+}) {
+  const PACK = PACKS[packUniverse]
+  const PITY_KEY = pityKey(packUniverse)
   const [stage, setStage] = useState<Stage>('sealed')
   const [cards, setCards] = useState<CardDef[]>([])
   const [sinceUR, setSinceUR] = useState(() => load(PITY_KEY, 0))
@@ -113,6 +119,14 @@ export function PackOpening() {
           {PITY_UR - sinceUR === 1 ? '' : 's'}
         </p>
       )}
+      {stage === 'sealed' && (
+        <button
+          onClick={onBack}
+          className="absolute top-6 left-8 font-label text-sm font-bold tracking-[0.15em] text-muted uppercase hover:text-gold-light"
+        >
+          ‹ Loja
+        </button>
+      )}
       <div className="absolute top-6 right-8 flex gap-2">
         {stage === 'sealed' && (
           <button
@@ -141,7 +155,12 @@ export function PackOpening() {
             className="absolute top-10 left-1/2 ml-[180px]"
             style={{ animation: 'fade-in .25s both' }}
           >
-            <OddsPanel pack={PACK} energyName="Amaldiçoada" pity={PITY_UR} sinceUR={sinceUR} />
+            <OddsPanel
+              pack={PACK}
+              energyName={energyNameOf(packUniverse)}
+              pity={PITY_UR}
+              sinceUR={sinceUR}
+            />
           </div>
         )}
 
@@ -197,6 +216,14 @@ export function PackOpening() {
               className="rounded-lg bg-gold-metal px-6 py-3 font-display font-black tracking-wider text-[#1a1206] uppercase shadow-[0_0_24px_rgba(255,210,90,.45)]"
             >
               Abrir outro
+            </button>
+          )}
+          {allFlipped && spotlight.length === 0 && (
+            <button
+              onClick={onBack}
+              className="rounded-lg border border-line px-6 py-3 font-display font-black tracking-wider text-muted uppercase"
+            >
+              Voltar à loja
             </button>
           )}
         </div>

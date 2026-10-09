@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// Proposta 2026-10-09 — aguardando aprovação. Números = hipóteses de balanceamento.
+// Aprovados em 2026-10-09. Números = hipóteses de balanceamento.
 
 export const BLEACH: readonly CharacterDef[] = [
   {
@@ -13,6 +13,7 @@ export const BLEACH: readonly CharacterDef[] = [
     class: 'fighter',
     rarity: 'SSR',
     stats: { attack: 4, hp: 14 },
+    art: '/assets/cards/bleach/ble-ichigo-001.webp',
     abilities: [
       {
         id: 'getsuga-tensho',
@@ -51,6 +52,7 @@ export const BLEACH: readonly CharacterDef[] = [
     class: 'controller',
     rarity: 'R',
     stats: { attack: 3, hp: 10 },
+    art: '/assets/cards/bleach/ble-rukia-001.webp',
     abilities: [
       {
         id: 'tsukishiro',
@@ -74,6 +76,7 @@ export const BLEACH: readonly CharacterDef[] = [
     class: 'support',
     rarity: 'C',
     stats: { attack: 1, hp: 8 },
+    art: '/assets/cards/bleach/ble-orihime-001.webp',
     abilities: [
       {
         id: 'santen-kesshun',
