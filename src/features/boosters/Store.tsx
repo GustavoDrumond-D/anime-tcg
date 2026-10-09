@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { useProfile } from '../../app/profileContext'
 import { ECONOMY } from '../../data/economy'
 import { PACKS, PITY_UR } from '../../data/packs'
@@ -15,6 +15,17 @@ const ORDER: Universe[] = [
   'bleach',
   'dragon-ball',
 ]
+
+// Posição, escala e opacidade por distância do centro (0..3). Interpolado durante o arraste.
+const X = [0, 270, 445, 560]
+const SCALE = [1, 0.67, 0.47, 0.4]
+const OPACITY = [1, 0.6, 0.25, 0]
+/** Pixels arrastados que equivalem a trocar um pack. */
+const SPACING = 270
+const lerp = (t: number[], a: number) => {
+  const i = Math.min(Math.floor(a), t.length - 2)
+  return t[i]! + (t[i + 1]! - t[i]!) * (Math.min(a, t.length - 1) - i)
+}
 
 /** A arte do pack tem fundo desfocado em volta; recorta só o pacote (85% × 98% da imagem). */
 function PackArt({ src }: { src: string }) {
@@ -37,6 +48,29 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
   const n = ORDER.length
   const go = (d: number) => setIndex((i) => (i + d + n) % n)
   const current = ORDER[index]!
+  // Arraste: os packs seguem o ponteiro e, ao soltar, encaixam no mais próximo.
+  const [dragDx, setDragDx] = useState<number | null>(null)
+  const moved = useRef(false)
+  const startDrag = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return
+    const x0 = e.clientX
+    moved.current = false
+    setDragDx(0)
+    const move = (ev: globalThis.PointerEvent) => {
+      const dx = ev.clientX - x0
+      if (Math.abs(dx) > 6) moved.current = true
+      setDragDx(dx)
+    }
+    const up = (ev: globalThis.PointerEvent) => {
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', up)
+      const steps = Math.round(-(ev.clientX - x0) / SPACING)
+      if (steps) go(steps)
+      setDragDx(null)
+    }
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', up)
+  }
   const left = PITY_UR - (profile.pity[PACKS[current].id] ?? 0)
 
   const canBuy = (count: number) => packCost(profile, count, ECONOMY).fragments <= profile.fragments
@@ -57,34 +91,44 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
 
   return (
     <section className="relative flex min-h-[calc(100vh-64px)] flex-col items-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_35%,rgba(109,63,209,.35),transparent_55%)] py-8">
-      <div className="relative h-[540px] w-full max-w-[1200px]">
+      <div
+        onPointerDown={startDrag}
+        className={`relative h-[540px] w-full max-w-[1200px] touch-pan-y select-none ${dragDx !== null ? 'cursor-grabbing' : 'cursor-grab'}`}
+      >
         {ORDER.map((u, i) => {
-          // Distância circular até o pack selecionado (-3..3).
+          // Distância circular até o pack selecionado (-3..3), contínua durante o arraste.
           let o = i - index
           if (o > n / 2) o -= n
           if (o < -n / 2) o += n
-          const a = Math.abs(o)
-          const x = [0, 270, 445, 560][a]! * Math.sign(o)
-          const scale = [1, 0.67, 0.47, 0.4][a]!
+          const f = o + (dragDx ?? 0) / SPACING
+          const a = Math.min(Math.abs(f), 3)
+          const x = lerp(X, a) * Math.sign(f)
+          const scale = lerp(SCALE, a)
+          const opacity = lerp(OPACITY, a)
           return (
             <button
               key={u}
-              onClick={() => (o === 0 ? canBuy(1) && onOpen(u, 1) : go(o))}
+              onClick={() => {
+                if (moved.current) return // foi arraste, não clique
+                if (o === 0) {
+                  if (canBuy(1)) onOpen(u, 1)
+                } else go(o)
+              }}
               aria-label={
                 o === 0 ? `Abrir Booster ${UNIVERSES[u].name}` : `Ver Booster ${UNIVERSES[u].name}`
               }
-              tabIndex={a > 1 ? -1 : 0}
-              className="absolute top-2 left-1/2 -ml-[150px] w-[300px] transition-[transform,opacity,filter] duration-500 ease-[cubic-bezier(.2,.9,.3,1)]"
+              tabIndex={Math.abs(o) > 1 ? -1 : 0}
+              className={`absolute top-2 left-1/2 -ml-[150px] w-[300px] ${dragDx === null ? 'transition-[transform,opacity,filter] duration-500 ease-[cubic-bezier(.2,.9,.3,1)]' : ''}`}
               style={{
                 transform: `translateX(${x}px) scale(${scale})`,
                 transformOrigin: 'center center',
-                opacity: a > 2 ? 0 : [1, 0.6, 0.25][a],
-                zIndex: 10 - a,
+                opacity,
+                zIndex: 10 - Math.round(a),
                 filter:
-                  a === 0
+                  a < 0.5
                     ? 'drop-shadow(0 0 40px rgba(140,90,255,.55)) drop-shadow(0 24px 30px rgba(0,0,0,.8))'
                     : 'none',
-                pointerEvents: a > 2 ? 'none' : undefined,
+                pointerEvents: a > 2.5 ? 'none' : undefined,
               }}
             >
               <PackArt src={UNIVERSES[u].pack} />
@@ -92,6 +136,7 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
           )
         })}
         <button
+          onPointerDown={(e) => e.stopPropagation()}
           onClick={() => go(-1)}
           aria-label="Pack anterior"
           className="absolute top-[240px] left-6 z-20 font-display text-5xl text-muted hover:text-gold-light"
@@ -99,6 +144,7 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
           ‹
         </button>
         <button
+          onPointerDown={(e) => e.stopPropagation()}
           onClick={() => go(1)}
           aria-label="Próximo pack"
           className="absolute top-[240px] right-6 z-20 font-display text-5xl text-[#FFD86B]"
