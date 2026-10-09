@@ -1,11 +1,4 @@
-import {
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type PointerEvent,
-  type ReactNode,
-} from 'react'
+import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
 import { Card } from '../../components/Card'
 import { CATALOG, CHARACTERS } from '../../data/cards'
 import type { CardDef } from '../../engine/cards'
