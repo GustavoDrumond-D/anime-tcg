@@ -35,6 +35,30 @@
   color: transparent;
 }
 
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  20% {
+    transform: translateX(-6px) rotate(-1.5deg);
+  }
+  40% {
+    transform: translateX(6px) rotate(1.5deg);
+  }
+  60% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(4px) rotate(1deg);
+  }
+}
+@keyframes pulse-glow {
+  50% {
+    filter: brightness(1.25);
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;

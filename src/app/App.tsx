@@ -1,16 +1,40 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Card } from '../components/Card'
 import { CHARACTERS, ENERGIES } from '../data/cards'
+import { PackOpening } from '../features/boosters/PackOpening'
 
-// Etapa B: vitrine do catálogo. As telas da v3 (Figma) entram nas próximas etapas.
+// ponytail: troca de tela por estado; vira rota quando houver as 4 abas da v3.
+type Screen = 'catalog' | 'pack'
+
 export function App() {
+  const [screen, setScreen] = useState<Screen>('pack')
+  return (
+    <>
+      <nav className="flex h-16 items-center gap-6 border-b border-gold/20 bg-ink/70 px-8">
+        <span className="font-display text-xl font-black text-gold-metal">Anime TCG</span>
+        {(
+          [
+            ['pack', 'Abrir pack'],
+            ['catalog', 'Catálogo'],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => setScreen(id)}
+            className={`font-label text-sm font-bold tracking-[0.1em] uppercase ${screen === id ? 'border-b-2 border-gold text-[#FFD86B]' : 'text-muted'}`}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
+      {screen === 'pack' ? <PackOpening /> : <Catalog />}
+    </>
+  )
+}
+
+function Catalog() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10">
-      <header>
-        <h1 className="font-display text-3xl font-black text-gold-metal">Anime TCG</h1>
-        <p className="font-label tracking-[0.2em] text-muted uppercase">Catálogo · protótipo 0.1</p>
-      </header>
-
       <Section title="Personagens">
         <div className="flex flex-wrap gap-8">
           {CHARACTERS.map((c) => (
