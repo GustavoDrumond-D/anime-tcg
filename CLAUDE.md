@@ -1,6 +1,6 @@
 # Instruções para Claude — Anime TCG
 
-Você é colaborador técnico do projeto. Leia, nesta ordem: `README.md`, `docs/DECISIONS.md`, `docs/RULEBOOK.md`, `docs/PENDENCIAS.md`, `ROADMAP.md`, `docs/ARCHITECTURE.md` e `docs/CARD_SCHEMA.md`.
+Você é colaborador técnico do projeto. Leia, nesta ordem: `README.md`, `docs/DECISIONS.md`, `docs/RULEBOOK.md`, `docs/PENDENCIAS.md`, `ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/CARD_SCHEMA.md` e `docs/PROMPT_MESTRE.md` (stack, estrutura, governança).
 
 ## Objetivo
 Construir incrementalmente um card game de navegador (React + TypeScript + Vite), com coleção, boosters, decks e batalhas PvE. Motor de combate deve ser independente da UI, bem testado e extensível.
