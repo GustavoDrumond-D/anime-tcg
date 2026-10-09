@@ -1,20 +1,21 @@
 import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
 import { Card } from '../../components/Card'
-import { CATALOG, CHARACTERS } from '../../data/cards'
-import type { CardDef } from '../../engine/cards'
+import { CATALOG } from '../../data/cards'
+import { PACKS } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
+import type { CardDef, CharacterDef } from '../../engine/cards'
+import { openPack } from '../../engine/packs'
+import { OddsPanel } from './OddsPanel'
+import { Burst, Spotlight, type RareKind } from './RareReveal'
 import { setMuted, sfx } from './sfx'
 
 type Stage = 'sealed' | 'tearing' | 'dealt'
 
-// ponytail: sorteio provisório (1 personagem garantido + 4 aleatórias); probabilidades reais = PENDÊNCIAS §14.
-function draw(): CardDef[] {
-  const pick = <T,>(xs: readonly T[]) => xs[Math.floor(Math.random() * xs.length)]!
-  return [...Array.from({ length: 4 }, () => pick(CATALOG)), pick(CHARACTERS)]
-}
+const PACK = PACKS['jujutsu-kaisen']
+const draw = () => openPack(PACK, CATALOG, Math.random)
 
 const rarityOf = (c: CardDef) => (c.type === 'character' ? c.rarity : 'C')
-const rareOf = (c: CardDef) => {
+const rareOf = (c: CardDef): RareKind | null => {
   const r = rarityOf(c)
   return r === 'UR' || r === 'SSR' ? r : null
 }
@@ -24,15 +25,21 @@ const glowOf = (c: CardDef) =>
     SSR: '0 0 30px 6px rgba(255,210,90,.75)',
   })[rarityOf(c) as string] ?? 'none'
 
+const CHARGE_MS = 900
+
 export function PackOpening() {
   const [stage, setStage] = useState<Stage>('sealed')
   const [cards, setCards] = useState(draw)
   const [flipped, setFlipped] = useState<boolean[]>(Array(5).fill(false))
+  const [charging, setCharging] = useState<boolean[]>(Array(5).fill(false))
+  const [spotlight, setSpotlight] = useState<{ card: CharacterDef; key: number }[]>([])
+  const [showOdds, setShowOdds] = useState(false)
   const [sound, setSound] = useState(true)
-  const universe = UNIVERSES['jujutsu-kaisen']
+  const universe = UNIVERSES[PACK.universe]
 
   const open = () => {
     if (stage !== 'sealed') return
+    setShowOdds(false)
     setStage('tearing')
     sfx.rip()
     setTimeout(() => {
@@ -40,14 +47,29 @@ export function PackOpening() {
       cards.forEach((_, i) => setTimeout(sfx.deal, i * 110))
     }, 700)
   }
-  const flip = (i: number) => {
+  const reveal = (i: number) => {
     setFlipped((f) => f.map((v, j) => v || j === i))
     sfx.flip()
-    const rare = rareOf(cards[i]!)
-    if (rare) setTimeout(() => sfx.rare(rare), 350)
+  }
+  // Rara: suspense (treme + som subindo) → vira → momento em tela cheia.
+  const flip = (i: number) => {
+    const card = cards[i]!
+    const rare = rareOf(card)
+    if (!rare) return reveal(i)
+    setCharging((c) => c.map((v, j) => v || j === i))
+    sfx.charge(rare)
+    setTimeout(() => {
+      setCharging((c) => c.map((v, j) => v && j !== i))
+      reveal(i)
+      setTimeout(() => {
+        sfx.rare(rare)
+        setSpotlight((q) => [...q, { card: card as CharacterDef, key: Date.now() + i }])
+      }, 450)
+    }, CHARGE_MS)
   }
   // Revela em cascata, para cada carta ter seu momento.
-  const revealAll = () => flipped.forEach((done, i) => !done && setTimeout(() => flip(i), i * 160))
+  const revealAll = () =>
+    flipped.forEach((done, i) => !done && !charging[i] && setTimeout(() => flip(i), i * 160))
   const toggleSound = () => {
     setMuted(sound)
     setSound(!sound)
@@ -67,17 +89,36 @@ export function PackOpening() {
       <h1 className="font-display text-3xl font-black text-parchment">
         {stage === 'sealed' ? 'Corte o pack' : 'Revele suas cartas'}
       </h1>
-      <button
-        onClick={toggleSound}
-        aria-pressed={sound}
-        className="absolute top-6 right-8 rounded-full border border-line px-4 py-1.5 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase"
-      >
-        Som: {sound ? 'ligado' : 'mudo'}
-      </button>
+      <div className="absolute top-6 right-8 flex gap-2">
+        {stage === 'sealed' && (
+          <button
+            onClick={() => setShowOdds(!showOdds)}
+            aria-expanded={showOdds}
+            className="rounded-full border border-gold/50 px-4 py-1.5 font-label text-xs font-bold tracking-[0.15em] text-gold-light uppercase"
+          >
+            ⓘ Chances
+          </button>
+        )}
+        <button
+          onClick={toggleSound}
+          aria-pressed={sound}
+          className="rounded-full border border-line px-4 py-1.5 font-label text-xs font-bold tracking-[0.15em] text-muted uppercase"
+        >
+          Som: {sound ? 'ligado' : 'mudo'}
+        </button>
+      </div>
 
       <div className="relative mt-6 h-[520px] w-full max-w-[1200px]">
         {stage !== 'dealt' && (
           <Pack src={universe.pack} tearing={stage === 'tearing'} onOpen={open} />
+        )}
+        {stage === 'sealed' && showOdds && (
+          <div
+            className="absolute top-10 left-1/2 ml-[180px]"
+            style={{ animation: 'fade-in .25s both' }}
+          >
+            <OddsPanel pack={PACK} energyName="Amaldiçoada" />
+          </div>
         )}
 
         {cards.map((c, i) => {
@@ -96,12 +137,20 @@ export function PackOpening() {
               style={style}
               className="absolute top-8 left-1/2 -ml-[100px] w-[200px] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.2,.9,.3,1.2)]"
             >
-              <FlipCard
-                card={c}
-                flipped={flipped[i]!}
-                onFlip={() => flip(i)}
-                label={`Revelar carta ${i + 1}`}
-              />
+              <div
+                style={
+                  charging[i]
+                    ? { animation: `charge .12s linear infinite`, filter: 'brightness(1.4)' }
+                    : undefined
+                }
+              >
+                <FlipCard
+                  card={c}
+                  flipped={flipped[i]!}
+                  onFlip={() => !charging[i] && flip(i)}
+                  label={`Revelar carta ${i + 1}`}
+                />
+              </div>
               {flipped[i] && rareOf(c) && <Burst kind={rareOf(c)!} />}
             </div>
           )
@@ -118,7 +167,7 @@ export function PackOpening() {
               Revelar todas
             </button>
           )}
-          {allFlipped && (
+          {allFlipped && spotlight.length === 0 && (
             <button
               onClick={reset}
               className="rounded-lg bg-gold-metal px-6 py-3 font-display font-black tracking-wider text-[#1a1206] uppercase shadow-[0_0_24px_rgba(255,210,90,.45)]"
@@ -127,6 +176,14 @@ export function PackOpening() {
             </button>
           )}
         </div>
+      )}
+
+      {spotlight[0] && (
+        <Spotlight
+          key={spotlight[0].key}
+          card={spotlight[0].card}
+          onClose={() => setSpotlight((q) => q.slice(1))}
+        />
       )}
     </section>
   )
@@ -228,78 +285,6 @@ function Pack({ src, tearing, onOpen }: { src: string; tearing: boolean; onOpen:
         style={{ opacity: tearing ? 1 : 0 }}
       />
     </button>
-  )
-}
-
-/** Gerado uma vez por revelação (fora do render, para manter o componente puro). */
-function makeBurst(kind: 'UR' | 'SSR') {
-  const colors =
-    kind === 'UR'
-      ? ['#7DF9FF', '#FF6AD5', '#FFD86B', '#FFFFFF', '#A78BFA']
-      : ['#FFD86B', '#F7E7A6', '#FFFFFF']
-  const n = kind === 'UR' ? 44 : 26
-  return {
-    parts: Array.from({ length: n }, (_, i) => ({
-      a: (i / n) * 360 + Math.random() * 8,
-      d: 110 + Math.random() * (kind === 'UR' ? 170 : 110),
-      s: 4 + Math.random() * 6,
-      c: colors[i % colors.length]!,
-      dl: 0.3 + Math.random() * 0.12,
-    })),
-    sparkles: Array.from({ length: kind === 'UR' ? 10 : 6 }, () => ({
-      x: -10 + Math.random() * 120,
-      y: -8 + Math.random() * 116,
-      dl: 1 + Math.random() * 2,
-      dur: 1.2 + Math.random() * 1.2,
-    })),
-  }
-}
-
-/** Explosão de partículas + anel de luz no momento da revelação, depois brilhos piscando em volta. */
-function Burst({ kind }: { kind: 'UR' | 'SSR' }) {
-  const [{ parts, sparkles }] = useState(() => makeBurst(kind))
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
-      <span
-        className="absolute top-1/2 left-1/2 -mt-[110px] -ml-[110px] size-[220px] rounded-full"
-        style={{
-          background: `radial-gradient(circle, ${kind === 'UR' ? 'rgba(125,249,255,.55)' : 'rgba(255,216,107,.55)'}, transparent 65%)`,
-          animation: 'ring 1s ease-out .3s both',
-        }}
-      />
-      {parts.map((p, i) => (
-        <span
-          key={i}
-          className="absolute top-1/2 left-1/2 rounded-full"
-          style={
-            {
-              width: p.s,
-              height: p.s,
-              background: p.c,
-              boxShadow: `0 0 8px ${p.c}`,
-              '--a': `${p.a}deg`,
-              '--d': `${p.d}px`,
-              animation: `burst 1.4s cubic-bezier(.15,.7,.35,1) ${p.dl}s both`,
-            } as CSSProperties
-          }
-        />
-      ))}
-      {sparkles.map((s, i) => (
-        <span
-          key={`s${i}`}
-          className="absolute text-sm"
-          style={{
-            left: `${s.x}%`,
-            top: `${s.y}%`,
-            color: kind === 'UR' ? '#bff8ff' : '#ffe9a8',
-            textShadow: '0 0 6px currentColor',
-            animation: `twinkle ${s.dur}s ease-in-out ${s.dl}s infinite both`,
-          }}
-        >
-          ✦
-        </span>
-      ))}
-    </div>
   )
 }
 

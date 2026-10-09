@@ -47,6 +47,21 @@
 - **Assets:** as 14 imagens (2 personagens, 6 energias, 6 packs) foram convertidas para WebP (~3,6 MB) e estão em `public/assets/`, no repositório privado.
 - **Orçamento de raridade:** os valores de ATQ e HP da tabela são **tetos**. A Shoko (SR, ATQ 1) fica abaixo do teto, porque é Suporte. Um teste do catálogo valida stats e multiplicadores.
 
+## Chances dos boosters — proposta v0.1 (aguardando aprovação)
+Cada pack tem 5 cartas, e cada posição tem sua própria tabela (o modelo de "slot raro" dos TCGs).
+
+| Posição | Conteúdo |
+|---|---|
+| Cartas 1 e 2 | Energia: 80% a do universo do pack e 20% Universal |
+| Cartas 3 e 4 | Personagem: C 75% · R 25% |
+| Carta 5 (slot raro) | R 50% · SR 35% · SSR 12% · UR 3% |
+
+- **Em média:** 1 UR a cada 33 packs e 1 SSR ou melhor a cada 7 packs. Teste com 20 mil packs simulados: `src/engine/packs.test.ts`.
+- **Onde ficam:** os dados estão em `src/data/packs.ts` e a lógica pura em `src/engine/packs.ts`, com RNG injetável (`src/engine/rng.ts`).
+- **Painel na tela:** o painel "Chances" é gerado a partir desses mesmos dados. Assim, a tela nunca mostra números diferentes dos que o sorteio usa.
+- **Catálogo incompleto:** enquanto não houver personagens C e R, essas posições viram energia.
+- **Em aberto:** sistema de garantia (pity), por exemplo 1 UR garantido a cada N packs, e se as duplicatas viram moeda.
+
 ## Considerado e adiado
 - **Energia Universal inicial em campo**: acelera demais a partida (ver P0.4). Reavaliar se o playtest mostrar começos lentos.
 - **Fraqueza e resistência (PTCG)**: um triângulo entre classes ou universos parece arbitrário entre franquias. Pode ser reavaliado depois do playtest.

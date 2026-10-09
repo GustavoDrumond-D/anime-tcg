@@ -53,6 +53,27 @@ function tone(freq: number, delay: number, dur: number, gain: number, type: Osci
   o.stop(t + dur)
 }
 
+/** Tom que sobe de frequência: "carregando energia" antes de virar uma rara. */
+function sweep(from: number, to: number, dur: number, gain: number) {
+  const c = ac()
+  if (!c) return
+  const t = c.currentTime
+  const o = c.createOscillator()
+  o.type = 'sawtooth'
+  o.frequency.setValueAtTime(from, t)
+  o.frequency.exponentialRampToValueAtTime(to, t + dur)
+  const f = c.createBiquadFilter()
+  f.type = 'lowpass'
+  f.frequency.value = 1800
+  const g = c.createGain()
+  g.gain.setValueAtTime(0.0001, t)
+  g.gain.exponentialRampToValueAtTime(gain, t + dur * 0.8)
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
+  o.connect(f).connect(g).connect(c.destination)
+  o.start(t)
+  o.stop(t + dur)
+}
+
 export const sfx = {
   /** Pedacinho de corte enquanto arrasta. */
   snip: () => noise(0.05, 3500, 5000, 0.12, 2),
@@ -60,6 +81,10 @@ export const sfx = {
   rip: () => noise(0.4, 1800, 7000, 0.45, 0.7),
   deal: () => noise(0.12, 700, 2200, 0.1, 1.5),
   flip: () => noise(0.2, 500, 3200, 0.22, 2),
+  charge: (r: 'SSR' | 'UR') => {
+    sweep(110, r === 'UR' ? 880 : 520, 0.9, 0.08)
+    noise(0.9, 400, r === 'UR' ? 6000 : 3000, 0.06, 1)
+  },
   rare: (r: 'SSR' | 'UR') => {
     const notes =
       r === 'UR' ? [523.25, 659.25, 783.99, 1046.5, 1318.5, 1567.98] : [587.33, 739.99, 880]
