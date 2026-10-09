@@ -62,13 +62,13 @@ export const NARUTO: readonly CharacterDef[] = [
         text: '1,75× ATQ. Perfurante.',
       },
       {
-        id: 'amaterasu',
-        name: 'Amaterasu',
+        id: 'great-fireball',
+        name: 'Bola de Fogo',
         cost: { specific: { chakra: 2 }, generic: 0 },
         multiplier: 1,
         cooldown: 2,
         effects: [{ type: 'condition', condition: 'poisoned' }],
-        text: '1× ATQ. Chamas negras: o alvo fica Envenenado. Recarga 2.',
+        text: '1× ATQ. Queimadura: o alvo fica Envenenado. Recarga 2.',
       },
     ],
     passives: [

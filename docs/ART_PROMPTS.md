@@ -26,7 +26,7 @@ stat boxes, kanji, title, extra fingers, deformed hands, blurry, low quality
 
 ### Naruto (paleta laranja e azul-chakra)
 - **nar-naruto-001 · Naruto Uzumaki (SSR):** Naruto Uzumaki from Naruto Shippuden, spiky blond hair, whisker marks, confident grin, orange and black jacket, Leaf headband, holding a swirling blue Rasengan in one hand, shadow clones faintly behind him, Hidden Leaf village rooftops at sunset, orange and chakra-blue palette.
-- **nar-sasuke-001 · Sasuke Uchiha (SSR):** Sasuke Uchiha from Naruto Shippuden, spiky black hair, red Sharingan eyes, cold focused expression, white open-collar shirt with purple rope belt, sword on his back, crackling blue-white Chidori lightning in one hand, stormy valley with lightning, dark blue and electric white palette.
+- **nar-sasuke-001 · Sasuke Uchiha (SSR):** young Sasuke Uchiha from the original Naruto series (Team 7 era), 12-year-old boy, spiky black hair, red Sharingan eyes with two tomoe, serious focused expression, navy blue high-collar shirt with Uchiha fan crest, white arm warmers, Leaf headband, crackling blue-white Chidori in one hand and a fireball glowing behind him, rocky valley at dusk, dark blue, electric white and fire-orange palette.
 - **nar-sakura-001 · Sakura Haruno (C):** Sakura Haruno from Naruto Shippuden, short pink hair, green eyes, diamond mark on her forehead, red top and black gloves, determined smile, glowing green medical chakra in her hands, Hidden Leaf training field with cherry blossoms, pink, red and soft green palette.
 
 ### Hunter x Hunter (paleta verde-Nen)
