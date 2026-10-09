@@ -109,4 +109,42 @@ export const NARUTO: readonly CharacterDef[] = [
     ],
     passives: [],
   },
+  {
+    id: 'nar-kakashi-001',
+    type: 'character',
+    identity: 'kakashi-hatake',
+    name: 'Kakashi Hatake',
+    kanji: 'はたけカカシ',
+    universe: 'naruto',
+    class: 'controller',
+    rarity: 'UR',
+    stats: { attack: 5, hp: 15 },
+    abilities: [
+      {
+        id: 'raikiri',
+        name: 'Raikiri',
+        cost: { specific: { chakra: 2 }, generic: 1 },
+        multiplier: 2.25,
+        cooldown: 0,
+        keywords: ['piercing'],
+        text: '2,25× ATQ. Perfurante.',
+      },
+      {
+        id: 'ninken',
+        name: 'Cães Ninja',
+        cost: { specific: { chakra: 1 }, generic: 0 },
+        multiplier: 1,
+        cooldown: 2,
+        effects: [{ type: 'condition', condition: 'stunned' }],
+        text: '1× ATQ. Os cães prendem o alvo: fica Atordoado. Recarga 2.',
+      },
+    ],
+    passives: [
+      {
+        id: 'copy-ninja',
+        name: 'Ninja Copiador',
+        text: 'Uma vez por partida, pode usar uma habilidade de um inimigo em campo, pagando o custo dela.',
+      },
+    ],
+  },
 ]
