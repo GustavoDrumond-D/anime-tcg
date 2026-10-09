@@ -2,7 +2,7 @@
 
 > Card game colecionável de navegador, com personagens de diferentes universos de anime, boosters, construção de decks e combate tático por turnos.
 
-**Estado:** Pré-produção / regras v0.3.1 fechadas para protótipo. **Nenhum sistema de gameplay está implementado ainda.**
+**Estado:** Pré-produção / regras v0.3.1 fechadas para protótipo. Protótipo 0.1: projeto configurado, catálogo tipado e carta dinâmica. **O motor de combate ainda não foi implementado.**
 
 ## Visão
 
@@ -46,6 +46,14 @@ Seis packs planejados: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Blea
 - Motor de regras em TypeScript puro, separado dos componentes React
 - Vitest para testes determinísticos das regras
 - Vercel para publicação estática
+
+## Rodando
+
+```bash
+npm install
+npm run dev     # app em http://localhost:5173
+npm run check   # lint + formatação + tipos + testes + build (o mesmo da CI)
+```
 
 ## Documentação
 

@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Cinzel', serif;
+  --font-label: 'Barlow Condensed', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-kanji: 'Noto Serif JP', serif;
+
+  --color-ink: #05060a;
+  --color-panel: #0e1220;
+  --color-line: #2a3045;
+  --color-gold: #d4af37;
+  --color-gold-light: #f1d98a;
+  --color-gold-dim: #b9a46a;
+  --color-parchment: #f7eed8;
+  --color-muted: #8a8fa3;
+  --color-atk: #ff6b74;
+  --color-hp: #4be0ae;
+}
+
+@utility bg-gold-metal {
+  background-image: linear-gradient(135deg, #f7e7a6, #b8892b 50%, #f1d98a);
+}
+@utility bg-holo {
+  background-image: linear-gradient(135deg, #7df9ff, #ff6ad5 33%, #ffd86b 66%, #7df9ff);
+}
+@utility text-holo {
+  background-image: linear-gradient(135deg, #7df9ff, #ff6ad5 33%, #ffd86b 66%, #7df9ff);
+  background-clip: text;
+  color: transparent;
+}
+@utility text-gold-metal {
+  background-image: linear-gradient(135deg, #f7e7a6, #b8892b 50%, #f1d98a);
+  background-clip: text;
+  color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #121a30, #030407 75%) fixed;
+  color: var(--color-parchment);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

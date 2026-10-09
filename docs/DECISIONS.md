@@ -40,6 +40,13 @@
 | P0.3 | Refazer a mão com compensação desequilibrava | **Mão garantida** (1 personagem + 1 energia + 3 do topo) e 1 mulligan voluntário. A compensação ao oponente foi removida | Sem garantia, um deck 8/8/4 tem 10% de mãos inválidas, e um deck 6/10/4 ou 10/6/4 tem 15% |
 | P0.4 | UR demorar a entrar | Custos mantidos (0 a 3) e **sem energia inicial grátis** | Simulação com 100 mil partidas e deck 8/8/4: o UR é pagável no turno 3 em 81% (1º jogador) a 90% (2º jogador) das partidas. Fica a curva T1 C/R/SR → T2 SSR → T3 UR, como no MTG. Com energia inicial o UR sairia no turno 2 (95%) e os comuns perderiam espaço |
 
+## Implementação — protótipo 0.1 (2026-10-09)
+- **Design aprovado:** Figma, página "v3 — Estrutura de jogo" (https://www.figma.com/design/S71sihztQneBoWdz6eOgqv/?node-id=15-2). Telas: lobby "Jogar", Arena com playmat, Coleção em fichário, Boosters em carrossel + abertura, Decks com lista em faixas. A navegação tem 4 abas e a Arena abre a partir de "Jogar".
+- **Lint:** oxlint, que já vem no template atual do Vite, substitui o ESLint do PROMPT_MESTRE. Cumpre o mesmo papel e roda mais rápido.
+- **Fontes:** Cinzel (títulos), Barlow Condensed (rótulos), Inter (texto) e Noto Serif JP (kanji), carregadas via Google Fonts.
+- **Assets:** as 14 imagens (2 personagens, 6 energias, 6 packs) foram convertidas para WebP (~3,6 MB) e estão em `public/assets/`, no repositório privado.
+- **Orçamento de raridade:** os valores de ATQ e HP da tabela são **tetos**. A Shoko (SR, ATQ 1) fica abaixo do teto, porque é Suporte. Um teste do catálogo valida stats e multiplicadores.
+
 ## Considerado e adiado
 - **Energia Universal inicial em campo**: acelera demais a partida (ver P0.4). Reavaliar se o playtest mostrar começos lentos.
 - **Fraqueza e resistência (PTCG)**: um triângulo entre classes ou universos parece arbitrário entre franquias. Pode ser reavaliado depois do playtest.

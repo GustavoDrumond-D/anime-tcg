@@ -11,9 +11,10 @@ Status: planejado. Checkboxes representam trabalho efetivamente concluído, não
 - [ ] Criar 20 cartas de teste com dados estruturados e imagens temporárias
 
 ## M1 — Catálogo e UI
-- [ ] Inicializar app React/TypeScript/Vite
+- [x] Inicializar app React/TypeScript/Vite (+ Tailwind, Vitest, oxlint, Prettier, CI)
 - [ ] Layout desktop-first responsivo
-- [ ] Componentes CardFull / CardCompact / CardPreview
+- [x] Componente `Card` (variantes full e compact; preview quando houver uso)
+- [x] Design v3 aprovado como protótipo 0.1 (Figma, página "v3 — Estrutura de jogo")
 - [ ] Catálogo filtrável por universo, raridade e classe
 - [ ] Inventário persistido localmente
 
