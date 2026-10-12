@@ -141,3 +141,8 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 - O texto das artes traz efeitos extras (Ego: +1 ATQ se o portador estiver sozinho na linha de frente; Haki: conversão em Kenbunshoku/Busoshoku/Haoshoku). **Não estão no RULEBOOK nem no motor**: hoje as duas funcionam como as demais energias específicas. Pendente de decisão.
 - Kaiser, Imu e Loki seguem com custos só genéricos até decidir se parte vira Ego/Haki.
 - Efeito colateral: o booster Multiverso passa a poder sortear Ego/Haki entre as energias locais.
+
+
+## Expansão JoJo e Steel Ball Run — 12/10/2026
+
+Pedido confirmado: pack, energia e personagens colecionáveis. O usuário excluiu explicitamente PvP/PvE e motor de combate. Entram 20 identidades (5 de Steel Ball Run) no universo jojo, com energia stand. Spin de Gyro usa custos genéricos. Johnny usa Tusk ACT 4 na arte, conforme correção do usuário. Preço, chances, composição e garantia dos boosters não mudam. As habilidades são adaptações declarativas às condições existentes, com números em hipótese; não há novos handlers de combate. Ver [JOJO.md](JOJO.md).

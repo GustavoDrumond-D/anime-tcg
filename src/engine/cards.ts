@@ -10,6 +10,7 @@ export const ENERGY_TYPES = [
   'ki',
   'ego',
   'haki',
+  'stand',
 ] as const
 export type EnergyType = (typeof ENERGY_TYPES)[number]
 /** Universal só paga a parcela genérica, por isso não aparece em custo específico. */
@@ -29,6 +30,7 @@ export type Universe =
   | 'dragon-ball'
   | 'blue-lock'
   | 'one-piece'
+  | 'jojo'
 
 export type Rarity = 'C' | 'R' | 'SR' | 'SSR' | 'UR' | 'LR' | 'EX'
 export type CardClass = 'fighter' | 'tank' | 'support' | 'controller' | 'summoner'

@@ -225,3 +225,8 @@ A próxima versão estará pronta quando:
 7. Informe claramente o que foi implementado, o que foi testado e o que continua pendente.
 
 **Próxima tarefa recomendada:** com o P0 resolvido, criar as 20 cartas de teste e o motor de uma partida PvE com decks fixos.
+
+
+## JoJo — 12/10/2026
+
+Universo, 20 personagens (incluindo Steel Ball Run), energia Stand, booster e artes adicionados. O motor e a validação de balanceamento em combate permanecem pendentes e fora deste pedido. Ver [JOJO.md](JOJO.md).

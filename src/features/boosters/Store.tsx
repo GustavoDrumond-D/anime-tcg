@@ -14,6 +14,7 @@ const ORDER: Universe[] = [
   'hunter-x-hunter',
   'bleach',
   'dragon-ball',
+  'jojo',
 ]
 
 // Posição, escala e opacidade por distância do centro (0..3). Interpolado durante o arraste.

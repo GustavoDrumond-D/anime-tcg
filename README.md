@@ -32,11 +32,11 @@ Regras inspiradas em Magic e Pokémon TCG e adaptadas ao projeto. **Os números 
 
 ## Energias
 
-Universal (custo genérico), Amaldiçoada (Jujutsu Kaisen), Chakra (Naruto), Nen (Hunter x Hunter), Reiatsu (Bleach) e Ki (Dragon Ball). Energias especializadas também pagam custos genéricos; a Universal não substitui exigências específicas. Energias pagas ficam esgotadas até o próximo turno do controlador.
+Universal (custo genérico), Amaldiçoada (Jujutsu Kaisen), Chakra (Naruto), Nen (Hunter x Hunter), Reiatsu (Bleach), Ki (Dragon Ball), Ego (Blue Lock), Haki (One Piece) e Stand (JoJo). Energias especializadas também pagam custos genéricos; a Universal não substitui exigências específicas. Energias pagas ficam esgotadas até o próximo turno do controlador.
 
 ## Boosters e economia
 
-São seis packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach e Dragon Ball.
+São sete packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach, Dragon Ball e JoJo’s Bizarre Adventure.
 
 **Composição de um pack (5 cartas):**
 - 2 energias;
@@ -52,7 +52,11 @@ São seis packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach e D
 
 Não há monetização real planejada. Os detalhes estão em [DECISIONS](docs/DECISIONS.md).
 
-## Personagens (16)
+## Personagens
+
+A expansão [JoJo e Steel Ball Run](docs/JOJO.md) adiciona 20 personagens colecionáveis, com energia Stand e booster próprio. Habilidades são dados para exibição; combate continua fora do escopo atual.
+
+### Catálogo base
 
 | Universo | Cartas |
 |---|---|

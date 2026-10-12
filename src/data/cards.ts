@@ -6,6 +6,7 @@ import { HUNTER_X_HUNTER } from './characters/hunter-x-hunter'
 import { JUJUTSU_KAISEN } from './characters/jujutsu-kaisen'
 import { NARUTO } from './characters/naruto'
 import { ONE_PIECE } from './characters/one-piece'
+import { JOJO } from './characters/jojo'
 
 const energy = (
   e: EnergyDef['energy'],
@@ -28,6 +29,7 @@ export const CHARACTERS: readonly CharacterDef[] = [
   ...DRAGON_BALL,
   ...BLUE_LOCK,
   ...ONE_PIECE,
+  ...JOJO,
 ]
 
 export const ENERGIES: readonly EnergyDef[] = [
@@ -39,6 +41,7 @@ export const ENERGIES: readonly EnergyDef[] = [
   energy('ki', 'Ki', 'dragon-ball'),
   energy('ego', 'Energia de Ego', 'blue-lock'),
   energy('haki', 'Haki', 'one-piece'),
+  energy('stand', 'Energia de Stand', 'jojo'),
 ]
 
 export const CATALOG: readonly CardDef[] = [...CHARACTERS, ...ENERGIES]

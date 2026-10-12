@@ -2,7 +2,15 @@
 
 Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apenas discutido.
 
-## Estado atual — protótipo 0.1 (2026-10-09)
+## Expansão JoJo — 12/10/2026
+- [x] Universo JoJo, energia Stand e sétimo booster na loja.
+- [x] 20 personagens com arte, incluindo 5 de Steel Ball Run.
+- [x] Coleção, abertura individual/×5, Multiverso e garantia de UR integrados.
+- [x] Testes de catálogo, assets, sorteios, garantia e economia.
+- Escopo restrito a coleção/boosters: sem PvP, PvE ou motor de combate.
+- Detalhes: [JOJO.md](docs/JOJO.md).
+
+## Estado anterior — protótipo 0.1 (2026-10-09)
 - **Já jogável no navegador:**
   - loja com 6 boosters em carrossel (arrastar ou usar as setas);
   - abertura de 1 pack (cortar arrastando, revelar, Pular) e de 5 packs (rasgo em grupo, raras em destaque, cascata por raridade);
