@@ -120,3 +120,11 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 **Infraestrutura desejada após o motor PvE:** contas privadas por convite, lista de amigos, tag social (DEV/TESTER/PLAYER) separada de roles confiáveis, PvP online por salas, persistência no servidor e **Game Master** com poderes do dono para conceder cartas, edições, boosters e Fragmentos, criar eventos e auditar concessões. Supabase (Auth/Postgres/Realtime/funções) é candidato, não escolha fechada. A atual coleção local permanece a fonte de verdade **apenas do protótipo offline**.
 
 **Documentação específica:** [Cartas especiais](CARTAS_ESPECIAIS.md), [Propostas de cartas em JSON](cards-special-proposals.json), [Contas, PvP privado e Game Master](ONLINE_SOCIAL_GAME_MASTER.md). Esta seção **não** muda o orçamento de raridades, a enum de universos, as chances de packs nem o schema executável existentes.
+
+## Discussão de expansão — 12/10/2026 (sem alterar Alpha v0.3.1)
+- **Direção confirmada:** projeto pessoal, gratuito, não comercial e privado entre amigos; permanecer no navegador, com interface predominantemente 2D e efeitos/animações híbridos 2D/3D opcionais.
+- **Direção proposta:** raridades LR acima de UR e EX acima de LR, com poucas identidades EX; duas versões de Michael Kaiser LR, Loki LR conceitual e Imu-sama EX como Invocador Necromante.
+- **Mecânica essencial idealizada:** Domínio Reversi converte inimigos derrotados diretamente por Imu em cópias temporárias no deck de seu portador, com metade de HP/ATQ. Limites/handlers ainda não aprovados; detalhes em `docs/CARTAS_ESPECIAIS.md`.
+- **Distribuição idealizada:** Imu EX edição DEV ou ALPHA TESTER inicialmente; edição padrão após desbloqueio por sete logins acumulados, numa data posterior a decidir. Edições cosméticas não alteram poder.
+- **Infraestrutura futura:** autenticação por convite, perfis com tags DEV/TESTER/PLAYER separadas de permissões de servidor, lista de amigos, salas PvP e painel Game Master para conceder cartas/Fragmentos. Backend gerenciado é hipótese, não implantação.
+- **Governança:** tratar `docs/cards-special-proposals.json` como design não executável; não alterar chances de booster, RARITY, energia ou regras oficiais sem aprovação/testes.
