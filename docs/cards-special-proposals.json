@@ -1,0 +1,209 @@
+{
+  "status": "proposal-only",
+  "createdAt": "2026-10-12",
+  "rulesBase": "Alpha v0.3.1",
+  "note": "NAO importar para o catalogo executavel antes de ampliar Rarity/Universe e implementar handlers. Ataques, passivas e orcamentos ainda sujeitos a playtest.",
+  "proposedRarityBudgets": {
+    "LR": {
+      "attackCap": 5,
+      "hpCap": 18,
+      "summonCost": 4,
+      "weight": 5
+    },
+    "EX": {
+      "attackCap": 6,
+      "hpCap": 20,
+      "summonCost": 4,
+      "weight": 5
+    }
+  },
+  "characters": [
+    {
+      "id": "blue-lock-kaiser-lr-roses-001",
+      "identity": "michael-kaiser",
+      "name": "Michael Kaiser — Imperador das Rosas",
+      "universe": "blue-lock",
+      "rarity": "LR",
+      "class": "controller",
+      "stats": {
+        "attack": 5,
+        "hp": 18
+      },
+      "abilities": [
+        {
+          "id": "imperial-reading",
+          "name": "Leitura Imperial",
+          "genericCost": 2,
+          "multiplier": 1.5,
+          "cooldown": 1,
+          "effects": [
+            {
+              "type": "debuff_attack",
+              "amount": 1,
+              "duration": "until-end-of-controller-next-turn"
+            }
+          ]
+        },
+        {
+          "id": "emperor-rose",
+          "name": "Rosa do Imperador",
+          "genericCost": 3,
+          "multiplier": 2,
+          "cooldown": 2,
+          "effects": [
+            {
+              "type": "condition",
+              "condition": "sealed"
+            }
+          ]
+        }
+      ],
+      "passives": [
+        {
+          "id": "metavision",
+          "name": "Metavision",
+          "trigger": "first-ability-each-turn-if-target-has-negative-effect",
+          "genericCostReduction": 1
+        }
+      ],
+      "edition": "standard"
+    },
+    {
+      "id": "blue-lock-kaiser-lr-impact-001",
+      "identity": "michael-kaiser",
+      "name": "Michael Kaiser — Kaiser Impact",
+      "universe": "blue-lock",
+      "rarity": "LR",
+      "class": "fighter",
+      "stats": {
+        "attack": 5,
+        "hp": 18
+      },
+      "abilities": [
+        {
+          "id": "kaiser-impact",
+          "name": "Kaiser Impact",
+          "genericCost": 2,
+          "multiplier": 2,
+          "cooldown": 0,
+          "effects": []
+        },
+        {
+          "id": "kaiser-impact-magnus",
+          "name": "Kaiser Impact: Magnus",
+          "genericCost": 4,
+          "multiplier": 2.5,
+          "cooldown": 2,
+          "effects": [
+            {
+              "type": "trample"
+            }
+          ]
+        }
+      ],
+      "passives": [
+        {
+          "id": "finishing-instinct",
+          "name": "Instinto de Finalização",
+          "trigger": "once-per-turn-defeat-enemy-with-ability",
+          "restoreExhaustedGenericEnergy": 1
+        }
+      ],
+      "edition": "standard"
+    },
+    {
+      "id": "one-piece-imu-ex-001",
+      "identity": "imu-sama",
+      "name": "Imu-sama — O Soberano do Mundo",
+      "universe": "one-piece",
+      "rarity": "EX",
+      "class": "summoner",
+      "archetype": "necromancer",
+      "stats": {
+        "attack": 6,
+        "hp": 20
+      },
+      "abilities": [
+        {
+          "id": "sovereign-decree",
+          "name": "Decreto do Soberano",
+          "genericCost": 2,
+          "multiplier": 1.5,
+          "cooldown": 0,
+          "effects": [
+            {
+              "type": "reversi-mark",
+              "duration": "until-end-of-target-controller-next-turn"
+            }
+          ]
+        },
+        {
+          "id": "empty-throne-judgment",
+          "name": "Julgamento do Trono Vazio",
+          "genericCost": 4,
+          "multiplier": 2,
+          "cooldown": 2,
+          "effects": [
+            {
+              "type": "piercing"
+            }
+          ]
+        }
+      ],
+      "passives": [
+        {
+          "id": "reversi-domain",
+          "name": "Domínio Reversi",
+          "trigger": "imu-directly-defeats-enemy",
+          "maxCorruptedCreatedPerMatch": 2,
+          "corrupted": {
+            "destination": "shuffle-into-controller-deck",
+            "attackRatio": 0.5,
+            "hpRatio": 0.5,
+            "rounding": "floor-min-1",
+            "genericSummonCost": 1,
+            "retains": [
+              "basic-attack",
+              "name",
+              "art"
+            ],
+            "omits": [
+              "original-passives",
+              "original-abilities"
+            ],
+            "weight": 1,
+            "temporary": true
+          }
+        }
+      ],
+      "editions": [
+        "dev",
+        "alpha-tester",
+        "standard"
+      ],
+      "distribution": {
+        "earlyAccess": [
+          "dev",
+          "alpha-tester"
+        ],
+        "publicUnlock": {
+          "type": "cumulative-daily-logins",
+          "days": 7,
+          "oneTimePerAccount": true,
+          "delayDaysSuggested": 30
+        }
+      }
+    },
+    {
+      "id": "one-piece-loki-lr-proposal",
+      "identity": "loki-one-piece",
+      "name": "Loki — Gigante do Ragnarok",
+      "universe": "one-piece",
+      "rarity": "LR",
+      "designStatus": "art-prototype-only",
+      "abilities": [],
+      "passives": [],
+      "notes": "Atributos e regras nao aprovados; arte de referencia Ragnarok/trovao; garantir logo LR inteiro."
+    }
+  ]
+}
