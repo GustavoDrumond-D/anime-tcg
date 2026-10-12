@@ -128,3 +128,10 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 - **Distribuição idealizada:** Imu EX edição DEV ou ALPHA TESTER inicialmente; edição padrão após desbloqueio por sete logins acumulados, numa data posterior a decidir. Edições cosméticas não alteram poder.
 - **Infraestrutura futura:** autenticação por convite, perfis com tags DEV/TESTER/PLAYER separadas de permissões de servidor, lista de amigos, salas PvP e painel Game Master para conceder cartas/Fragmentos. Backend gerenciado é hipótese, não implantação.
 - **Governança:** tratar `docs/cards-special-proposals.json` como design não executável; não alterar chances de booster, RARITY, energia ou regras oficiais sem aprovação/testes.
+
+## LR/EX no catálogo — 12/10/2026 (aprovado pelo criador: "faça aí")
+- `Rarity` ganhou **LR** (ATQ 5, HP 18, invocação 4, Peso 5) e **EX** (ATQ 6, HP 20, invocação 4, Peso 5); `Universe` ganhou **blue-lock** e **one-piece**, sem energia/booster próprios (custos só genéricos). Números seguem como hipótese.
+- Cadastradas: `blue-lock-kaiser-lr-impact-001`, `one-piece-imu-ex-001`, `one-piece-loki-lr-001`. *Imperador das Rosas* fica fora até ter arte.
+- LR/EX **não entram nas chances de booster** (teste em `cards.test.ts`), valem 0 Fragmentos na venda e "Vender repetidas" mantém 1 cópia.
+- **Loki (hipótese minha, revisar):** Tanque, ATQ 5/HP 18, Provocar + Defesa 1; *Ragnir* 2 gen. 2×; *Martelo do Ragnarok* 3 gen. 2,5× + Atordoado, Recarga 2.
+- Pendente: handlers de *Instinto de Finalização*, *Domínio Reversi*/Marca Reversi e limite de 1 LR/EX por deck — entram com o motor (M4) e o deck builder (M3).

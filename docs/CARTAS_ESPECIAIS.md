@@ -67,7 +67,7 @@ Arte da versão **Kaiser Impact** incorporada em `public/assets/cards/blue-lock/
 
 ## Impacto técnico / compatibilidade
 
-1. `src/engine/cards.ts` atualmente aceita somente `C | R | SR | SSR | UR` e 5 universos; **LR/EX/Blue Lock/One Piece são dados de design, não cartas jogáveis**.
+1. **Atualizado em 12/10/2026:** `Rarity` inclui LR/EX e `Universe` inclui Blue Lock/One Piece; Kaiser Impact, Imu EX e Loki LR estão em `src/data/characters/`. As passivas especiais ainda não têm handler (não há motor de combate).
 2. Introduzir LR/EX exigirá atualizar `Rarity`, `RARITY`, limites de deck, catálogo, renderização e testes existentes.
 3. Introduzir Imu exigirá handlers determinísticos para derrota atribuída, geração de cópia temporária, transferência de controlador, inserção em deck e descarte da cópia ao terminar a partida.
 4. Regras de invocação auxiliar previstas para depois do MVP **não são equivalentes** aos corrompidos embaralhados em deck.

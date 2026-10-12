@@ -10,8 +10,10 @@ const CLASS_LABEL: Record<CharacterDef['class'], string> = {
   summoner: 'Invocador',
 }
 
-// Moldura por raridade: UR holográfica, SSR/SR dourada, C/R discreta.
+// Moldura por raridade: EX carmesim/ouro, LR prisma magenta, UR holográfica, SSR/SR dourada, C/R discreta.
 const FRAME: Record<Rarity, string> = {
+  EX: 'bg-ex shadow-[0_0_36px_rgba(220,38,38,0.55)]',
+  LR: 'bg-lr shadow-[0_0_32px_rgba(236,72,153,0.5)]',
   UR: 'bg-holo shadow-[0_0_28px_rgba(125,200,255,0.45)]',
   SSR: 'bg-gold-metal shadow-[0_0_24px_rgba(212,175,55,0.35)]',
   SR: 'bg-gold-metal',
@@ -19,6 +21,8 @@ const FRAME: Record<Rarity, string> = {
   C: 'bg-line',
 }
 const RARITY_TEXT: Record<Rarity, string> = {
+  EX: 'text-ex',
+  LR: 'text-lr',
   UR: 'text-holo',
   SSR: 'text-gold-metal',
   SR: 'text-gold-metal',

@@ -106,7 +106,7 @@ Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apena
 ## M6 — Expansão planejada: raridades LR/EX e cartas de evento (proposta 12/10/2026)
 - [x] Documentar design de Kaiser LR (Imperador das Rosas e Kaiser Impact), Imu-sama EX e conceito visual Loki LR.
 - [ ] Aprovar balanceamento, custos, Abalo e limite de LR/EX por deck.
-- [ ] Expandir catálogo/engine para LR, EX, One Piece e Blue Lock sem quebrar testes.
+- [x] Expandir catálogo/engine para LR, EX, One Piece e Blue Lock sem quebrar testes (12/10/2026: Kaiser Impact LR, Loki LR, Imu EX cadastrados; fora dos boosters; handlers de passiva pendentes até o motor M4).
 - [ ] Implementar Domínio Reversi: corrupção com metade dos atributos e cópia temporária embaralhada no deck; testar limites e casos de borda.
 - [ ] Criar variantes de edição DEV, ALPHA TESTER, FIRST EDITION e EVENT, com origem e arte alternativas.
 - [ ] Integrar artes aprovadas sem stats embutidos, preservando moldura e legibilidade.

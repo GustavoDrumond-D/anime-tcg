@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ENERGY_TYPES, RARITY, maxMultiplier } from '../engine/cards'
 import { CATALOG, CHARACTERS, ENERGIES } from './cards'
+import { SLOTS } from './packs'
 
 describe('catálogo', () => {
   it('tem ids únicos', () => {
@@ -27,6 +28,13 @@ describe('catálogo', () => {
     for (const c of CHARACTERS) {
       const ids = [...c.abilities.map((a) => a.id), ...c.passives.map((p) => p.id)]
       expect(new Set(ids).size, c.id).toBe(ids.length)
+    }
+  })
+
+  it('LR/EX não saem de booster (concessão/evento)', () => {
+    for (const s of SLOTS) {
+      if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('LR')
+      if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('EX')
     }
   })
 

@@ -6,7 +6,7 @@ import type { OpenedPack } from '../../engine/economy'
 import { Burst, Spotlight, type RareKind } from './RareReveal'
 import { sfx } from './sfx'
 
-const RANK = { UR: 5, SSR: 4, SR: 3, R: 2, C: 1 } as const
+const RANK = { EX: 7, LR: 6, UR: 5, SSR: 4, SR: 3, R: 2, C: 1 } as const
 const rank = (c: CardDef) => (c.type === 'character' ? RANK[c.rarity] : 0)
 const rareOf = (c: CardDef): RareKind | null =>
   c.type === 'character' && (c.rarity === 'UR' || c.rarity === 'SSR') ? c.rarity : null

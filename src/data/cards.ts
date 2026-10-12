@@ -1,9 +1,11 @@
 import type { CardDef, CharacterDef, EnergyDef } from '../engine/cards'
 import { BLEACH } from './characters/bleach'
+import { BLUE_LOCK } from './characters/blue-lock'
 import { DRAGON_BALL } from './characters/dragon-ball'
 import { HUNTER_X_HUNTER } from './characters/hunter-x-hunter'
 import { JUJUTSU_KAISEN } from './characters/jujutsu-kaisen'
 import { NARUTO } from './characters/naruto'
+import { ONE_PIECE } from './characters/one-piece'
 
 const energy = (
   e: EnergyDef['energy'],
@@ -24,6 +26,8 @@ export const CHARACTERS: readonly CharacterDef[] = [
   ...HUNTER_X_HUNTER,
   ...BLEACH,
   ...DRAGON_BALL,
+  ...BLUE_LOCK,
+  ...ONE_PIECE,
 ]
 
 export const ENERGIES: readonly EnergyDef[] = [

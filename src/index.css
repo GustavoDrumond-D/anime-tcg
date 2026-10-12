@@ -29,6 +29,29 @@
   background-clip: text;
   color: transparent;
 }
+@utility bg-lr {
+  background-image: linear-gradient(135deg, #ff4fd8, #6d5bff 35%, #3fd0ff 65%, #ff4fd8);
+}
+@utility text-lr {
+  background-image: linear-gradient(135deg, #ff4fd8, #6d5bff 35%, #3fd0ff 65%, #ff4fd8);
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-ex {
+  background-image: linear-gradient(
+    135deg,
+    #1a0006,
+    #dc2626 30%,
+    #f1d98a 50%,
+    #dc2626 70%,
+    #1a0006
+  );
+}
+@utility text-ex {
+  background-image: linear-gradient(135deg, #ff5a5a, #f1d98a 50%, #ff5a5a);
+  background-clip: text;
+  color: transparent;
+}
 @utility text-gold-metal {
   background-image: linear-gradient(135deg, #f7e7a6, #b8892b 50%, #f1d98a);
   background-clip: text;

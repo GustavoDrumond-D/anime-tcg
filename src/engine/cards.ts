@@ -12,9 +12,16 @@ export interface Cost {
 }
 
 export type Universe =
-  'multiverse' | 'jujutsu-kaisen' | 'naruto' | 'hunter-x-hunter' | 'bleach' | 'dragon-ball'
+  | 'multiverse'
+  | 'jujutsu-kaisen'
+  | 'naruto'
+  | 'hunter-x-hunter'
+  | 'bleach'
+  | 'dragon-ball'
+  | 'blue-lock'
+  | 'one-piece'
 
-export type Rarity = 'C' | 'R' | 'SR' | 'SSR' | 'UR'
+export type Rarity = 'C' | 'R' | 'SR' | 'SSR' | 'UR' | 'LR' | 'EX'
 export type CardClass = 'fighter' | 'tank' | 'support' | 'controller' | 'summoner'
 
 export type Keyword =
@@ -97,6 +104,9 @@ export const RARITY: Record<
   SR: { summonCost: 1, weight: 3, attack: 3, hp: 12 },
   SSR: { summonCost: 2, weight: 3, attack: 4, hp: 14 },
   UR: { summonCost: 3, weight: 4, attack: 5, hp: 16 },
+  // Hipóteses de orçamento (CARTAS_ESPECIAIS), sujeitas a playtest.
+  LR: { summonCost: 4, weight: 5, attack: 5, hp: 18 },
+  EX: { summonCost: 4, weight: 5, attack: 6, hp: 20 },
 }
 
 export const totalCost = (c: Cost): number =>

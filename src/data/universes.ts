@@ -15,6 +15,9 @@ export const UNIVERSES: Record<Universe, { name: string; energy: EnergyType; pac
   },
   bleach: { name: 'Bleach', energy: 'reiatsu', pack: '/assets/packs/bleach.webp' },
   'dragon-ball': { name: 'Dragon Ball', energy: 'ki', pack: '/assets/packs/dragon-ball.webp' },
+  // Sem energia nem booster próprios: só cartas LR/EX, com custos genéricos.
+  'blue-lock': { name: 'Blue Lock', energy: 'universal', pack: '/assets/packs/multiverse.webp' },
+  'one-piece': { name: 'One Piece', energy: 'universal', pack: '/assets/packs/multiverse.webp' },
 }
 
 /** Cor de cada energia na UI (pips de custo, filtros). */
