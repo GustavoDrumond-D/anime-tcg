@@ -1,7 +1,16 @@
 // Modelo de cartas (CARD_SCHEMA) e orçamento por raridade (RULEBOOK §10).
 // Puro: sem React, sem DOM.
 
-export const ENERGY_TYPES = ['universal', 'cursed', 'chakra', 'nen', 'reiatsu', 'ki'] as const
+export const ENERGY_TYPES = [
+  'universal',
+  'cursed',
+  'chakra',
+  'nen',
+  'reiatsu',
+  'ki',
+  'ego',
+  'haki',
+] as const
 export type EnergyType = (typeof ENERGY_TYPES)[number]
 /** Universal só paga a parcela genérica, por isso não aparece em custo específico. */
 export type SpecificEnergy = Exclude<EnergyType, 'universal'>

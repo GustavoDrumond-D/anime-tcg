@@ -37,6 +37,8 @@ export const ENERGIES: readonly EnergyDef[] = [
   energy('nen', 'Nen', 'hunter-x-hunter'),
   energy('reiatsu', 'Reiatsu', 'bleach'),
   energy('ki', 'Ki', 'dragon-ball'),
+  energy('ego', 'Energia de Ego', 'blue-lock'),
+  energy('haki', 'Haki', 'one-piece'),
 ]
 
 export const CATALOG: readonly CardDef[] = [...CHARACTERS, ...ENERGIES]

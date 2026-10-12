@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// LR — hipóteses de CARTAS_ESPECIAIS, sujeitas a playtest. Sem energia própria: só genérica.
+// LR — hipóteses de CARTAS_ESPECIAIS, sujeitas a playtest. Custos ainda só genéricos; trocar parte por Ego/Haki é decisão de balanceamento pendente.
 // A versão "Imperador das Rosas" (mesma identidade) ainda não tem arte; entra depois.
 
 const kaiserImpact = {

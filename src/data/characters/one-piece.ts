@@ -1,6 +1,6 @@
 import type { CharacterDef } from '../../engine/cards'
 
-// LR/EX — hipóteses de CARTAS_ESPECIAIS, sujeitas a playtest. Sem energia própria: só genérica.
+// LR/EX — hipóteses de CARTAS_ESPECIAIS, sujeitas a playtest. Custos ainda só genéricos; trocar parte por Ego/Haki é decisão de balanceamento pendente.
 
 const imu = {
   id: 'one-piece-imu-ex-001',

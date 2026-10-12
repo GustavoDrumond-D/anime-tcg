@@ -135,3 +135,9 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 - LR/EX **não entram nas chances de booster** (teste em `cards.test.ts`), valem 0 Fragmentos na venda e "Vender repetidas" mantém 1 cópia.
 - **Loki (hipótese minha, revisar):** Tanque, ATQ 5/HP 18, Provocar + Defesa 1; *Ragnir* 2 gen. 2×; *Martelo do Ragnarok* 3 gen. 2,5× + Atordoado, Recarga 2.
 - Pendente: handlers de *Instinto de Finalização*, *Domínio Reversi*/Marca Reversi e limite de 1 LR/EX por deck — entram com o motor (M4) e o deck builder (M3).
+
+## Energias Ego e Haki — 12/10/2026
+- Novas energias específicas: **Ego** (Blue Lock) e **Haki** (One Piece), com cartas `energy-ego` e `energy-haki` (arte do criador).
+- O texto das artes traz efeitos extras (Ego: +1 ATQ se o portador estiver sozinho na linha de frente; Haki: conversão em Kenbunshoku/Busoshoku/Haoshoku). **Não estão no RULEBOOK nem no motor**: hoje as duas funcionam como as demais energias específicas. Pendente de decisão.
+- Kaiser, Imu e Loki seguem com custos só genéricos até decidir se parte vira Ego/Haki.
+- Efeito colateral: o booster Multiverso passa a poder sortear Ego/Haki entre as energias locais.
