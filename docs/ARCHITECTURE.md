@@ -38,3 +38,8 @@ src/app/         # entrada e layout
 - **Persistência:** salva só IDs de inventário e decks, nunca URLs de imagem.
 - **Imagens:** carregadas sob demanda, em WebP, com fallback quando não houver imagem.
 - **Fora da primeira fase:** PvP, autenticação e monetização.
+
+
+## Direção futura (registrada em 12/10/2026; fora do MVP)
+
+A arquitetura offline atual **não muda**. Quando PvE e deck builder estiverem testados, avaliar a migração para contas por convite e backend autoritativo, com perfis, papéis `owner`/`tester`/`player`, inventário e carteiras persistentes, amigos, salas e partidas privadas. **Supabase** é uma alternativa a validar, não uma dependência aprovada. O motor TypeScript puro deve ser reutilizado no backend; o cliente envia intenções de ação e só renderiza eventos autorizados, nunca calcula o resultado oficial. Os poderes do Game Master devem ser autorizados no servidor e auditados. A camada visual pode combinar 2D com efeitos 3D, preservando acessibilidade. Ver [Online e Game Master](ONLINE_SOCIAL_GAME_MASTER.md) e [Cartas especiais](CARTAS_ESPECIAIS.md).
