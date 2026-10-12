@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Card } from '../components/Card'
 import { CATALOG, CHARACTERS, ENERGIES } from '../data/cards'
 import { ECONOMY } from '../data/economy'
@@ -105,6 +105,7 @@ function Collection() {
   const { profile, sell, sellExtras } = useProfile()
   const [confirm, setConfirm] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
+  const [zoom, setZoom] = useState<CardDef | null>(null)
   const extra = extras(profile, CATALOG, ECONOMY)
   const extraValue = extra.reduce((a, e) => a + e.qty * ECONOMY.sell[tierOf(e.card)], 0)
   const owned = CATALOG.filter((c) => profile.inventory[c.id]).length
@@ -162,17 +163,47 @@ function Collection() {
         return (
           <Section key={id} title={u.name}>
             {chars.map((c) => (
-              <Owned key={c.id} card={c} qty={profile.inventory[c.id] ?? 0} onSell={sell} />
+              <Owned
+                key={c.id}
+                card={c}
+                qty={profile.inventory[c.id] ?? 0}
+                onSell={sell}
+                onZoom={setZoom}
+              />
             ))}
           </Section>
         )
       })}
       <Section title="Energias">
         {ENERGIES.map((e) => (
-          <Owned key={e.id} card={e} qty={profile.inventory[e.id] ?? 0} onSell={sell} />
+          <Owned
+            key={e.id}
+            card={e}
+            qty={profile.inventory[e.id] ?? 0}
+            onSell={sell}
+            onZoom={setZoom}
+          />
         ))}
       </Section>
+      {zoom && <CardZoom card={zoom} onClose={() => setZoom(null)} />}
     </main>
+  )
+}
+
+/** Carta inteira (stats, habilidades, passivas). <dialog> nativo: Esc e foco de graça. */
+function CardZoom({ card, onClose }: { card: CardDef; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null)
+  useEffect(() => ref.current?.showModal(), [])
+  return (
+    <dialog
+      ref={ref}
+      onClose={onClose}
+      onClick={(e) => e.target === e.currentTarget && ref.current?.close()}
+      aria-label={card.name}
+      className="m-auto bg-transparent p-4 backdrop:bg-ink/85 backdrop:backdrop-blur-sm"
+    >
+      <Card card={card} variant="full" className="w-[min(380px,85vw)]" />
+    </dialog>
   )
 }
 
@@ -181,21 +212,27 @@ function Owned({
   card,
   qty,
   onSell,
+  onZoom,
 }: {
   card: CardDef
   qty: number
   onSell: (card: CardDef, qty: number) => void
+  onZoom: (card: CardDef) => void
 }) {
   return (
     <div className="flex w-[150px] flex-col gap-1.5">
-      <div className={`relative ${qty ? '' : 'opacity-30 grayscale'}`}>
+      <button
+        onClick={() => onZoom(card)}
+        aria-label={`Ver ${card.name}`}
+        className={`relative cursor-zoom-in transition-transform hover:-translate-y-1 ${qty ? '' : 'opacity-30 grayscale hover:opacity-60'}`}
+      >
         <Card card={card} className="w-full" />
         {qty > 0 && (
           <span className="absolute top-1.5 right-1.5 rounded border border-gold/60 bg-ink/90 px-1.5 font-label text-xs font-bold text-gold-light">
             ×{qty}
           </span>
         )}
-      </div>
+      </button>
       <button
         onClick={() => onSell(card, 1)}
         disabled={!qty}
