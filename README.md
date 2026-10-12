@@ -109,3 +109,13 @@ Além da Alpha offline, o projeto está planejando **cartas LR** (como duas vers
 **Essas funcionalidades ainda não foram implementadas.** A prioridade permanece o motor PvE e o deck builder; números e mecânicas especiais exigem testes e aprovação. Consulte [Cartas especiais](docs/CARTAS_ESPECIAIS.md), [Online e Game Master](docs/ONLINE_SOCIAL_GAME_MASTER.md) e [Roadmap](ROADMAP.md).
 
 **Escopo de distribuição:** jogo de fã, gratuito e não comercial, para convidados e amigos; acesso privado não substitui a necessidade de respeitar os direitos dos titulares das franquias.
+
+## Expansão planejada — LR, EX e multiplayer privado (12/10/2026)
+
+O jogo continua **gratuito, não comercial e de acesso restrito a amigos convidados**. Foram documentadas propostas de raridades **LR** e **EX**, duas versões LR do Michael Kaiser, **Imu-sama EX** com o **Domínio Reversi** (cópias de inimigos derrotados com metade dos atributos) e um protótipo visual LR de Loki. Isso **ainda não faz parte do catálogo implementado** nem dos boosters atuais.
+
+Há também uma visão futura para **contas, tags DEV/ALPHA TESTER/PLAYER, lista de amigos, partidas PvP online privadas, painel Game Master e concessão administrativa de cartas/Fragmentos**. A solução continuará no navegador, com interface 2D e efeitos híbridos 2D/3D quando apropriado. Backend e multiplayer ainda **não foram implementados**.
+
+- [Cartas especiais e raridades LR/EX](docs/CARTAS_ESPECIAIS.md)
+- [Propostas de cartas em JSON (não executáveis)](docs/cards-special-proposals.json)
+- [Contas, PvP privado e Game Master](docs/ONLINE_SOCIAL_GAME_MASTER.md)
