@@ -100,3 +100,12 @@ No modo de desenvolvimento (`npm run dev`), a barra do topo tem botões **DEV**:
 ## Direitos autorais
 
 Personagens, nomes, símbolos e demais elementos das franquias pertencem aos respectivos titulares. Este é um projeto de fã, não oficial, sem afiliação com essas franquias. Evitar redistribuir artes protegidas sem autorização e reavaliar licenças antes de publicar assets, especialmente em um repositório público.
+
+
+## Evolução planejada: LR, EX, amigos e painel DEV
+
+Além da Alpha offline, o projeto está planejando **cartas LR** (como duas versões de Michael Kaiser) e uma raridade superior **EX** (Imu-sama, Invocador/Necromante, com a mecânica Domínio Reversi). Também há propostas de edições DEV/ALPHA TESTER, recompensa por logins, lista de amigos, partidas online privadas, contas por convite e painel Game Master com concessão de cartas/Fragmentos e trilha de auditoria.
+
+**Essas funcionalidades ainda não foram implementadas.** A prioridade permanece o motor PvE e o deck builder; números e mecânicas especiais exigem testes e aprovação. Consulte [Cartas especiais](docs/CARTAS_ESPECIAIS.md), [Online e Game Master](docs/ONLINE_SOCIAL_GAME_MASTER.md) e [Roadmap](ROADMAP.md).
+
+**Escopo de distribuição:** jogo de fã, gratuito e não comercial, para convidados e amigos; acesso privado não substitui a necessidade de respeitar os direitos dos titulares das franquias.
