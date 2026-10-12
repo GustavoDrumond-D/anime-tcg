@@ -15,10 +15,12 @@ type Stage = 'sealed' | 'tearing' | 'dealt'
 const rarityOf = (c: CardDef) => (c.type === 'character' ? c.rarity : 'C')
 const rareOf = (c: CardDef): RareKind | null => {
   const r = rarityOf(c)
-  return r === 'UR' || r === 'SSR' ? r : null
+  // LR usa a revelação de UR (Spotlight diferencia o texto e a cor).
+  return r === 'UR' || r === 'LR' ? 'UR' : r === 'SSR' ? 'SSR' : null
 }
 const glowOf = (c: CardDef) =>
   ({
+    LR: '0 0 40px 10px rgba(236,72,153,.75), 0 0 80px rgba(109,91,255,.55)',
     UR: '0 0 34px 8px rgba(125,249,255,.75), 0 0 70px rgba(255,106,213,.5)',
     SSR: '0 0 30px 6px rgba(255,210,90,.75)',
   })[rarityOf(c) as string] ?? 'none'
@@ -41,8 +43,10 @@ export function PackOpening({
   onBack: () => void
 }) {
   const PACK = PACKS[packUniverse]
-  const sinceUR = useProfile().profile.pity[PACK.id] ?? 0
-  const { cards, guaranteed } = opened
+  const { pity } = useProfile().profile
+  const sinceUR = pity[PACK.id] ?? 0
+  const sinceLR = pity[`${PACK.id}:LR`] ?? 0
+  const { cards, guaranteed, guaranteedLR } = opened
   const [stage, setStage] = useState<Stage>('sealed')
   const [flipped, setFlipped] = useState<boolean[]>(Array(5).fill(false))
   const [charging, setCharging] = useState<boolean[]>(Array(5).fill(false))
@@ -84,7 +88,8 @@ export function PackOpening({
           {
             card: card as CharacterDef,
             key: Date.now() + i,
-            guaranteed: guaranteed && rare === 'UR',
+            // A garantia sempre cai na última vaga (slot raro).
+            guaranteed: (guaranteed || guaranteedLR) && i === cards.length - 1,
           },
         ])
       }, 450)
@@ -163,6 +168,7 @@ export function PackOpening({
               energyName={energyNameOf(packUniverse)}
               pity={PITY_UR}
               sinceUR={sinceUR}
+              sinceLR={sinceLR}
             />
           </div>
         )}
@@ -374,7 +380,7 @@ function FlipCard({
           <CardBack />
         </div>
         <div className={face} style={{ transform: 'rotateY(180deg)' }}>
-          <Holo kind={rarityOf(card)}>
+          <Holo kind={rareOf(card) ?? ''}>
             <Card card={card} className="w-full" />
           </Holo>
         </div>

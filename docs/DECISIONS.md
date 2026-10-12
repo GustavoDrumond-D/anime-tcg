@@ -132,15 +132,22 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 ## LR/EX no catálogo — 12/10/2026 (aprovado pelo criador: "faça aí")
 - `Rarity` ganhou **LR** (ATQ 5, HP 18, invocação 4, Peso 5) e **EX** (ATQ 6, HP 20, invocação 4, Peso 5); `Universe` ganhou **blue-lock** e **one-piece**, sem energia/booster próprios (custos só genéricos). Números seguem como hipótese.
 - Cadastradas: `blue-lock-kaiser-lr-impact-001`, `one-piece-imu-ex-001`, `one-piece-loki-lr-001`. *Imperador das Rosas* fica fora até ter arte.
-- LR/EX **não entram nas chances de booster** (teste em `cards.test.ts`), valem 0 Fragmentos na venda e "Vender repetidas" mantém 1 cópia.
+- ~~LR/EX não entram nas chances de booster~~ — LR passou a entrar (ver "LR nos boosters" abaixo); EX segue fora. "Vender repetidas" mantém 1 cópia.
 - **Loki (hipótese minha, revisar):** Tanque, ATQ 5/HP 18, Provocar + Defesa 1; *Ragnir* 2 gen. 2×; *Martelo do Ragnarok* 3 gen. 2,5× + Atordoado, Recarga 2.
 - Pendente: handlers de *Instinto de Finalização*, *Domínio Reversi*/Marca Reversi e limite de 1 LR/EX por deck — entram com o motor (M4) e o deck builder (M3).
 
 ## Energias Ego e Haki — 12/10/2026
 - Novas energias específicas: **Ego** (Blue Lock) e **Haki** (One Piece), com cartas `energy-ego` e `energy-haki` (arte do criador).
-- O texto das artes traz efeitos extras (Ego: +1 ATQ se o portador estiver sozinho na linha de frente; Haki: conversão em Kenbunshoku/Busoshoku/Haoshoku). **Não estão no RULEBOOK nem no motor**: hoje as duas funcionam como as demais energias específicas. Pendente de decisão.
+- Ego: arte refeita pelo criador, texto só "Concede 1 Energia" (sem efeito extra). Haki mantém a arte com conversão em Kenbunshoku/Busoshoku/Haoshoku, decidido pelo criador; o efeito **não está no RULEBOOK nem no motor** — hoje funciona como as demais energias específicas.
 - Kaiser, Imu e Loki seguem com custos só genéricos até decidir se parte vira Ego/Haki.
 - Efeito colateral: o booster Multiverso passa a poder sortear Ego/Haki entre as energias locais.
+
+## LR nos boosters e garantia de LR — 12/10/2026 (aprovado pelo criador)
+- **LR sai de booster**: 0,5% no slot raro (tirado do R: 50% → 49,5%; UR segue 3%), só nos packs **Blue Lock, One Piece e Multiverso** (`SLOTS_LR`). Demais packs inalterados.
+- **Garantia de LR: 200 packs**, contada à parte por pack (`pity["pack-x:LR"]`), só em packs que podem dar LR. Tem prioridade sobre a de UR; sair LR também zera a garantia de UR ("UR ou melhor").
+- **EX (Imu) continua fora de qualquer booster** (teste em `cards.test.ts`).
+- Venda de LR: 1.000 Fragmentos (hipótese; EX segue 0). Retorno médio de vender um pack continua abaixo do preço (teste).
+- **Pity em universo sem UR (Bleach):** a garantia entrega a melhor raridade disponível (SSR) e zera o contador. Antes, forçava UR, a vaga virava energia e o contador nunca zerava.
 
 
 ## Expansão JoJo e Steel Ball Run — 12/10/2026

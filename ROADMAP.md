@@ -3,7 +3,7 @@
 Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apenas discutido.
 
 ## Expansão JoJo — 12/10/2026
-- [x] Universo JoJo, energia Stand e sétimo booster na loja.
+- [x] Universo JoJo, energia Stand e nono booster na loja.
 - [x] 20 personagens com arte, incluindo 5 de Steel Ball Run.
 - [x] Coleção, abertura individual/×5, Multiverso e garantia de UR integrados.
 - [x] Testes de catálogo, assets, sorteios, garantia e economia.

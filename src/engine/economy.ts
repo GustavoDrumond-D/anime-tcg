@@ -8,6 +8,7 @@ export type Tier = Rarity | 'energy'
 export interface EconomyRules {
   packPrice: number
   pityUR: number
+  pityLR: number
   /** Fragmentos recebidos por cópia vendida. */
   sell: Record<Tier, number>
   /** Cópias que "Vender repetidas" preserva (limite do deck: 2 por identidade, 1 UR). */
@@ -20,7 +21,7 @@ export interface Profile {
   freePacks: number
   /** cardId → cópias. */
   inventory: Record<string, number>
-  /** packId → packs abertos desde o último UR. */
+  /** packId → packs abertos desde o último UR; `${packId}:LR` → desde a última LR. */
   pity: Record<string, number>
 }
 
@@ -40,7 +41,7 @@ export function packCost(p: Profile, count: number, rules: EconomyRules) {
   return { free, fragments: (count - free) * rules.packPrice }
 }
 
-export type OpenedPack = { cards: CardDef[]; guaranteed: boolean }
+export type OpenedPack = { cards: CardDef[]; guaranteed: boolean; guaranteedLR: boolean }
 export type BuyResult =
   { ok: true; profile: Profile; packs: OpenedPack[] } | { ok: false; reason: 'insufficient' }
 
@@ -55,14 +56,20 @@ export function buyPacks(
 ): BuyResult {
   const cost = packCost(p, count, rules)
   if (cost.fragments > p.fragments) return { ok: false, reason: 'insufficient' }
+  const lrKey = `${pack.id}:LR`
   let since = p.pity[pack.id] ?? 0
+  let sinceLR = p.pity[lrKey] ?? 0
   const inventory = { ...p.inventory }
   const packs: OpenedPack[] = []
   for (let i = 0; i < count; i++) {
-    const r = openPackWithPity(pack, catalog, rng, since, rules.pityUR)
+    const r = openPackWithPity(pack, catalog, rng, since, rules.pityUR, {
+      since: sinceLR,
+      pity: rules.pityLR,
+    })
     since = r.sinceUR
+    sinceLR = r.sinceLR
     for (const c of r.cards) inventory[c.id] = (inventory[c.id] ?? 0) + 1
-    packs.push({ cards: r.cards, guaranteed: r.guaranteed })
+    packs.push({ cards: r.cards, guaranteed: r.guaranteed, guaranteedLR: r.guaranteedLR })
   }
   return {
     ok: true,
@@ -72,7 +79,7 @@ export function buyPacks(
       fragments: p.fragments - cost.fragments,
       freePacks: p.freePacks - cost.free,
       inventory,
-      pity: { ...p.pity, [pack.id]: since },
+      pity: { ...p.pity, [pack.id]: since, [lrKey]: sinceLR },
     },
   }
 }

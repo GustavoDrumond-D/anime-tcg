@@ -36,7 +36,7 @@ Universal (custo genérico), Amaldiçoada (Jujutsu Kaisen), Chakra (Naruto), Nen
 
 ## Boosters e economia
 
-São sete packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach, Dragon Ball e JoJo’s Bizarre Adventure.
+São nove packs: Multiverso, Jujutsu Kaisen, Naruto, Hunter x Hunter, Bleach, Dragon Ball, Blue Lock, One Piece e JoJo’s Bizarre Adventure.
 
 **Composição de um pack (5 cartas):**
 - 2 energias;

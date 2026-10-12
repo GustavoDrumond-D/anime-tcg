@@ -91,15 +91,16 @@ export function Spotlight({
   guaranteed?: boolean
   onClose: () => void
 }) {
-  const kind = card.rarity as RareKind
+  const kind: RareKind = card.rarity === 'SSR' ? 'SSR' : 'UR'
   const ur = kind === 'UR'
+  const lr = card.rarity === 'LR'
   const btn = useRef<HTMLButtonElement>(null)
   useEffect(() => btn.current?.focus(), [])
   return (
     <div
       role="dialog"
       aria-modal
-      aria-label={`${ur ? 'Ultra raro' : 'Super raro'}: ${card.name}`}
+      aria-label={`${lr ? 'Lendário' : ur ? 'Ultra raro' : 'Super raro'}: ${card.name}`}
       onClick={onClose}
       onKeyDown={(e) => e.key === 'Escape' && onClose()}
       className="fixed inset-0 z-50 grid cursor-pointer place-items-center overflow-hidden bg-black/80 backdrop-blur-sm"
@@ -116,14 +117,14 @@ export function Spotlight({
       />
       <div className="relative flex flex-col items-center gap-6">
         <p
-          className={`font-display text-5xl font-black tracking-[0.2em] ${ur ? 'text-holo' : 'text-gold-metal'}`}
+          className={`font-display text-5xl font-black tracking-[0.2em] ${lr ? 'text-lr' : ur ? 'text-holo' : 'text-gold-metal'}`}
           style={{ animation: 'banner .7s cubic-bezier(.2,.9,.3,1.3) .25s both' }}
         >
-          {ur ? 'ULTRA RARO' : 'SUPER RARO'}
+          {lr ? 'LENDÁRIO' : ur ? 'ULTRA RARO' : 'SUPER RARO'}
         </p>
         {guaranteed && (
           <p className="-mt-4 font-label text-xs font-bold tracking-[0.3em] text-muted uppercase">
-            Garantia de UR ativada
+            Garantia de {card.rarity} ativada
           </p>
         )}
         <div
