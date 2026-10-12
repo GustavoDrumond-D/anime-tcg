@@ -203,6 +203,7 @@ function Owned({
       >
         Vender 1 · +◆ {ECONOMY.sell[tierOf(card)]}
       </button>
+      {import.meta.env.DEV && <DevGrantCard card={card} />}
     </div>
   )
 }
@@ -229,6 +230,20 @@ function DevTools() {
         Resetar perfil
       </button>
     </span>
+  )
+}
+
+/** Só em desenvolvimento: ganha 1 cópia (único jeito de obter LR/EX por enquanto). */
+function DevGrantCard({ card }: { card: CardDef }) {
+  const { dev } = useProfile()
+  return (
+    <button
+      onClick={() => dev.grantCard(card)}
+      title="Visível só em desenvolvimento"
+      className="rounded border border-dashed border-atk/60 py-1 font-label text-[11px] font-bold tracking-[0.1em] text-atk uppercase hover:bg-atk/10"
+    >
+      Dev · +1 cópia
+    </button>
   )
 }
 

@@ -35,6 +35,11 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     },
     dev: {
       grant: (n) => commit({ ...profile, fragments: profile.fragments + n }),
+      grantCard: (c) =>
+        commit({
+          ...profile,
+          inventory: { ...profile.inventory, [c.id]: (profile.inventory[c.id] ?? 0) + 1 },
+        }),
       reset: () => commit(eco.newProfile(START_FRAGMENTS, START_FREE_PACKS)),
     },
   }

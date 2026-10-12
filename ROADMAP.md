@@ -118,6 +118,7 @@ Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apena
 - [ ] Implementar login por convite, perfis, RBAC no servidor e tags visuais.
 - [ ] Implementar lista de amigos e convites para salas privadas.
 - [ ] Migrar inventário/Fragmentos/decks com transações auditáveis e sincronização.
+- [ ] Tag/role **DEV** para o criador e quem estiver ajudando (role no servidor; a tag é só visual). Substitui os botões `Dev` locais (só existem em `npm run dev`, ex.: "+1 cópia" na coleção, único jeito atual de obter LR/EX).
 - [ ] Implementar painel DEV: listar jogadores, ajustar Fragmentos, conceder/remover cartas e boosters, gerir eventos e auditar concessões.
 - [ ] Implementar servidor autoritativo de partida, eventos filtrados por jogador, anti-cheat, reconexão e testes com dois clientes.
 - [ ] Adicionar animações de cards e ataques 2D/3D leves, acessíveis em celular.
