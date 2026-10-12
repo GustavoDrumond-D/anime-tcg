@@ -1,6 +1,7 @@
 import type { PackDef, PackSlot } from '../../engine/packs'
 import { CATALOG } from '../../data/cards'
-import { chanceAtLeastOne, expectedPacksPerUR, guaranteeRarity } from '../../engine/packs'
+import { PITY_LR } from '../../data/packs'
+import { chanceAtLeastOne, expectedPacksPerUR, guaranteeRarity, hasLR } from '../../engine/packs'
 
 const pct = (n: number) => `${Math.round(n * 1000) / 10}%`.replace('.', ',')
 
@@ -20,11 +21,13 @@ export function OddsPanel({
   energyName,
   pity,
   sinceUR,
+  sinceLR = 0,
 }: {
   pack: PackDef
   energyName: string
   pity: number
   sinceUR: number
+  sinceLR?: number
 }) {
   // Agrupa posições consecutivas iguais: "1–2", "3–4", "5".
   const rows: { from: number; to: number; slot: PackSlot }[] = []
@@ -34,6 +37,7 @@ export function OddsPanel({
     else rows.push({ from: i + 1, to: i + 1, slot })
   })
   const guarantee = guaranteeRarity(pack, CATALOG)
+  const lr = hasLR(pack, CATALOG)
   const ur = chanceAtLeastOne(pack, 'UR')
   const ssr = chanceAtLeastOne(pack, 'SSR')
   return (
@@ -61,6 +65,14 @@ export function OddsPanel({
           'este universo ainda não tem personagens de booster.'
         )}
       </p>
+      {lr && (
+        <p className="mt-2 rounded-md border border-line bg-panel px-3 py-2 text-xs text-parchment">
+          <span className="font-label font-bold tracking-wider text-lr uppercase">
+            LR {pct(chanceAtLeastOne(pack, 'LR'))}:
+          </span>{' '}
+          no máximo {PITY_LR} packs sem LR. Faltam <b>{PITY_LR - sinceLR}</b>.
+        </p>
+      )}
       <ul className="mt-3 flex flex-col gap-2 border-t border-line pt-3">
         {rows.map(({ from, to, slot }) => {
           const [title, odds] = describe(slot, energyName)

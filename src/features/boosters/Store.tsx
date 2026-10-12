@@ -2,11 +2,11 @@ import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { useProfile } from '../../app/profileContext'
 import { ECONOMY } from '../../data/economy'
 import { CATALOG } from '../../data/cards'
-import { PACKS, PITY_UR } from '../../data/packs'
+import { PACKS, PITY_LR, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
 import type { Universe } from '../../engine/cards'
 import { packCost } from '../../engine/economy'
-import { guaranteeRarity } from '../../engine/packs'
+import { guaranteeRarity, hasLR } from '../../engine/packs'
 import { energyNameOf } from './packInfo'
 
 const ORDER: Universe[] = [
@@ -77,6 +77,9 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
   }
   const left = Math.max(1, PITY_UR - (profile.pity[PACKS[current].id] ?? 0))
   const guarantee = guaranteeRarity(PACKS[current], CATALOG)
+  const leftLR = hasLR(PACKS[current], CATALOG)
+    ? Math.max(1, PITY_LR - (profile.pity[`${PACKS[current].id}:LR`] ?? 0))
+    : null
 
   const canBuy = (count: number) => packCost(profile, count, ECONOMY).fragments <= profile.fragments
   const priceLabel = (count: number) => {
@@ -168,6 +171,12 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
             {' '}
             · {guarantee} garantido em até <span className="text-holo">{left}</span> pack
             {left === 1 ? '' : 's'}
+          </>
+        )}
+        {leftLR && (
+          <>
+            {' '}
+            · LR garantida em até <span className="text-lr">{leftLR}</span>
           </>
         )}
       </p>

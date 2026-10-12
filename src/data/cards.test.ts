@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { ENERGY_TYPES, RARITY, maxMultiplier } from '../engine/cards'
 import { CATALOG, CHARACTERS, ENERGIES } from './cards'
 import { openPack } from '../engine/packs'
-import { PACKS, SLOTS } from './packs'
+import { PACKS, SLOTS_LR } from './packs'
 
 describe('catálogo', () => {
   it('tem ids únicos', () => {
@@ -32,20 +32,26 @@ describe('catálogo', () => {
     }
   })
 
-  it('LR/EX não saem de booster (concessão/evento)', () => {
-    for (const s of SLOTS) {
-      if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('LR')
-      if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('EX')
-    }
-  })
-
-  it('Imu EX e demais LR/EX nunca saem do booster, mesmo no do universo delas', () => {
+  it('EX (Imu) nunca sai de booster; LR só nos packs com SLOTS_LR', () => {
+    for (const pack of Object.values(PACKS))
+      for (const s of pack.slots)
+        if (s.kind === 'character') {
+          expect(s.odds.EX, pack.id).toBeUndefined()
+          if (s.odds.LR) expect(pack.slots, pack.id).toBe(SLOTS_LR)
+        }
     let seed = 1
     const rng = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646
     for (const u of ['one-piece', 'blue-lock', 'multiverse'] as const)
       for (let i = 0; i < 2000; i++)
-        for (const c of openPack(PACKS[u], CATALOG, rng, i % 20 === 0 ? 'UR' : undefined))
-          expect(c.type === 'character' && ['LR', 'EX'].includes(c.rarity), c.id).toBe(false)
+        for (const force of [undefined, 'UR', 'LR'] as const)
+          for (const c of openPack(PACKS[u], CATALOG, rng, force))
+            expect(c.type === 'character' && c.rarity === 'EX', c.id).toBe(false)
+  })
+
+  it('slot raro com LR soma 100%', () => {
+    const rare = SLOTS_LR[4]!
+    if (rare.kind !== 'character') throw new Error('slot raro')
+    expect(Object.values(rare.odds).reduce((a, n) => a + (n ?? 0), 0)).toBe(100)
   })
 
   it('toda arte referenciada existe em public/', () => {

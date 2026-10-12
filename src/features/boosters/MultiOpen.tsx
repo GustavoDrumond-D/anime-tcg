@@ -9,7 +9,13 @@ import { sfx } from './sfx'
 const RANK = { EX: 7, LR: 6, UR: 5, SSR: 4, SR: 3, R: 2, C: 1 } as const
 const rank = (c: CardDef) => (c.type === 'character' ? RANK[c.rarity] : 0)
 const rareOf = (c: CardDef): RareKind | null =>
-  c.type === 'character' && (c.rarity === 'UR' || c.rarity === 'SSR') ? c.rarity : null
+  c.type !== 'character'
+    ? null
+    : c.rarity === 'UR' || c.rarity === 'LR'
+      ? 'UR'
+      : c.rarity === 'SSR'
+        ? 'SSR'
+        : null
 
 /** Sequência: rasga os packs → destaca cada rara (maior primeiro) → monta a grade do resto. */
 type Phase = 'tearing' | 'rares' | 'grid'
@@ -40,7 +46,13 @@ export function MultiOpen({
   const [all] = useState(() => {
     const seen = new Set<string>()
     return packs
-      .flatMap((p) => p.cards.map((card) => ({ card, guaranteed: p.guaranteed })))
+      .flatMap((p) =>
+        p.cards.map((card, i) => ({
+          card,
+          // A garantia sempre cai na última vaga (slot raro).
+          guaranteed: (p.guaranteed || p.guaranteedLR) && i === p.cards.length - 1,
+        })),
+      )
       .map((x) => {
         const isNew = !before[x.card.id] && !seen.has(x.card.id)
         seen.add(x.card.id)
@@ -122,6 +134,7 @@ export function MultiOpen({
         <>
           <h1 className="font-display text-3xl font-black text-parchment">Resultado</h1>
           <p className="mt-1 font-label text-sm font-bold tracking-[0.15em] uppercase">
+            {count('LR') > 0 && <span className="text-lr">LR {count('LR')} · </span>}
             <span className="text-holo">UR {count('UR')}</span> ·{' '}
             <span className="text-gold-metal">SSR {count('SSR')}</span> ·{' '}
             <span className="text-muted">
@@ -189,7 +202,7 @@ export function MultiOpen({
         <Spotlight
           key={rareIdx}
           card={current.card as CharacterDef}
-          guaranteed={current.guaranteed && rareOf(current.card) === 'UR'}
+          guaranteed={current.guaranteed}
           onClose={nextRare}
         />
       )}
