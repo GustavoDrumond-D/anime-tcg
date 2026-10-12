@@ -23,7 +23,7 @@ export const PACKS: Record<Universe, PackDef> = {
   'hunter-x-hunter': pack('hunter-x-hunter'),
   bleach: pack('bleach'),
   'dragon-ball': pack('dragon-ball'),
-  // ponytail: fora da loja (Store ORDER); só existem para o Record fechar. Odds não incluem LR/EX.
+  // Odds não incluem LR/EX. Sem personagens C–UR ainda, os slots de personagem viram energia (openPack).
   'blue-lock': pack('blue-lock'),
   'one-piece': pack('one-piece'),
 }

@@ -15,9 +15,8 @@ export const UNIVERSES: Record<Universe, { name: string; energy: EnergyType; pac
   },
   bleach: { name: 'Bleach', energy: 'reiatsu', pack: '/assets/packs/bleach.webp' },
   'dragon-ball': { name: 'Dragon Ball', energy: 'ki', pack: '/assets/packs/dragon-ball.webp' },
-  // Sem booster próprio ainda (fora da loja): reaproveita a arte do Multiverso.
-  'blue-lock': { name: 'Blue Lock', energy: 'ego', pack: '/assets/packs/multiverse.webp' },
-  'one-piece': { name: 'One Piece', energy: 'haki', pack: '/assets/packs/multiverse.webp' },
+  'blue-lock': { name: 'Blue Lock', energy: 'ego', pack: '/assets/packs/blue-lock.webp' },
+  'one-piece': { name: 'One Piece', energy: 'haki', pack: '/assets/packs/one-piece.webp' },
 }
 
 /** Cor de cada energia na UI (pips de custo, filtros). */
