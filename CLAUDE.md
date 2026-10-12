@@ -19,3 +19,6 @@ Construir incrementalmente um card game de navegador (React + TypeScript + Vite)
 
 ## Próxima tarefa sugerida
 As regras de combate foram fechadas no RULEBOOK v0.3.1 (ver `docs/PENDENCIAS.md`). Os números continuam como hipóteses. Próximo passo: implementar o motor puro em TypeScript com testes Vitest e montar uma batalha jogável com decks fixos, antes de coleção e boosters. Quando surgir uma ambiguidade nova, registrar em `docs/DECISIONS.md` em vez de assumir uma solução.
+
+## Expansão documentada (12/10/2026)
+Antes de desenvolver cartas LR/EX, contas, partidas online ou painel DEV, ler `docs/CARTAS_ESPECIAIS.md`, `docs/cards-special-proposals.json` e `docs/ONLINE_SOCIAL_GAME_MASTER.md`. São **propostas**, não implementação pronta nem substituição do RULEBOOK v0.3.1. Preservar o projeto privado, gratuito e não comercial. **Priorizar o motor PvE e o deck builder**; solicitar aprovação para orçamentos, backend e regras em aberto antes de programar. Nunca autorizar concessão de Fragmentos/cartas ou ações de GM por tag visual ou estado do navegador.
