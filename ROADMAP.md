@@ -102,3 +102,24 @@ Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apena
 - [ ] Sincronizar estados e eventos por conexão realtime; proteger mão/deck de cada jogador e permitir reconexão.
 - [ ] Desenvolver animações 2D/3D híbridas de boosters, habilidades e Domínio Reversi, sem tornar a experiência dependente de um mundo 3D.
 - [ ] Rever direitos de arte e limites de acesso antes de publicar a instância privada; não monetizar nem promover como produto licenciado.
+
+## M6 — Expansão planejada: raridades LR/EX e cartas de evento (proposta 12/10/2026)
+- [x] Documentar design de Kaiser LR (Imperador das Rosas e Kaiser Impact), Imu-sama EX e conceito visual Loki LR.
+- [ ] Aprovar balanceamento, custos, Abalo e limite de LR/EX por deck.
+- [ ] Expandir catálogo/engine para LR, EX, One Piece e Blue Lock sem quebrar testes.
+- [ ] Implementar Domínio Reversi: corrupção com metade dos atributos e cópia temporária embaralhada no deck; testar limites e casos de borda.
+- [ ] Criar variantes de edição DEV, ALPHA TESTER, FIRST EDITION e EVENT, com origem e arte alternativas.
+- [ ] Integrar artes aprovadas sem stats embutidos, preservando moldura e legibilidade.
+- [ ] Criar evento de Imu EX para DEV/TESTER e futura recompensa pública após 7 logins acumulados.
+
+## M7 — Contas, PvP entre convidados e Game Master (planejado; após motor PvE)
+- [x] Documentar arquitetura prevista, papéis, permissões e modelos de dados.
+- [ ] Definir e provisionar backend (Supabase é opção, não decisão final).
+- [ ] Implementar login por convite, perfis, RBAC no servidor e tags visuais.
+- [ ] Implementar lista de amigos e convites para salas privadas.
+- [ ] Migrar inventário/Fragmentos/decks com transações auditáveis e sincronização.
+- [ ] Implementar painel DEV: listar jogadores, ajustar Fragmentos, conceder/remover cartas e boosters, gerir eventos e auditar concessões.
+- [ ] Implementar servidor autoritativo de partida, eventos filtrados por jogador, anti-cheat, reconexão e testes com dois clientes.
+- [ ] Adicionar animações de cards e ataques 2D/3D leves, acessíveis em celular.
+
+**Documentos-base:** [Cartas especiais](docs/CARTAS_ESPECIAIS.md) · [PvP, amigos e GM](docs/ONLINE_SOCIAL_GAME_MASTER.md) · [Propostas JSON](docs/cards-special-proposals.json). Nenhuma caixa acima declara um recurso executável como concluído.
