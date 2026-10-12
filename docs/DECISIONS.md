@@ -107,3 +107,16 @@ Cada pack tem 5 cartas, e cada posição tem sua própria tabela (o modelo de "s
 
 ## Alterações importantes
 Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registrando os motivos e os testes de balanceamento. Uma ideia anterior não é definitiva só porque foi discutida.
+
+
+## Discussões de 12/10/2026 — evolução futura (sem alterar a Alpha v0.3.1)
+
+**Visão confirmada:** Anime TCG continua como **jogo de navegador**, feito com atenção às artes e animações, gratuito, não comercial, distribuído apenas a amigos convidados. A proposta não envolve migrar o projeto para Roblox; interface 2D com animações e elementos 3D opcionais é preferida.
+
+**Conceitos acordados, ainda não implementados:** criar raridades **LR** e **EX** (EX acima de LR e com pouquíssimas identidades); incluir versões LR de **Michael Kaiser**, e **Imu-sama EX** como Invocador/Necromante. O traço central do **Domínio Reversi** é que vítimas derrotadas por Imu retornem sob controle do jogador de Imu com **metade dos atributos originais**. As versões DEV/TESTER do Imu terão disponibilidade antecipada, e a versão normal poderá ser liberada por **7 logins acumulados** após período de exclusividade.
+
+**Hipóteses pendentes de aprovação/playtest:** números LR/EX, limites de cartas especiais por deck, custos e recargas de Kaiser/Imu, teto de corrompidos, como armazenar e invocar as cópias, se os 7 logins podem ser não consecutivos, período antecipado sugerido de 30 dias, edição e atributos de Loki. Não tratar esses valores como requisitos fechados.
+
+**Infraestrutura desejada após o motor PvE:** contas privadas por convite, lista de amigos, tag social (DEV/TESTER/PLAYER) separada de roles confiáveis, PvP online por salas, persistência no servidor e **Game Master** com poderes do dono para conceder cartas, edições, boosters e Fragmentos, criar eventos e auditar concessões. Supabase (Auth/Postgres/Realtime/funções) é candidato, não escolha fechada. A atual coleção local permanece a fonte de verdade **apenas do protótipo offline**.
+
+**Documentação específica:** [Cartas especiais](CARTAS_ESPECIAIS.md), [Propostas de cartas em JSON](cards-special-proposals.json), [Contas, PvP privado e Game Master](ONLINE_SOCIAL_GAME_MASTER.md). Esta seção **não** muda o orçamento de raridades, a enum de universos, as chances de packs nem o schema executável existentes.
