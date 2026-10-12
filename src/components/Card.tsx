@@ -255,7 +255,7 @@ function Header({ card, full }: { card: CharacterDef; full: boolean }) {
       {card.kanji && full && (
         <span
           aria-hidden
-          className="absolute top-[19cqw] left-[4.5cqw] font-kanji text-[3.4cqw] leading-tight text-gold-light/85 [writing-mode:vertical-rl]"
+          className="absolute top-[19cqw] left-[4.5cqw] font-kanji text-[3.4cqw] leading-tight whitespace-nowrap text-gold-light/85 [writing-mode:vertical-rl]"
         >
           {card.kanji}
         </span>

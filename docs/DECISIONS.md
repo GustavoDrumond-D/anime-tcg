@@ -148,3 +148,10 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 - **EX (Imu) continua fora de qualquer booster** (teste em `cards.test.ts`).
 - Venda de LR: 1.000 Fragmentos (hipótese; EX segue 0). Retorno médio de vender um pack continua abaixo do preço (teste).
 - **Pity em universo sem UR (Bleach):** a garantia entrega a melhor raridade disponível (SSR) e zera o contador. Antes, forçava UR, a vaga virava energia e o contador nunca zerava.
+
+## LR com 3 habilidades e passiva do Loki — 12/10/2026 (aprovado pelo criador)
+- **LR podem ter 3 habilidades** (demais raridades: até 2). EX também pode ter 3, por estar acima de LR. Teste em `cards.test.ts`.
+- Propostas de Claude (hipóteses, revisar no playtest), só com efeitos já existentes no schema:
+  - Kaiser Impact — *Voleio Imperial*: 1 gen., 1,25× ATQ (6), crítico 30%.
+  - Loki — *Pele de Gigante*: 1 gen., Escudo 3 em si mesmo, Recarga 1.
+  - Loki — passiva *Sangue de Gigante*: a 1ª vez que sofre dano em cada turno do oponente, +1 ATQ até o fim do seu próximo turno (máx. +2). Handler pendente (M4).
