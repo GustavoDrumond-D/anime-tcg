@@ -75,3 +75,30 @@ Os checkboxes marcam só o que foi efetivamente concluído, não o que foi apena
 - [ ] Progressão e missões
 - [ ] PWA
 - [ ] Avaliar contas/sincronização/PvP apenas após MVP
+
+
+## M6 — Cartas especiais e raridades superiores (proposta de 12/10/2026)
+
+> **Planejado, não implementado.** Detalhes de atributos, efeitos e aquisição em [Cartas especiais](docs/CARTAS_ESPECIAIS.md); registro estruturado em [JSON de propostas](docs/cards-special-proposals.json).
+
+- [ ] Validar com playtest a hierarquia UR → LR → EX e os custos/Abalo das novas raridades.
+- [ ] Criar as **duas versões LR de Michael Kaiser**: *Imperador das Rosas* (Controlador) e *Kaiser Impact* (Lutador).
+- [ ] Criar **Imu-sama EX**, Invocador/Necromante: **Domínio Reversi** converte inimigos derrotados por Imu em cópias temporárias com 50% dos stats, embaralhadas no deck do controlador (proposta atual; limites pendentes).
+- [ ] Definir carta **Loki LR** de One Piece após balancear ataques e passivas; preservar arte/moldura e deixar o emblema LR totalmente visível.
+- [ ] Criar edições `DEV`, `ALPHA TESTER`, `FIRST EDITION` e `EVENT` com variação estética e poder idêntico entre edições da mesma carta.
+- [ ] Planejar concessão antecipada de Imu EX para DEV/TESTER e futura recompensa de **7 dias de login acumulados** para convidados, após um período de exclusividade a definir.
+- [ ] Adicionar universos Blue Lock e One Piece **somente quando seus catálogos e regras estiverem validados**; não alterar chances dos boosters existentes por antecipação.
+
+## M7 — Contas privadas, amigos, PvP e Game Master (proposta)
+
+> **Planejado, não implementado.** Especificação completa em [Online, social e Game Master](docs/ONLINE_SOCIAL_GAME_MASTER.md). Destino: jogo privado, gratuito, não comercial, acessível a amigos convidados pelo navegador, inclusive celular.
+
+- [ ] Finalizar motor de regras PvE e deck builder offline antes de implementar o multiplayer.
+- [ ] Definir autenticação e persistência sincronizada em backend gerenciado (Supabase é candidato, não decisão definitiva).
+- [ ] Criar convites de acesso, perfis e tags visuais `DEV`, `ALPHA TESTER`, `PLAYER`, separadas de permissões RBAC no servidor.
+- [ ] Criar lista de amigos, convites e salas privadas com código para partidas online.
+- [ ] Adotar backend autoritativo para turnos, RNG, energia, efeitos, vitória, coleção e prêmios; não confiar em cálculos do navegador.
+- [ ] Criar aba **Game Master** apenas para `owner` autorizado: conceder qualquer carta/edição (incluindo Imu EX), adicionar/remover Fragmentos, dar boosters, editar roles e criar eventos, com audit log e operações idempotentes.
+- [ ] Sincronizar estados e eventos por conexão realtime; proteger mão/deck de cada jogador e permitir reconexão.
+- [ ] Desenvolver animações 2D/3D híbridas de boosters, habilidades e Domínio Reversi, sem tornar a experiência dependente de um mundo 3D.
+- [ ] Rever direitos de arte e limites de acesso antes de publicar a instância privada; não monetizar nem promover como produto licenciado.
