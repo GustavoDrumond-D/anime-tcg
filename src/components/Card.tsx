@@ -10,16 +10,18 @@ const CLASS_LABEL: Record<CharacterDef['class'], string> = {
   summoner: 'Invocador',
 }
 
-// Moldura por raridade: EX carmesim/ouro, LR prisma magenta, UR holográfica, SSR/SR dourada, C/R discreta.
+// Moldura por raridade: EX/LR com borda animada, UR holográfica, SSR/SR dourada, C/R discreta.
+// Classes frame-*/foil-* ficam em index.css (animações).
 const FRAME: Record<Rarity, string> = {
-  EX: 'bg-ex shadow-[0_0_36px_rgba(220,38,38,0.55)]',
-  LR: 'bg-lr shadow-[0_0_32px_rgba(236,72,153,0.5)]',
-  UR: 'bg-holo shadow-[0_0_28px_rgba(125,200,255,0.45)]',
+  EX: 'frame-ex',
+  LR: 'frame-lr',
+  UR: 'frame-ur',
   SSR: 'bg-gold-metal shadow-[0_0_24px_rgba(212,175,55,0.35)]',
   SR: 'bg-gold-metal',
   R: 'bg-line',
   C: 'bg-line',
 }
+const FOIL: Partial<Record<Rarity, string>> = { UR: 'foil-ur', LR: 'foil-lr', EX: 'foil-ex' }
 const RARITY_TEXT: Record<Rarity, string> = {
   EX: 'text-ex',
   LR: 'text-lr',
@@ -71,6 +73,7 @@ export function Card({ card, variant = 'compact', className = '' }: Props) {
         className={`relative flex h-full flex-col overflow-hidden bg-ink ${full ? 'gap-2 rounded-[13px] p-3.5' : 'gap-1 rounded-[8px] p-2'}`}
       >
         <Art card={card} />
+        {FOIL[card.rarity] && <div aria-hidden className={`foil ${FOIL[card.rarity]}`} />}
         {full ? <FullBody card={card} /> : <CompactBody card={card} />}
       </div>
     </article>

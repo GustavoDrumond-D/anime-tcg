@@ -21,31 +21,15 @@
 @utility bg-gold-metal {
   background-image: linear-gradient(135deg, #f7e7a6, #b8892b 50%, #f1d98a);
 }
-@utility bg-holo {
-  background-image: linear-gradient(135deg, #7df9ff, #ff6ad5 33%, #ffd86b 66%, #7df9ff);
-}
 @utility text-holo {
   background-image: linear-gradient(135deg, #7df9ff, #ff6ad5 33%, #ffd86b 66%, #7df9ff);
   background-clip: text;
   color: transparent;
 }
-@utility bg-lr {
-  background-image: linear-gradient(135deg, #ff4fd8, #6d5bff 35%, #3fd0ff 65%, #ff4fd8);
-}
 @utility text-lr {
   background-image: linear-gradient(135deg, #ff4fd8, #6d5bff 35%, #3fd0ff 65%, #ff4fd8);
   background-clip: text;
   color: transparent;
-}
-@utility bg-ex {
-  background-image: linear-gradient(
-    135deg,
-    #1a0006,
-    #dc2626 30%,
-    #f1d98a 50%,
-    #dc2626 70%,
-    #1a0006
-  );
 }
 @utility text-ex {
   background-image: linear-gradient(135deg, #ff5a5a, #f1d98a 50%, #ff5a5a);
@@ -161,6 +145,116 @@
   }
 }
 
+/* Efeitos de raridade das cartas. UR: foil que corre; LR: borda prisma girando;
+   EX: borda carmesim/ouro girando + aura pulsando. Estático com prefers-reduced-motion. */
+@property --spin {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-spin {
+  to {
+    --spin: 360deg;
+  }
+}
+@keyframes foil-slide {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 200% 200%;
+  }
+}
+@keyframes aura {
+  50% {
+    box-shadow:
+      0 0 44px rgba(220, 38, 38, 0.75),
+      0 0 90px rgba(241, 217, 138, 0.25);
+  }
+}
+.frame-ur {
+  background-image: linear-gradient(135deg, #7df9ff, #ff6ad5 33%, #ffd86b 66%, #7df9ff);
+  box-shadow: 0 0 28px rgba(125, 200, 255, 0.45);
+}
+.frame-lr {
+  background-image: conic-gradient(
+    from var(--spin),
+    #ff4fd8,
+    #6d5bff,
+    #3fd0ff,
+    #7dffb0,
+    #ffd86b,
+    #ff4fd8
+  );
+  box-shadow: 0 0 32px rgba(236, 72, 153, 0.5);
+  animation: border-spin 4s linear infinite;
+}
+.frame-ex {
+  background-image: conic-gradient(
+    from var(--spin),
+    #1a0006,
+    #dc2626 15%,
+    #f1d98a 25%,
+    #dc2626 35%,
+    #1a0006 50%,
+    #dc2626 65%,
+    #f1d98a 75%,
+    #dc2626 85%,
+    #1a0006
+  );
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.55);
+  animation:
+    border-spin 6s linear infinite,
+    aura 3s ease-in-out infinite;
+}
+.foil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: 200% 200%;
+  animation: foil-slide 6s linear infinite;
+}
+.foil-ur {
+  background-image: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(125, 249, 255, 0.16) 45%,
+    rgba(255, 106, 213, 0.18) 50%,
+    rgba(255, 216, 107, 0.16) 55%,
+    transparent 65%
+  );
+  mix-blend-mode: screen;
+}
+.foil-lr {
+  background-image: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 79, 216, 0.22) 40%,
+    rgba(160, 140, 255, 0.28) 50%,
+    rgba(63, 208, 255, 0.22) 60%,
+    transparent 75%
+  );
+  mix-blend-mode: screen;
+  animation-duration: 4s;
+}
+.foil-ex {
+  background-image:
+    radial-gradient(circle at 50% 110%, rgba(220, 38, 38, 0.45), transparent 60%),
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(241, 217, 138, 0.4) 47%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(241, 217, 138, 0.4) 53%,
+      transparent 70%
+    );
+  mix-blend-mode: overlay;
+  animation-duration: 3.5s;
+}
+
+html {
+  background: #030407;
+}
 body {
   margin: 0;
   min-height: 100vh;
