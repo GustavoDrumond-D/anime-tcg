@@ -32,11 +32,12 @@ Ambas têm identidade `michael-kaiser`, universo **Blue Lock** (novo universo, a
 - **Passiva — Instinto de Finalização:** uma vez por turno, quando Kaiser derrota um personagem inimigo com uma habilidade, restaura **1 energia genérica esgotada da reserva**. Não gera ação extra.
 - **Perfil:** explosão de dano e finalização; avaliar cuidadosamente a Penetração contra jogador de 15 HP.
 
-As ilustrações e molduras já foram prototipadas na conversa; **os arquivos de imagem não foram incorporados ao repositório por esta atualização**. Os atributos devem ser renderizados dinamicamente pela UI, não gravados na arte.
+Arte da versão **Kaiser Impact** incorporada em `public/assets/cards/blue-lock/blue-lock-kaiser-lr-impact-001.webp` (900×1200, sem texto/stats). A versão **Imperador das Rosas** ainda não tem arte no repositório. Os atributos devem ser renderizados dinamicamente pela UI, não gravados na arte.
 
 ## Imu-sama EX — O Soberano do Mundo
 
 - **Universo:** One Piece (ainda não cadastrado na enum de universos nem nos boosters).
+- **Arte:** `public/assets/cards/one-piece/one-piece-imu-ex-001.webp` (edição standard; variantes DEV/TESTER pendentes).
 - **Identidade:** `imu-sama`. **Raridade EX**, classe **Invocador**, arquétipo **Necromante**.
 - **Stats propostos:** ATQ **6** · HP **20** · invocação **4** genéricas · Abalo **5**.
 - **Decreto do Soberano:** 2 energias genéricas, 1,5× ATQ = **9** de dano; aplica **Marca Reversi** (marcação narrativa/de sinergia, duração até fim do próximo turno do controlador do alvo; handler ainda inexistente).
@@ -60,6 +61,7 @@ As ilustrações e molduras já foram prototipadas na conversa; **os arquivos de
 ## Loki — Gigante do Ragnarok (LR, One Piece)
 
 - **Conceito visual:** carta LR de Loki com moldura épica e tema trovão/Ragnarok.
+- **Arte:** `public/assets/cards/one-piece/one-piece-loki-lr-001.webp` (id `one-piece-loki-lr-001`).
 - **Status dos números/ataques/passivas:** **não aprovados**. Antes de cadastrar em `src/data/`, definir ATQ/HP dentro do teto LR, classe, habilidades, custo, recarga e testes.
 - **Atenção à arte:** manter personagem e moldura do protótipo, renderizar logo LR inteiro sem corte e sobrepor textos/stats da versão oficial do jogo.
 
@@ -76,6 +78,6 @@ As ilustrações e molduras já foram prototipadas na conversa; **os arquivos de
 - [ ] Revisar tabela LR/EX, pesos e dano com playtests.
 - [ ] Fechar como o Domínio Reversi opera e seus limites.
 - [ ] Adaptar tipos de TypeScript, validação do catálogo e testes.
-- [ ] Produzir assets locais autorizados sem stats/textos embutidos.
+- [ ] Produzir assets locais autorizados sem stats/textos embutidos. (Kaiser Impact, Imu EX e Loki LR prontos; faltam Kaiser Rosas e variantes DEV/TESTER da Imu.)
 - [ ] Testar que variantes da mesma identidade não coexistem no campo.
 - [ ] Testar cópias corrompidas: metade de stats, sem loops, sem duplicar acervo e desaparecimento ao fim da partida.

@@ -109,7 +109,8 @@
           "restoreExhaustedGenericEnergy": 1
         }
       ],
-      "edition": "standard"
+      "edition": "standard",
+      "art": "/assets/cards/blue-lock/blue-lock-kaiser-lr-impact-001.webp"
     },
     {
       "id": "one-piece-imu-ex-001",
@@ -192,10 +193,11 @@
           "oneTimePerAccount": true,
           "delayDaysSuggested": 30
         }
-      }
+      },
+      "art": "/assets/cards/one-piece/one-piece-imu-ex-001.webp"
     },
     {
-      "id": "one-piece-loki-lr-proposal",
+      "id": "one-piece-loki-lr-001",
       "identity": "loki-one-piece",
       "name": "Loki — Gigante do Ragnarok",
       "universe": "one-piece",
@@ -203,7 +205,8 @@
       "designStatus": "art-prototype-only",
       "abilities": [],
       "passives": [],
-      "notes": "Atributos e regras nao aprovados; arte de referencia Ragnarok/trovao; garantir logo LR inteiro."
+      "notes": "Atributos e regras nao aprovados; arte de referencia Ragnarok/trovao; garantir logo LR inteiro.",
+      "art": "/assets/cards/one-piece/one-piece-loki-lr-001.webp"
     }
   ]
 }
