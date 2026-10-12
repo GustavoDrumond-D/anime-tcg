@@ -42,7 +42,7 @@ const imu = {
   ],
 } as const satisfies CharacterDef
 
-// Loki: números ainda não aprovados pelo criador — proposta inicial dentro do teto LR.
+// Loki: números/passiva propostos por Claude dentro do teto LR — revisar no playtest.
 const loki = {
   id: 'one-piece-loki-lr-001',
   type: 'character',
@@ -73,9 +73,26 @@ const loki = {
       effects: [{ type: 'condition', condition: 'stunned' }],
       text: '2,5× ATQ. Atordoa o alvo. Recarga 2.',
     },
+    {
+      // 3ª habilidade: exclusiva de LR/EX (DECISIONS 12/10/2026).
+      id: 'giant-hide',
+      name: 'Pele de Gigante',
+      cost: { specific: {}, generic: 1 },
+      multiplier: 0,
+      cooldown: 1,
+      target: 'self',
+      effects: [{ type: 'shield', value: 3 }],
+      text: 'Ganha Escudo 3. Recarga 1.',
+    },
   ],
-  // Gigante de Elbaf: Provocar + Defesa 1 (como o Piccolo). Passiva própria fica para o playtest.
-  passives: [],
+  passives: [
+    {
+      // Handler pendente no motor (M4).
+      id: 'giant-blood',
+      name: 'Sangue de Gigante',
+      text: 'A primeira vez que Loki sofre dano em cada turno do oponente, ganha +1 ATQ até o fim do seu próximo turno (máx. +2).',
+    },
+  ],
 } as const satisfies CharacterDef
 
 export const ONE_PIECE: readonly CharacterDef[] = [imu, loki]

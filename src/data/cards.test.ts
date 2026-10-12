@@ -25,6 +25,13 @@ describe('catálogo', () => {
     }
   })
 
+  it('até 2 habilidades; LR/EX podem ter 3', () => {
+    for (const c of CHARACTERS)
+      expect(c.abilities.length, c.id).toBeLessThanOrEqual(
+        c.rarity === 'LR' || c.rarity === 'EX' ? 3 : 2,
+      )
+  })
+
   it('ids de habilidade são únicos dentro da carta', () => {
     for (const c of CHARACTERS) {
       const ids = [...c.abilities.map((a) => a.id), ...c.passives.map((p) => p.id)]

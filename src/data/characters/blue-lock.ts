@@ -31,6 +31,16 @@ const kaiserImpact = {
       keywords: ['trample'],
       text: '2,5× ATQ. Penetração. Recarga 2.',
     },
+    {
+      // 3ª habilidade: exclusiva de LR/EX (DECISIONS 12/10/2026). Proposta, revisar no playtest.
+      id: 'imperial-volley',
+      name: 'Voleio Imperial',
+      cost: { specific: {}, generic: 1 },
+      multiplier: 1.25,
+      cooldown: 0,
+      effects: [{ type: 'critical_chance', value: 0.3 }],
+      text: '1,25× ATQ. Chance de crítico 30%.',
+    },
   ],
   passives: [
     {

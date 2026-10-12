@@ -149,7 +149,18 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 - Venda de LR: 1.000 Fragmentos (hipótese; EX segue 0). Retorno médio de vender um pack continua abaixo do preço (teste).
 - **Pity em universo sem UR (Bleach):** a garantia entrega a melhor raridade disponível (SSR) e zera o contador. Antes, forçava UR, a vaga virava energia e o contador nunca zerava.
 
+## LR com 3 habilidades e passiva do Loki — 12/10/2026 (aprovado pelo criador)
+- **LR podem ter 3 habilidades** (demais raridades: até 2). EX também pode ter 3, por estar acima de LR. Teste em `cards.test.ts`.
+- Propostas de Claude (hipóteses, revisar no playtest), só com efeitos já existentes no schema:
+  - Kaiser Impact — *Voleio Imperial*: 1 gen., 1,25× ATQ (6), crítico 30%.
+  - Loki — *Pele de Gigante*: 1 gen., Escudo 3 em si mesmo, Recarga 1.
+  - Loki — passiva *Sangue de Gigante*: a 1ª vez que sofre dano em cada turno do oponente, +1 ATQ até o fim do seu próximo turno (máx. +2). Handler pendente (M4).
+
 
 ## Expansão JoJo e Steel Ball Run — 12/10/2026
 
 Pedido confirmado: pack, energia e personagens colecionáveis. O usuário excluiu explicitamente PvP/PvE e motor de combate. Entram 20 identidades (5 de Steel Ball Run) no universo jojo, com energia stand. Spin de Gyro usa custos genéricos. Johnny usa Tusk ACT 4 na arte, conforme correção do usuário. Preço, chances, composição e garantia dos boosters não mudam. As habilidades são adaptações declarativas às condições existentes, com números em hipótese; não há novos handlers de combate. Ver [JOJO.md](JOJO.md).
+
+## Molduras JoJo — 12/10/2026
+
+Integradas as molduras ornamentadas de Card.tsx da main. As 20 cartas JoJo usam o componente compartilhado: C/R em prata, SR/SSR em dourado e UR holográfica; medalhões de classe, ATQ e HP, selo de raridade, kanji e painéis de técnicas. As artes continuam sem textos/atributos embutidos.
