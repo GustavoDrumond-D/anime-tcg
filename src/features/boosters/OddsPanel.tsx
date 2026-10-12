@@ -1,5 +1,6 @@
 import type { PackDef, PackSlot } from '../../engine/packs'
-import { chanceAtLeastOne, expectedPacksPerUR } from '../../engine/packs'
+import { CATALOG } from '../../data/cards'
+import { chanceAtLeastOne, expectedPacksPerUR, guaranteeRarity } from '../../engine/packs'
 
 const pct = (n: number) => `${Math.round(n * 1000) / 10}%`.replace('.', ',')
 
@@ -32,6 +33,7 @@ export function OddsPanel({
     if (last && JSON.stringify(last.slot) === JSON.stringify(slot)) last.to = i + 1
     else rows.push({ from: i + 1, to: i + 1, slot })
   })
+  const guarantee = guaranteeRarity(pack, CATALOG)
   const ur = chanceAtLeastOne(pack, 'UR')
   const ssr = chanceAtLeastOne(pack, 'SSR')
   return (
@@ -49,7 +51,15 @@ export function OddsPanel({
         <span className="font-label font-bold tracking-wider text-gold-light uppercase">
           Garantia:
         </span>{' '}
-        no máximo {pity} packs sem UR. Faltam <b>{pity - sinceUR}</b>.
+        {guarantee ? (
+          <>
+            no máximo {pity} packs sem {guarantee}
+            {guarantee !== 'UR' && ' (este universo ainda não tem UR)'}. Faltam{' '}
+            <b>{pity - sinceUR}</b>.
+          </>
+        ) : (
+          'este universo ainda não tem personagens de booster.'
+        )}
       </p>
       <ul className="mt-3 flex flex-col gap-2 border-t border-line pt-3">
         {rows.map(({ from, to, slot }) => {

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { useProfile } from '../../app/profileContext'
 import { ECONOMY } from '../../data/economy'
+import { CATALOG } from '../../data/cards'
 import { PACKS, PITY_UR } from '../../data/packs'
 import { UNIVERSES } from '../../data/universes'
 import type { Universe } from '../../engine/cards'
 import { packCost } from '../../engine/economy'
+import { guaranteeRarity } from '../../engine/packs'
 import { energyNameOf } from './packInfo'
 
 const ORDER: Universe[] = [
@@ -73,7 +75,8 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
   }
-  const left = PITY_UR - (profile.pity[PACKS[current].id] ?? 0)
+  const left = Math.max(1, PITY_UR - (profile.pity[PACKS[current].id] ?? 0))
+  const guarantee = guaranteeRarity(PACKS[current], CATALOG)
 
   const canBuy = (count: number) => packCost(profile, count, ECONOMY).fragments <= profile.fragments
   const priceLabel = (count: number) => {
@@ -159,8 +162,14 @@ export function Store({ onOpen }: { onOpen: (u: Universe, count: number) => void
         Booster {UNIVERSES[current].name}
       </h1>
       <p className="mt-1 font-label text-xs font-bold tracking-[0.2em] text-muted uppercase">
-        {energyNameOf(current)} · 5 cartas · UR garantido em até{' '}
-        <span className="text-holo">{left}</span> pack{left === 1 ? '' : 's'}
+        {energyNameOf(current)} · 5 cartas
+        {guarantee && (
+          <>
+            {' '}
+            · {guarantee} garantido em até <span className="text-holo">{left}</span> pack
+            {left === 1 ? '' : 's'}
+          </>
+        )}
       </p>
       <div className="mt-5 flex gap-3">
         {[1, 5].map((count) => (

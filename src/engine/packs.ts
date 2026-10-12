@@ -1,4 +1,11 @@
-import type { CardDef, CharacterDef, EnergyDef, Rarity, Universe } from './cards'
+import {
+  RARITY,
+  type CardDef,
+  type CharacterDef,
+  type EnergyDef,
+  type Rarity,
+  type Universe,
+} from './cards'
 import { pick, weighted, type Rng } from './rng'
 
 /** Cada posição do pack tem sua própria tabela (estilo "slot raro" dos TCGs). Pesos em %. */
@@ -33,12 +40,31 @@ export function openPack(
   const energy = (universalChance: number) =>
     pick(rng, rng() * 100 < universalChance || !local.length ? universal : local)
 
+  const guaranteed = forceRare && guaranteeRarity(pack, catalog)
   return pack.slots.map((slot) => {
     if (slot.kind === 'energy') return energy(slot.universalChance)
-    const rarity = forceRare && slot.odds.UR ? forceRare : weighted(rng, slot.odds)
+    const rarity = guaranteed && slot.odds.UR ? guaranteed : weighted(rng, slot.odds)
     const pool = chars.filter((c) => c.rarity === rarity)
     return pool.length ? pick(rng, pool) : energy(0)
   })
+}
+
+/**
+ * Raridade que a garantia entrega neste pack: UR, ou a maior que o universo tiver no slot raro
+ * (Bleach ainda não tem UR → SSR). null se o universo não tem nenhum personagem de booster.
+ */
+export function guaranteeRarity(pack: PackDef, catalog: readonly CardDef[]): Rarity | null {
+  const rare = pack.slots.find((s) => s.kind === 'character' && s.odds.UR)
+  if (!rare || rare.kind !== 'character') return null
+  const has = (r: Rarity) =>
+    catalog.some(
+      (c) =>
+        c.type === 'character' &&
+        c.rarity === r &&
+        (pack.universe === 'multiverse' || c.universe === pack.universe),
+    )
+  const order = Object.keys(RARITY).reverse() as Rarity[] // EX → C
+  return order.find((r) => rare.odds[r] && has(r)) ?? null
 }
 
 /** Chance (0–1) de vir ao menos uma carta de cada raridade no pack, para exibir ao jogador. */
@@ -66,7 +92,8 @@ export function openPackWithPity(
   const guaranteed = sinceUR >= pity - 1
   const cards = openPack(pack, catalog, rng, guaranteed ? 'UR' : undefined)
   const gotUR = cards.some((c) => c.type === 'character' && c.rarity === 'UR')
-  return { cards, sinceUR: gotUR ? 0 : sinceUR + 1, guaranteed }
+  // Zera também no pack garantido: se o universo não tem UR, ele entregou a melhor raridade possível.
+  return { cards, sinceUR: gotUR || guaranteed ? 0 : sinceUR + 1, guaranteed }
 }
 
 /** Média de packs por UR com garantia: (1 − (1 − p)^pity) / p. */

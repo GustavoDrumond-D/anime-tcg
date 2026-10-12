@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { CATALOG } from '../data/cards'
 import { PACKS, PITY_UR, SLOTS } from '../data/packs'
 import type { CardDef } from './cards'
-import { chanceAtLeastOne, expectedPacksPerUR, openPack, openPackWithPity } from './packs'
+import {
+  chanceAtLeastOne,
+  expectedPacksPerUR,
+  guaranteeRarity,
+  openPack,
+  openPackWithPity,
+} from './packs'
 import { seeded } from './rng'
 
 const jjk = PACKS['jujutsu-kaisen']
@@ -90,6 +96,18 @@ describe('garantia de UR (pity)', () => {
       expect(r.sinceUR).toBe(hasUR(r.cards) ? 0 : since + 1)
       since = r.sinceUR
     }
+  })
+
+  it('universo sem UR (Bleach): garantia entrega a melhor raridade e o contador zera', () => {
+    const bleach = { ...jjk, id: 'pack-bleach', universe: 'bleach' as const }
+    expect(guaranteeRarity(bleach, CATALOG)).toBe('SSR')
+    const r = openPackWithPity(bleach, CATALOG, seeded(9), PITY_UR - 1, PITY_UR)
+    expect(r.cards.some((c) => rarity(c) === 'SSR')).toBe(true)
+    expect(r.sinceUR).toBe(0)
+  })
+
+  it('universo sem personagem de booster não tem garantia', () => {
+    expect(guaranteeRarity({ ...jjk, universe: 'one-piece' }, CATALOG)).toBeNull()
   })
 
   it('média com garantia de 20 ≈ 15,2 packs por UR', () => {
