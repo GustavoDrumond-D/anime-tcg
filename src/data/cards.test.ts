@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { ENERGY_TYPES, RARITY, maxMultiplier } from '../engine/cards'
 import { CATALOG, CHARACTERS, ENERGIES } from './cards'
-import { SLOTS } from './packs'
+import { openPack } from '../engine/packs'
+import { PACKS, SLOTS } from './packs'
 
 describe('catálogo', () => {
   it('tem ids únicos', () => {
@@ -36,6 +37,15 @@ describe('catálogo', () => {
       if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('LR')
       if (s.kind === 'character') expect(Object.keys(s.odds)).not.toContain('EX')
     }
+  })
+
+  it('Imu EX e demais LR/EX nunca saem do booster, mesmo no do universo delas', () => {
+    let seed = 1
+    const rng = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646
+    for (const u of ['one-piece', 'blue-lock', 'multiverse'] as const)
+      for (let i = 0; i < 2000; i++)
+        for (const c of openPack(PACKS[u], CATALOG, rng, i % 20 === 0 ? 'UR' : undefined))
+          expect(c.type === 'character' && ['LR', 'EX'].includes(c.rarity), c.id).toBe(false)
   })
 
   it('toda arte referenciada existe em public/', () => {

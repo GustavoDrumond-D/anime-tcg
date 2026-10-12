@@ -138,6 +138,6 @@ Ao alterar regras, sempre atualizar esta página e `docs/RULEBOOK.md`, registran
 
 ## Energias Ego e Haki — 12/10/2026
 - Novas energias específicas: **Ego** (Blue Lock) e **Haki** (One Piece), com cartas `energy-ego` e `energy-haki` (arte do criador).
-- O texto das artes traz efeitos extras (Ego: +1 ATQ se o portador estiver sozinho na linha de frente; Haki: conversão em Kenbunshoku/Busoshoku/Haoshoku). **Não estão no RULEBOOK nem no motor**: hoje as duas funcionam como as demais energias específicas. Pendente de decisão.
+- Ego: arte refeita pelo criador, texto só "Concede 1 Energia" (sem efeito extra). Haki mantém a arte com conversão em Kenbunshoku/Busoshoku/Haoshoku, decidido pelo criador; o efeito **não está no RULEBOOK nem no motor** — hoje funciona como as demais energias específicas.
 - Kaiser, Imu e Loki seguem com custos só genéricos até decidir se parte vira Ego/Haki.
 - Efeito colateral: o booster Multiverso passa a poder sortear Ego/Haki entre as energias locais.
